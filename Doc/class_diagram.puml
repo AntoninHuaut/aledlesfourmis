@@ -94,9 +94,9 @@ class ColonyCell {
 
 class Board {
     - List<BoardCell> cells
-    - List<ColonyCell> coloniesCell
+    - List<ColonyCell> coloniesCells
 
-    + Board(List<BoardCell> cells, List<ColonyCell> coloniesCell)
+    + Board(List<BoardCell> cells, List<ColonyCell> coloniesCells)
     
     + List<BoardCell> getNearbyCells(BoardCell cell)
 }
