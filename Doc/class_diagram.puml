@@ -1,5 +1,11 @@
 @startuml Ant
 
+class config {
+    + {static} double FOOD_CONSUMING_TICK = 0.001
+    + {static} int DAY_BEFORE_DEATH = 365
+    + {static} int colonyFood = 0
+}
+
 abstract class Ant {
     - {static} double FOOD_CONSUMING_TICK = 0.001
     - {static} int DAY_BEFORE_DEATH = 365

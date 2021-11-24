@@ -10,6 +10,7 @@ class Queen : public Ant {
 
 public:
     Queen() : Ant(365000, 0.01) {};
+    void tick() override;
 
 };
 

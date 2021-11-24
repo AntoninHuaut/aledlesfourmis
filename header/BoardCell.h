@@ -15,13 +15,13 @@ class BoardCell {
     void pheromoneSpreading() {};
 
 public:
-    BoardCell(int maxAntOnCell) {
+    explicit BoardCell(int maxAntOnCell) {
         this->maxAntOnCell = maxAntOnCell;
     };
 
     virtual void tick() {};
 
-    int getMaxAntOnCell() { return maxAntOnCell; };
+    int getMaxAntOnCell() const { return maxAntOnCell; };
 
 
 };
