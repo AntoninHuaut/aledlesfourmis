@@ -5,8 +5,8 @@
 
 int main() {
 
-    BoardCell* cell = new BasicCell(5);
-    auto* antQueen = new Queen();
+    BoardCell *cell = new BasicCell(5);
+    auto *antQueen = new Queen();
 
     antQueen->setCell(cell);
     antQueen->tick();

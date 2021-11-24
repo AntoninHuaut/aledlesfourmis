@@ -7,14 +7,16 @@ class BoardCell;
 
 class Ant {
 
-    BoardCell* currentCell = nullptr;
+    BoardCell *currentCell = nullptr;
     int dayBeforeDeath;
     double foodConsumedEachDay;
 
-    std::list<BoardCell*> cellTraveledSinceColony;
+    std::list<BoardCell *> cellTraveledSinceColony;
 
     virtual void eatFood() {};
+
     virtual void putPheromones() {};
+
     virtual void kill() {};
 
 public:
@@ -24,10 +26,12 @@ public:
     };
 
     virtual void tick() {};
-    virtual bool attackAnt(Ant* target) { return false; };
 
-    void setCell(BoardCell* cell) { this->currentCell = cell; };
-    BoardCell* getCurrentCell() { return this->currentCell; };
+    virtual bool attackAnt(Ant *target) { return false; };
+
+    void setCell(BoardCell *cell) { this->currentCell = cell; };
+
+    BoardCell *getCurrentCell() { return this->currentCell; };
 };
 
 #endif

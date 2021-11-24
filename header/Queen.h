@@ -9,7 +9,7 @@ class Queen : public Ant {
     bool wasAssaulted = false;
 
 public:
-    Queen(): Ant(365000, 0.01) {};
+    Queen() : Ant(365000, 0.01) {};
 
 };
 

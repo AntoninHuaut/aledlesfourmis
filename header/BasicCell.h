@@ -10,7 +10,8 @@ class BasicCell : public BoardCell {
 
 public:
     BasicCell(int maxAntOnCell) : BoardCell(maxAntOnCell) {};
-    void takeFood(Ant* ant);
+
+    void takeFood(Ant *ant);
 };
 
 #endif
