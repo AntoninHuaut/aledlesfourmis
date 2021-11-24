@@ -3,4 +3,6 @@ project(ant)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(ant src/main.cpp)
+file(GLOB_RECURSE SOURCES RELATIVE ${CMAKE_SOURCE_DIR} "src/*.cpp")
+
+add_executable(ant ${SOURCES})

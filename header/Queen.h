@@ -14,4 +14,4 @@ public:
 };
 
 
-#endif //FOURMIS_QUEEN_H
+#endif

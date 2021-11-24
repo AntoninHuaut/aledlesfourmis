@@ -15,13 +15,14 @@ class Ant {
 
     virtual void eatFood() {};
     virtual void putPheromones() {};
-    virtual void kill() { };
+    virtual void kill() {};
 
 public:
     Ant(int dayBeforeDeath, int foodConsumedEachDay) {
         this->dayBeforeDeath = dayBeforeDeath;
         this->foodConsumedEachDay = foodConsumedEachDay;
     };
+
     virtual void tick() {};
     virtual bool attackAnt(Ant* target) { return false; };
 
