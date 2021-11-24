@@ -3,15 +3,17 @@
 
 #include <list>
 
+using namespace std;
+
 class BoardCell;
 
 class Ant {
 
-    BoardCell *currentCell = nullptr;
+    BoardCell *currentCell;
     int dayBeforeDeath;
     double foodConsumedEachDay;
 
-    std::list<BoardCell *> cellTraveledSinceColony;
+    list<BoardCell *> *cellTraveledSinceColony;
 
     virtual void eatFood() {};
 

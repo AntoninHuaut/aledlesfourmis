@@ -5,17 +5,19 @@
 //#include "ColonyCell.h"
 
 using namespace std;
-w
+
 class Board {
 
-    list<BoardCell *> cells;
+    BoardCell ***cells;
 //    list<ColonyCell*> coloniesCells;
 
 public:
-    Board(list<BoardCell *> cells/*, list<ColonyCell*> coloniesCells*/) {
+    explicit Board(BoardCell ***cells/*, list<ColonyCell*> coloniesCells*/) {
         this->cells = cells;
 //        this->coloniesCells = coloniesCells;
     };
+
+    list<BoardCell *> getNearbyCells(BoardCell *cell);
 };
 
 #endif
