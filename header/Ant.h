@@ -7,9 +7,9 @@ class BoardCell;
 
 class Ant {
 
-    BoardCell* currentCell;
+    BoardCell* currentCell = nullptr;
     int dayBeforeDeath;
-    int foodConsumedEachDay;
+    double foodConsumedEachDay;
 
     std::list<BoardCell*> cellTraveledSinceColony;
 
@@ -18,7 +18,7 @@ class Ant {
     virtual void kill() {};
 
 public:
-    Ant(int dayBeforeDeath, int foodConsumedEachDay) {
+    Ant(int dayBeforeDeath, double foodConsumedEachDay) {
         this->dayBeforeDeath = dayBeforeDeath;
         this->foodConsumedEachDay = foodConsumedEachDay;
     };
