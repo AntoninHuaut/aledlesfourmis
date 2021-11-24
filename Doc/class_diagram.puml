@@ -2,20 +2,20 @@
 
 class Config {
     + {static} double DEFAULT_FOOD_CONSUMING_TICK = 0.001
-    + {static} int DEFAULT_DAY_BEFORE_DEATH = 365
+    + {static} int DEFAULT_HOURS_BEFORE_DEATH = 8760
 
     + {static} int NEW_ANT_EVERY_DAY = 2    
     + {static} double QUEEN_FOOD_CONSUMING_TICK = 0.01
-    + {static} int QUEEN_DAY_BEFORE_DEATH = 365_000
+    + {static} int QUEEN_HOURS_BEFORE_DEATH = 87600
 
-    + {static} int WORKER_DAY_BEFORE_ADULT = 15
+    + {static} int WORKER_HOURS_BEFORE_ADULT = 360
     + {static} int WORKER_MAX_FOOD_CARRIED_AMOUNT = 1
 
-    + {static} int SCOOT_DAY_BEFORE_ADULT = 2
+    + {static} int SCOOT_HOURS_BEFORE_ADULT = 48
 
-    + {static} int SOLDIER_DAY_BEFORE_VISITE_COLONY = 100
+    + {static} int SOLDIER_HOURS_BEFORE_VISIT_COLONY = 2400
 
-    + {static} int SLAVE_OWNER_MAX_DAY_SURVIVE_BEFORE_FEEDING = 10
+    + {static} int SLAVE_OWNER_MAX_HOURS_SURVIVE_BEFORE_FEEDING = 240
 
     + {static} int ROCK_MAX_ANT_ON_CELL = 0
 
@@ -31,7 +31,7 @@ class Config {
     + {static} double ROCK_SIZE_FIVE_PERCENT = 0.4
     + {static} double ROCK_SIZE_SIZE_PERCENT = 0.1
 
-    + {static} double FOOD_CASE_NUMER_PERCENT = 0.0002
+    + {static} double FOOD_CASE_NUMBER_PERCENT = 0.0002
     + {static} int FOOD_UNIT_VALUE = 10
 
     + {static} int LENGTH = 211
@@ -42,11 +42,12 @@ abstract class Ant {
     - {static} int colonyFood = 0
     
     - BoardCell currentCell
-    - int dayBeforeDeath
+    - int hoursBeforeDeath
     - int foodConsumedEachDay
+    - int hoursSinceLastFeeding = 0
     - List<BoardCell> cellTraveledSinceColony
     
-    + Ant(int dayBeforeDeath, int foodConsumedEachDay)
+    + Ant(int hoursBeforeDeath, int foodConsumedEachDay)
 
     + void tick()
     + boolean attackAnt(Ant target)
@@ -62,9 +63,9 @@ class Queen {
 }
 
 abstract class AntAge {
-    + AntAge(int dayBeforeAdult)
+    + AntAge(int hoursBeforeAdult)
 
-    - int dayBeforeAdult
+    - int hoursBeforeAdult
 
     + boolean isAdult()
 }
@@ -82,12 +83,11 @@ class Scout {
 }
 
 class Soldier {
-    - int daySinceColonyVisited = 0
+    - int hoursSinceColonyVisited = 0
 }
 
 class SlaveOwner {
     - int larvaCarried = 0
-    - int daySinceLastFeeding = 0
 }
 
 abstract class BoardCell {

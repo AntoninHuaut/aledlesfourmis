@@ -9,12 +9,13 @@ class Worker : public Ant {
     double pheromoneAmount = 500;
     double foodCarriedAmount = 0;
 
-    void dropFood();
+    void dropFood() {};
 
-    void visitColony();
+    void visitColony() {};
 
 public:
-    Worker() : Ant(Config::DEFAULT_DAY_BEFORE_DEATH, Config::DEFAULT_FOOD_CONSUMING_TICK) {};
+    Worker(BoardCell *currentCell) : Ant(Config::DEFAULT_HOURS_BEFORE_DEATH, Config::DEFAULT_FOOD_CONSUMING_TICK,
+                                         currentCell) {};
 
 };
 

@@ -10,10 +10,11 @@ class BoardCell;
 class Ant {
 
     BoardCell *currentCell;
-    int dayBeforeDeath;
+    int hoursBeforeDeath;
+    int hoursSinceLastFeeding = 0;
     double foodConsumedEachDay;
 
-    list<BoardCell *> *cellTraveledSinceColony;
+    list<BoardCell *> *cellTraveledSinceColony{};
 
     virtual void eatFood() {};
 
@@ -22,9 +23,10 @@ class Ant {
     virtual void kill() {};
 
 public:
-    Ant(int dayBeforeDeath, double foodConsumedEachDay) {
-        this->dayBeforeDeath = dayBeforeDeath;
+    Ant(int hoursBeforeDeath, double foodConsumedEachDay, BoardCell *currentCell) {
+        this->hoursBeforeDeath = hoursBeforeDeath;
         this->foodConsumedEachDay = foodConsumedEachDay;
+        this->currentCell = currentCell;
     };
 
     virtual void tick() {};

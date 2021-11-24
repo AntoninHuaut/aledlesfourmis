@@ -6,10 +6,11 @@
 
 class Soldier : public Ant {
 
-    int daySinceColonyVisited = 0;
+    int hoursSinceColonyVisited = 0;
 
 public:
-    Soldier() : Ant(Config::DEFAULT_DAY_BEFORE_DEATH, Config::DEFAULT_FOOD_CONSUMING_TICK) {};
+    Soldier(BoardCell *currentCell) : Ant(Config::DEFAULT_HOURS_BEFORE_DEATH, Config::DEFAULT_FOOD_CONSUMING_TICK,
+                                          currentCell) {};
 
 };
 

@@ -7,7 +7,8 @@
 class Scoot : public Ant {
 
 public:
-    Scoot() : Ant(Config::DEFAULT_DAY_BEFORE_DEATH, Config::DEFAULT_FOOD_CONSUMING_TICK) {};
+    Scoot(BoardCell *currentCell) : Ant(Config::DEFAULT_HOURS_BEFORE_DEATH, Config::DEFAULT_FOOD_CONSUMING_TICK,
+                                        currentCell) {};
 
 };
 

@@ -3,12 +3,12 @@
 
 class AntAge {
 
-    int dayBeforeAdult;
+    int hoursBeforeAdult;
 
 public:
-    AntAge(int dayBeforeAdult) { this->dayBeforeAdult = dayBeforeAdult };
+    AntAge(int hoursBeforeAdult) { this->dayBeforeAdult = dayBeforeAdult };
 
-    bool isAdult() { return this->dayBeforeAdult <= 0 }
+    bool isAdult() { return this->hoursBeforeAdult <= 0 }
 
 };
 

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctime>
 #include "../header/BoardCell.h"
 #include "../header/BasicCell.h"
 #include "../header/Queen.h"
@@ -9,7 +10,7 @@ using namespace std;
 int main() {
     srand(time(nullptr)); // NOLINT(cert-msc51-cpp)
 
-    BoardGenerator::generateBoard();
+    auto *test = BoardGenerator::generateBoard();
 
 //    BoardCell *cell = new BasicCell(5);
 //    auto *antQueen = new Queen();
