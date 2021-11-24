@@ -1,0 +1,153 @@
+@startuml Ant
+
+abstract class Ant {
+    - {static} double FOOD_CONSUMING_TICK = 0.001
+    - {static} int DAY_BEFORE_DEATH = 365
+    - {static} int colonyFood = 0
+    
+    - BoardCell currentCell
+    - int dayBeforeDeath
+    - int foodConsumedEachDay
+    - List<BoardCell> cellTraveledSinceColony
+    
+    + Ant(int dayBeforeDeath, int foodConsumedEachDay)
+
+    + void tick()
+    + boolean attackAnt(Ant target)
+
+    - void eatFood()
+    - void putPheromones()
+    - void kill()
+}
+
+class Queen {
+    - {static} double FOOD_CONSUMING_TICK = 0.01
+    - {static} int DAY_BEFORE_DEATH = 365_000
+    - {static} int NEW_ANT_EVERY_DAY = 2
+
+    - int nbChild = 0
+    - boolean wasAssaulted = false
+}
+
+abstract class AntAge {
+    + AntAge(int dayBeforeAdult)
+
+    - int dayBeforeAdult
+
+    + boolean isAdult()
+}
+
+class Worker {
+    - {static} int DAY_BEFORE_ADULT = 15
+    - {static} int MAX_FOOD_CARRIED_AMOUNT = 1
+
+    - double pheromoneAmount = 500
+    - double foodCarriedAmount = 0
+
+    - void dropFood()
+    - void visitColony()
+}
+
+class Scout {
+    - {static} int DAY_BEFORE_ADULT = 2
+}
+
+class Soldier {
+    - {static} int DAY_BEFORE_VISITE_COLONY = 100
+
+    - int daySinceColonyVisited = 0
+}
+
+class SlaveOwner {
+    - {static} int MAX_DAY_SURVIVE_BEFORE_FEEDING = 10
+
+    - int larvaCarried = 0
+    - int daySinceLastFeeding = 0
+}
+
+abstract class BoardCell {
+    - double pheromoneAmount = 0
+    - boolean visited = false
+    - int maxAntOnCell = 0
+    - List<Ant> antOnCell
+
+    + BoardCell(int maxAntOnCell)
+    + void tick()
+    - void pheromoneSpreading()
+}
+
+class RockCell {
+    - {static} int MAX_ANT_ON_CELL = 0
+}
+
+class BasicCell {
+    - {static} int MAX_ANT_ON_CELL = 12
+
+    - double foodAmount = 0
+
+    + void takeFood(Ant ant)
+}
+
+class ColonyCell {
+    - {static} int MAX_ANT_ON_CELL = 100
+}
+
+class Board {
+    - List<BoardCell> cells
+    - List<ColonyCell> coloniesCell
+
+    + Board(List<BoardCell> cells, List<ColonyCell> coloniesCell)
+    
+    + List<BoardCell> getNearbyCells(BoardCell cell)
+}
+
+class BoardGenerator {
+    - {static} double ROCK_PERCENT = 0.3
+    - {static} double ROCK_SIZE_ONE_PERCENT = 0.5
+    - {static} double ROCK_SIZE_TWO_PERCENT = 0.3
+    - {static} double ROCK_SIZE_THREE_PERCENT = 0.1
+    - {static} double ROCK_SIZE_FOUR_PERCENT = 0.5
+    - {static} double ROCK_SIZE_FIVE_PERCENT = 0.4
+    - {static} double ROCK_SIZE_SIZE_PERCENT = 0.1
+
+    - {static} double FOOD_CASE_NUMER_PERCENT = 0.0002
+    - {static} int FOOD_UNIT_VALUE = 10
+
+    - List<BoardCell> cells
+    - List<ColonyCell> coloniesCell
+
+    + {static} Board generateBoard()
+
+    - void generateRock()
+    - void generateClassicFood()
+    - void generateBigFood()
+    - void generateColony()
+}
+
+class Simulation {
+    + {static} int LENGTH = 211
+    + {static} int HEIGHT = 201
+
+    + void runGame()
+}
+
+RockCell --|> BoardCell
+BasicCell --|> BoardCell
+ColonyCell --|> BoardCell
+
+Simulation -- Board
+Board -- BoardGenerator
+Board o-- BoardCell
+
+BoardCell *--> Ant
+
+Worker --|> AntAge
+Scout --|> AntAge
+
+Worker --|> Ant
+Scout --|> Ant
+Soldier --|> Ant
+SlaveOwner --|> Ant
+Queen --|> Ant
+
+@enduml
