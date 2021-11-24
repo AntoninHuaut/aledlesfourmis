@@ -100,6 +100,7 @@ abstract class BoardCell {
 
     + BoardCell(int x, int y, int maxAntOnCell)
     + void tick()
+    + boolean haveSpace()
     - void pheromoneSpreading()
 }
 
