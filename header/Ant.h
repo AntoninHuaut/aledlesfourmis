@@ -1,5 +1,5 @@
-#ifndef FOURMIS_ANT_H
-#define FOURMIS_ANT_H
+#ifndef ANT_ANT_H
+#define ANT_ANT_H
 
 #include <list>
 

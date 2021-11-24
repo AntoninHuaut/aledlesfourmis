@@ -1,7 +1,7 @@
 #include <iostream>
-#include "BoardCell.h"
-#include "BasicCell.h"
-#include "Queen.h"
+#include "../header/BoardCell.h"
+#include "../header/BasicCell.h"
+#include "../header/Queen.h"
 
 int main() {
 

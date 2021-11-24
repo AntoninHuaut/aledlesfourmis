@@ -1,5 +1,5 @@
-#ifndef FOURMIS_QUEEN_H
-#define FOURMIS_QUEEN_H
+#ifndef ANT_QUEEN_H
+#define ANT_QUEEN_H
 
 #include "Ant.h"
 

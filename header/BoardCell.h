@@ -1,10 +1,8 @@
-#ifndef FOURMIS_BOARDCELL_H
-#define FOURMIS_BOARDCELL_H
-
+#ifndef ANT_BOARDCELL_H
+#define ANT_BOARDCELL_H
 
 #include <list>
 #include "Ant.h"
-
 
 class BoardCell
 {
