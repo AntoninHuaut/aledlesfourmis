@@ -5,4 +5,6 @@ set(CMAKE_CXX_STANDARD 11)
 
 file(GLOB_RECURSE SOURCES RELATIVE ${CMAKE_SOURCE_DIR} "src/*.cpp")
 
+find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED) # SFML must be in the PATH
 add_executable(ant ${SOURCES})
+target_link_libraries(ant sfml-graphics sfml-audio)
