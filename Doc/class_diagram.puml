@@ -1,14 +1,44 @@
 @startuml Ant
 
-class config {
-    + {static} double FOOD_CONSUMING_TICK = 0.001
-    + {static} int DAY_BEFORE_DEATH = 365
-    + {static} int colonyFood = 0
+class Config {
+    + {static} double DEFAULT_FOOD_CONSUMING_TICK = 0.001
+    + {static} int DEFAULT_DAY_BEFORE_DEATH = 365
+
+    + {static} int NEW_ANT_EVERY_DAY = 2    
+    + {static} double QUEEN_FOOD_CONSUMING_TICK = 0.01
+    + {static} int QUEEN_DAY_BEFORE_DEATH = 365_000
+
+    + {static} int WORKER_DAY_BEFORE_ADULT = 15
+    + {static} int WORKER_MAX_FOOD_CARRIED_AMOUNT = 1
+
+    + {static} int SCOOT_DAY_BEFORE_ADULT = 2
+
+    + {static} int SOLDIER_DAY_BEFORE_VISITE_COLONY = 100
+
+    + {static} int SLAVE_OWNER_MAX_DAY_SURVIVE_BEFORE_FEEDING = 10
+
+    + {static} int ROCK_MAX_ANT_ON_CELL = 0
+
+    + {static} int BASIC_CELL_MAX_ANT_ON_CELL = 12
+
+    + {static} int COLONY_MAX_ANT_ON_CELL = 100
+
+    + {static} double ROCK_PERCENT = 0.3
+    + {static} double ROCK_SIZE_ONE_PERCENT = 0.5
+    + {static} double ROCK_SIZE_TWO_PERCENT = 0.3
+    + {static} double ROCK_SIZE_THREE_PERCENT = 0.1
+    + {static} double ROCK_SIZE_FOUR_PERCENT = 0.5
+    + {static} double ROCK_SIZE_FIVE_PERCENT = 0.4
+    + {static} double ROCK_SIZE_SIZE_PERCENT = 0.1
+
+    + {static} double FOOD_CASE_NUMER_PERCENT = 0.0002
+    + {static} int FOOD_UNIT_VALUE = 10
+
+    + {static} int LENGTH = 211
+    + {static} int HEIGHT = 201
 }
 
 abstract class Ant {
-    - {static} double FOOD_CONSUMING_TICK = 0.001
-    - {static} int DAY_BEFORE_DEATH = 365
     - {static} int colonyFood = 0
     
     - BoardCell currentCell
@@ -27,10 +57,6 @@ abstract class Ant {
 }
 
 class Queen {
-    - {static} double FOOD_CONSUMING_TICK = 0.01
-    - {static} int DAY_BEFORE_DEATH = 365_000
-    - {static} int NEW_ANT_EVERY_DAY = 2
-
     - int nbChild = 0
     - boolean wasAssaulted = false
 }
@@ -44,9 +70,6 @@ abstract class AntAge {
 }
 
 class Worker {
-    - {static} int DAY_BEFORE_ADULT = 15
-    - {static} int MAX_FOOD_CARRIED_AMOUNT = 1
-
     - double pheromoneAmount = 500
     - double foodCarriedAmount = 0
 
@@ -55,18 +78,14 @@ class Worker {
 }
 
 class Scout {
-    - {static} int DAY_BEFORE_ADULT = 2
+    
 }
 
 class Soldier {
-    - {static} int DAY_BEFORE_VISITE_COLONY = 100
-
     - int daySinceColonyVisited = 0
 }
 
 class SlaveOwner {
-    - {static} int MAX_DAY_SURVIVE_BEFORE_FEEDING = 10
-
     - int larvaCarried = 0
     - int daySinceLastFeeding = 0
 }
@@ -83,23 +102,21 @@ abstract class BoardCell {
 }
 
 class RockCell {
-    - {static} int MAX_ANT_ON_CELL = 0
+    
 }
 
 class BasicCell {
-    - {static} int MAX_ANT_ON_CELL = 12
-
     - double foodAmount = 0
 
     + void takeFood(Ant ant)
 }
 
 class ColonyCell {
-    - {static} int MAX_ANT_ON_CELL = 100
+    
 }
 
 class Board {
-    - List<BoardCell> cells
+    - BoardCell[][] cells
     - List<ColonyCell> coloniesCells
 
     + Board(List<BoardCell> cells, List<ColonyCell> coloniesCells)
@@ -108,18 +125,7 @@ class Board {
 }
 
 class BoardGenerator {
-    - {static} double ROCK_PERCENT = 0.3
-    - {static} double ROCK_SIZE_ONE_PERCENT = 0.5
-    - {static} double ROCK_SIZE_TWO_PERCENT = 0.3
-    - {static} double ROCK_SIZE_THREE_PERCENT = 0.1
-    - {static} double ROCK_SIZE_FOUR_PERCENT = 0.5
-    - {static} double ROCK_SIZE_FIVE_PERCENT = 0.4
-    - {static} double ROCK_SIZE_SIZE_PERCENT = 0.1
-
-    - {static} double FOOD_CASE_NUMER_PERCENT = 0.0002
-    - {static} int FOOD_UNIT_VALUE = 10
-
-    - List<BoardCell> cells
+    - BoardCell[][] cells
     - List<ColonyCell> coloniesCell
 
     + {static} Board generateBoard()
@@ -131,9 +137,6 @@ class BoardGenerator {
 }
 
 class Simulation {
-    + {static} int LENGTH = 211
-    + {static} int HEIGHT = 201
-
     + void runGame()
 }
 
