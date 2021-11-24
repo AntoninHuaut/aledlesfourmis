@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../header/Queen.h"
+#include "../../header/ant/Queen.h"
 
 void Queen::tick() {
     std::cout << "Tick de la Queen" << std::endl;

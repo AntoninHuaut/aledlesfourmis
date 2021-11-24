@@ -2,7 +2,7 @@
 #define ANT_SOLDIER_H
 
 #include "Ant.h"
-#include "Config.h"
+#include "../Config.h"
 
 class Soldier : public Ant {
 

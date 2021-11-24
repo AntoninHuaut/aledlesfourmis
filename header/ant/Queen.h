@@ -2,7 +2,7 @@
 #define ANT_QUEEN_H
 
 #include "Ant.h"
-#include "Config.h"
+#include "../Config.h"
 
 class Queen : public Ant {
 

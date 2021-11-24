@@ -1,9 +1,9 @@
 #include <iostream>
 #include <ctime>
-#include "../header/BoardCell.h"
-#include "../header/BasicCell.h"
-#include "../header/Queen.h"
-#include "../header/BoardGenerator.h"
+#include "../header/map/BoardCell.h"
+#include "../header/map/BasicCell.h"
+#include "../header/ant/Queen.h"
+#include "../header/map/BoardGenerator.h"
 
 using namespace std;
 

@@ -3,7 +3,7 @@
 
 #include "Ant.h"
 #include "AntAge.h"
-#include "Config.h"
+#include "../Config.h"
 
 class Scout : public Ant, public AntAge {
 

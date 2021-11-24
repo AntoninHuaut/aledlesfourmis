@@ -91,12 +91,14 @@ class SlaveOwner {
 }
 
 abstract class BoardCell {
+    - int posLength
+    - int posHeight
     - double pheromoneAmount = 0
     - boolean visited = false
     - int maxAntOnCell = 0
-    - List<Ant> antOnCell
+    - List<Ant> antOnCell   
 
-    + BoardCell(int maxAntOnCell)
+    + BoardCell(int x, int y, int maxAntOnCell)
     + void tick()
     - void pheromoneSpreading()
 }

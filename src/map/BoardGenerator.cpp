@@ -1,4 +1,4 @@
-#include "../header/BoardGenerator.h"
+#include "../../header/map/BoardGenerator.h"
 
 Board *BoardGenerator::generateBoard() {
     auto *boardGenerator = BoardGenerator::createBoard();
@@ -41,7 +41,7 @@ BoardGenerator *BoardGenerator::createBoard() {
 
         cells2D[i] = cellsLine;
 
-        cellsLine[i] = new BoardCell(0); // TODO TEST
+        //cellsLine[i] = new BoardCell(0); // TODO TEST
     }
 
     auto *board = new Board(cells2D);

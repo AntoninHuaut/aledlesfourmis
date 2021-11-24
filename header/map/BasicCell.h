@@ -2,14 +2,14 @@
 #define ANT_BASICCELL_H
 
 #include "BoardCell.h"
-#include "Ant.h"
+#include "../ant/Ant.h"
 
 class BasicCell : public BoardCell {
 
     double foodAmount = 0;
 
 public:
-    BasicCell(int maxAntOnCell) : BoardCell(maxAntOnCell) {};
+    BasicCell(int posLength, int posHeight, int maxAntOnCell) : BoardCell(posLength, posHeight, maxAntOnCell) {};
 
     void takeFood(Ant *ant);
 };

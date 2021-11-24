@@ -2,11 +2,14 @@
 #define ANT_BOARDCELL_H
 
 #include <list>
-#include "Ant.h"
+#include "../ant/Ant.h"
 
 using namespace std;
 
 class BoardCell {
+
+    int posLength;
+    int posHeight;
 
     double pheromoneAmount = 0;
     bool visited = false;
@@ -16,8 +19,10 @@ class BoardCell {
     void pheromoneSpreading() {};
 
 public:
-    explicit BoardCell(int maxAntOnCell) {
+    explicit BoardCell(int posLength, int posHeight, int maxAntOnCell) {
         this->maxAntOnCell = maxAntOnCell;
+        this->posLength = posLength;
+        this->posHeight = posHeight;
     };
 
     virtual void tick() {};
