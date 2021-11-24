@@ -2,6 +2,7 @@
 #define ANT_QUEEN_H
 
 #include "Ant.h"
+#include "Config.h"
 
 class Queen : public Ant {
 
@@ -9,7 +10,8 @@ class Queen : public Ant {
     bool wasAssaulted = false;
 
 public:
-    Queen() : Ant(365000, 0.01) {};
+    Queen() : Ant(Config::QUEEN_DAY_BEFORE_DEATH, Config::QUEEN_FOOD_CONSUMING_TICK) {};
+
     void tick() override;
 
 };
