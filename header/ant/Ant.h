@@ -36,6 +36,7 @@ public:
     void setCell(BoardCell *cell) { this->currentCell = cell; };
 
     BoardCell *getCurrentCell() { return this->currentCell; };
+
 };
 
 #endif

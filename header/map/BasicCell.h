@@ -12,6 +12,10 @@ public:
     BasicCell(int posLength, int posHeight, int maxAntOnCell) : BoardCell(posLength, posHeight, maxAntOnCell) {};
 
     void takeFood(Ant *ant);
+
+    void setFoodAmount(double newFoodAmount) { this->foodAmount = newFoodAmount; };
+
+    double getFoodAmount() { return this->foodAmount; };
 };
 
 #endif

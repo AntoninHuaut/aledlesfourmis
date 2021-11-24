@@ -13,7 +13,7 @@ class BoardCell {
 
     double pheromoneAmount = 0;
     bool visited = false;
-    int maxAntOnCell = 0;
+    int maxAntOnCell;
     list<Ant *> *antOnCell{};
 
     void pheromoneSpreading() {};
@@ -28,6 +28,8 @@ public:
     virtual void tick() {};
 
     int getMaxAntOnCell() const { return maxAntOnCell; };
+
+    bool haveSpace() { return this->antOnCell->size() < maxAntOnCell; };
 
 
 };
