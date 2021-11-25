@@ -12,35 +12,35 @@ Config *Config::get() {
 Config::Config() {
     std::cout << "Loading json configuration...";
 
-    std::ifstream i("../assets/config.json");
-    json data;
+    Json::Value data;
+    std::ifstream i("../assets/config.json", std::ifstream::binary);
     i >> data;
 
-    height = data["board"]["height"];
-    length = data["board"]["length"];
+    height = data["board"]["height"].asInt();
+    length = data["board"]["length"].asInt();
 
-    rockPercent = data["generation"]["rockPercent"];
-    foodPercent = data["generation"]["foodPercent"];
-    smallFoodUnitValue = data["generation"]["smallFoodUnit"];
-    bigFoodUnitValue = data["generation"]["bigFoodUnit"];
+    rockPercent = data["generation"]["rockPercent"].asDouble();
+    foodPercent = data["generation"]["foodPercent"].asDouble();
+    smallFoodUnitValue = data["generation"]["smallFoodUnit"].asInt();
+    bigFoodUnitValue = data["generation"]["bigFoodUnit"].asInt();
 
-    rockMaxAntOnCell = data["antOnCell"]["rock"];
-    basicCellMaxAntOnCell = data["antOnCell"]["basic"];
-    colonyMaxAntOnCell = data["antOnCell"]["colony"];
+    rockMaxAntOnCell = data["antOnCell"]["rock"].asInt();
+    basicCellMaxAntOnCell = data["antOnCell"]["basic"].asInt();
+    colonyMaxAntOnCell = data["antOnCell"]["colony"].asInt();
 
-    defaultFoodConsumingTick = data["ant"]["foodConsumption"]["default"];
-    queenFoodConsumingTick = data["ant"]["foodConsumption"]["queen"];
+    defaultFoodConsumingTick = data["ant"]["foodConsumption"]["default"].asDouble();
+    queenFoodConsumingTick = data["ant"]["foodConsumption"]["queen"].asDouble();
 
-    queenHoursBeforeDeath = data["ant"]["hoursBeforeDeath"]["default"];
-    defaultHoursBeforeDeath = data["ant"]["hoursBeforeDeath"]["queen"];
+    queenHoursBeforeDeath = data["ant"]["hoursBeforeDeath"]["default"].asInt();
+    defaultHoursBeforeDeath = data["ant"]["hoursBeforeDeath"]["queen"].asInt();
 
-    scootHoursBeforeAdult = data["ant"]["hoursBeforeAdult"]["worker"];
-    workerHoursBeforeAdult = data["ant"]["hoursBeforeAdult"]["scout"];
+    scootHoursBeforeAdult = data["ant"]["hoursBeforeAdult"]["worker"].asInt();
+    workerHoursBeforeAdult = data["ant"]["hoursBeforeAdult"]["scout"].asInt();
 
-    newAntEveryDay = data["ant"]["newAntEveryDay"];
-    workerMaxFoodAmountCanCarried = data["ant"]["workerMaxFoodAmountCanCarried"];
-    soldierHoursBeforeVisitColony = data["ant"]["soldierHoursBeforeVisitColony"];
-    slaveOwnerHoursBeforeHunger = data["ant"]["slaveOwnerHoursBeforeHunger"];
+    newAntEveryDay = data["ant"]["newAntEveryDay"].asInt();
+    workerMaxFoodAmountCanCarried = data["ant"]["workerMaxFoodAmountCanCarried"].asInt();
+    soldierHoursBeforeVisitColony = data["ant"]["soldierHoursBeforeVisitColony"].asInt();
+    slaveOwnerHoursBeforeHunger = data["ant"]["slaveOwnerHoursBeforeHunger"].asInt();
 
     std::cout << " OK" << std::endl;
 }

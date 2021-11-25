@@ -1,11 +1,9 @@
 #ifndef ANT_CONFIG_H
 #define ANT_CONFIG_H
 
-#include <nlohmann/json.hpp>
+#include "./lib/json.h"
 #include <fstream>
 #include <iostream>
-
-using json = nlohmann::json;
 
 class Config {
 
