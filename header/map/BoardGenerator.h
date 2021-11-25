@@ -20,11 +20,17 @@ class BoardGenerator {
 
     static BoardGenerator *createBoard();
 
+    void generateSmallFoodUnit();
+
     void generateRock();
+
+    bool hasRockNeighbor(int height, int length);
+
+    bool hasFoodNeighbor(int height, int length);
 
     void generateBasicCell();
 
-    bool isValidCell(int height, int length);
+    static bool isValidCell(int height, int length);
 
     static int randInt(int maxInclusive, int minInclusive);
 
