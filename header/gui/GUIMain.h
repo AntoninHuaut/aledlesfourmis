@@ -18,10 +18,12 @@ class GUIMain {
 public:
     explicit GUIMain(Board *board) { this->board = board; }
 
+    int start();
+
     static void preventOutOfBorder(sf::RenderWindow *window, sf::View *simulationView,
                                    float zoom, sf::Vector2f *deltaPos);
 
-    int start();
+    static sf::View getLetterboxView(sf::View view, float windowWidth, float windowHeight);
 };
 
 
