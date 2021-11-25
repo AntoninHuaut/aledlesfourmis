@@ -98,7 +98,7 @@ int runUI(Board *board) {
                     // Determine the scroll direction and adjust the zoom level
                     // Again, you can swap these to invert the direction
                     if (event.mouseWheelScroll.delta <= -1)
-                        zoom = std::min(2.f, zoom + .1f);
+                        zoom = std::min(12.5f, zoom + .1f);
                     else if (event.mouseWheelScroll.delta >= 1)
                         zoom = std::max(.5f, zoom - .1f);
 
