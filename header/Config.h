@@ -28,7 +28,8 @@ public:
     static double ROCK_PERCENT;
 
     static double FOOD_CASE_NUMBER_PERCENT;
-    static int FOOD_UNIT_VALUE;
+    static int SMALL_FOOD_UNIT_VALUE;
+    static int BIG_FOOD_UNIT_VALUE;
 
     static int LENGTH;
     static int HEIGHT;

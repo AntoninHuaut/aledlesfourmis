@@ -33,6 +33,10 @@ public:
 
     virtual void tick() {};
 
+    int getPosLength() const { return posLength; }
+
+    int getPosHeight() const { return posHeight; }
+
     int getMaxAntOnCell() const { return maxAntOnCell; };
 
     BoardCellType getBoardCellType() const { return boardCellType; }

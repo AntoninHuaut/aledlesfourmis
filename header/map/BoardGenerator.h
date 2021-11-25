@@ -22,13 +22,23 @@ class BoardGenerator {
 
     void generateSmallFoodUnit();
 
+    void generateBigFoodUnit();
+
+    void generateBigFoodUnitCross(int heightCenter, int searchPosLength);
+
+    BasicCell *findCellNearCoordinateWithCrossCellFree(int height, int length);
+
+    bool isBasicCellsCrossEmpty(int centerHeight, int centerLength);
+
+    bool isValidBigFoodUnitCell(int height, int length);
+
     void generateRock();
+
+    void generateBasicCell();
 
     bool hasRockNeighbor(int height, int length);
 
     bool hasFoodNeighbor(int height, int length);
-
-    void generateBasicCell();
 
     static bool isValidCell(int height, int length);
 

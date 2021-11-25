@@ -41,6 +41,7 @@ Board *BoardGenerator::generateBoard() {
     boardGenerator->generateRock();
     boardGenerator->generateBasicCell();
     boardGenerator->generateSmallFoodUnit();
+    boardGenerator->generateBigFoodUnit();
     // TODO
 
     /* TODO TEST */
@@ -48,6 +49,107 @@ Board *BoardGenerator::generateBoard() {
     /* END TEST */
 
     return boardGenerator->board;
+}
+
+void BoardGenerator::generateBigFoodUnit() {
+    int posOne = randInt(4, 1); // 1 = NO, 2 = SO, 3 = NE, 4 = SE
+    int posTwo = posOne;
+    while (posTwo == posOne) {
+        posTwo = randInt(4, 1);
+    }
+
+    int firstPosHeight = posOne == 1 % 2 == 1 ? 0 : Config::HEIGHT - 1;
+    int firstPosLength = posOne <= 2 ? 0 : Config::LENGTH - 1;
+
+    int secondPosHeight = posTwo == 1 % 2 == 1 ? 0 : Config::HEIGHT - 1;
+    int secondPosLength = posTwo <= 2 ? 0 : Config::LENGTH - 1;
+
+    generateBigFoodUnitCross(firstPosHeight, firstPosLength);
+    generateBigFoodUnitCross(secondPosHeight, secondPosLength);
+}
+
+void BoardGenerator::generateBigFoodUnitCross(int searchPosHeight, int searchPosLength) {
+    BasicCell *centerCell = findCellNearCoordinateWithCrossCellFree(searchPosHeight, searchPosLength);
+    if (centerCell == nullptr) return;
+
+    int heightCenter = centerCell->getPosHeight();
+    int lengthCenter = centerCell->getPosLength();
+
+    for (int padHeight = -1; padHeight <= 1; padHeight += 1) {
+        for (int padLength = -1; padLength <= 1; padLength += 1) {
+            if ((padHeight == -1 && padLength == -1)
+                || (padHeight == -1 && padLength == 1)
+                || (padHeight == 1 && padLength == -1)
+                || (padHeight == 1 && padLength == 1)) {
+                continue;
+            }
+
+            int posHeight = heightCenter + padHeight;
+            int posLength = lengthCenter + padLength;
+
+            if (!isValidCell(posHeight, posLength)) continue;
+            if (!isValidBigFoodUnitCell(posHeight, posLength)) continue;
+
+            auto *boardCell = board->getCells()[posHeight][posLength];
+            auto *basicCell = dynamic_cast<BasicCell *>(boardCell);
+            basicCell->setFoodAmount(Config::BIG_FOOD_UNIT_VALUE);
+        }
+    }
+}
+
+BasicCell *BoardGenerator::findCellNearCoordinateWithCrossCellFree(int height, int length) {
+    int pad = 1;
+
+    while (pad < ((Config::LENGTH + Config::HEIGHT) / 2 / 10)) {
+        for (int padHeight = -pad; padHeight <= pad; padHeight += pad) {
+            for (int padLength = -pad; padLength <= pad; padLength += pad) {
+                if (padHeight == 0 && padLength == 0) continue;
+
+                int posHeight = height + padHeight;
+                int posLength = length + padLength;
+
+                if (!isValidCell(posHeight, posLength)) continue;
+                if (!isBasicCellsCrossEmpty(posHeight, posLength)) continue;
+
+                auto *boardCell = board->getCells()[posHeight][posLength];
+                auto *basicCell = dynamic_cast<BasicCell *>(boardCell);
+                return basicCell;
+            }
+        }
+
+        pad++;
+    }
+
+    return nullptr;
+}
+
+bool BoardGenerator::isBasicCellsCrossEmpty(int centerHeight, int centerLength) {
+    for (int padHeight = -1; padHeight <= 1; padHeight += 1) {
+        for (int padLength = -1; padLength <= 1; padLength += 1) {
+            if ((padHeight == -1 && padLength == -1)
+                || (padHeight == -1 && padLength == 1)
+                || (padHeight == 1 && padLength == -1)
+                || (padHeight == 1 && padLength == 1)) {
+                continue;
+            }
+
+            if (!isValidBigFoodUnitCell(centerHeight + padHeight, centerLength + padLength)) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+bool BoardGenerator::isValidBigFoodUnitCell(int height, int length) {
+    if (!isValidCell(height, length)) return false;
+
+    auto *boardCell = board->getCells()[height][length];
+    if (boardCell->getBoardCellType() != BasicCellType) return false;
+
+    auto *basicCell = dynamic_cast<BasicCell *>(boardCell);
+    return basicCell->getFoodAmount() == 0;
 }
 
 void BoardGenerator::generateSmallFoodUnit() {
@@ -72,7 +174,7 @@ void BoardGenerator::generateSmallFoodUnit() {
 
         // Setting food
         auto *basicCell = dynamic_cast<BasicCell *>(cell);
-        basicCell->setFoodAmount(Config::FOOD_UNIT_VALUE);
+        basicCell->setFoodAmount(Config::SMALL_FOOD_UNIT_VALUE);
 
         totalFoodUnitGenerated++;
     }
