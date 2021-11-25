@@ -67,7 +67,6 @@ int runUI(Board *board) {
                     if (event.mouseButton.button == 0) {
                         moving = true;
                         oldPos = window.mapPixelToCoords(sf::Vector2i(sf::Mouse::getPosition(window)));
-                        cout << sf::Mouse::getPosition(window).x << endl;
                     }
                     break;
                 case sf::Event::MouseButtonReleased:
