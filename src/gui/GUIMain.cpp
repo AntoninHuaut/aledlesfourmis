@@ -6,43 +6,17 @@ void renderingThread(threadData data) {
     // activation du contexte de la fenêtre
     data.window->setActive(true);
 
-    sf::Texture texture = TextureCache::getInstance()->getTexture(SpriteEnum::BASIC_FLOOR);
-
-    /*sf::Texture texture;
-
-    if (!texture.loadFromFile("./assets/TilesetFloor.png")) {
-        // error...
-    }*/
+    data.board->render();
 
     // la boucle de rendu
     while (data.window->isOpen()) {
 
         data.window->clear();
 
-        BoardCell ***cells = data.board->getCells();
-
-        sf::VertexArray quad(sf::Quads, Config::LENGTH * Config::HEIGHT);
-
-        for (int i = 0; i < Config::HEIGHT; i++) {
-            for (int j = 0; j < Config::LENGTH; j++) {
-
-                //if (cells[i][j])
-
-                //sprite.setTextureRect(
-                //sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(sprite.getTexture()->getSize())));
-
-                //sprite.setPosition(cell->getPosLength() * 16, cell->getPosHeight() * 16);
-
-                //display_cell(data.window, cells[i][j], texture);
-
-            }
-        }
-
-        data.window->draw(quad, &texture);
+        data.window->draw(*(data.board));
 
         data.window->display();
 
-        //sf::sleep(sf::seconds(10));
     }
 
 }

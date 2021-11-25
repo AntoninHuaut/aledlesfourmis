@@ -3,8 +3,8 @@
 
 
 enum class SpriteEnum {
-    BASIC_FLOOR,
-    COLONY_FLOOR
+    BASIC_FLOOR = 50,
+    COLONY_FLOOR = 20
 };
 
 #endif

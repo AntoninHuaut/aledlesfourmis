@@ -4,9 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "../map/Board.h"
-#include "display.h"
 #include "../Config.h"
-#include "TextureCache.h"
 
 struct threadData {
     sf::RenderWindow *window;

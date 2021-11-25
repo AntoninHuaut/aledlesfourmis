@@ -26,5 +26,5 @@ double Config::FOOD_CASE_NUMBER_PERCENT = 0.0002;
 int Config::SMALL_FOOD_UNIT_VALUE = 10;
 int Config::BIG_FOOD_UNIT_VALUE = 20000;
 
-int Config::LENGTH = 21;
-int Config::HEIGHT = 20;
+int Config::LENGTH = 211;
+int Config::HEIGHT = 201;
