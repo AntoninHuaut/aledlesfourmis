@@ -100,9 +100,9 @@ void BoardGenerator::generateBigFoodUnitCross(int searchPosHeight, int searchPos
 BasicCell *BoardGenerator::findCellNearCoordinateWithCrossCellFree(int height, int length) {
     int pad = 1;
 
-    while (pad < ((Config::LENGTH + Config::HEIGHT) / 2 / 10)) {
-        for (int padHeight = -pad; padHeight <= pad; padHeight += pad) {
-            for (int padLength = -pad; padLength <= pad; padLength += pad) {
+    while (pad < ((Config::LENGTH + Config::HEIGHT) / 4)) {
+        for (int padHeight = -pad; padHeight <= pad; padHeight++) {
+            for (int padLength = -pad; padLength <= pad; padLength++) {
                 if (padHeight == 0 && padLength == 0) continue;
 
                 int posHeight = height + padHeight;
@@ -110,7 +110,7 @@ BasicCell *BoardGenerator::findCellNearCoordinateWithCrossCellFree(int height, i
 
                 if (!isValidCell(posHeight, posLength)) continue;
                 if (!isBasicCellsCrossEmpty(posHeight, posLength)) continue;
-
+                
                 auto *boardCell = board->getCells()[posHeight][posLength];
                 auto *basicCell = dynamic_cast<BasicCell *>(boardCell);
                 return basicCell;
