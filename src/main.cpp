@@ -18,7 +18,6 @@ void createInterface() {
     bool moving = false;
     float zoom = 1;
     float currentZoom = zoom;
-    double accumZoom = 1;
 
     sf::View simulationView = window.getDefaultView();
 
@@ -79,26 +78,10 @@ void createInterface() {
                     // Update our view
                     if (currentZoom != zoom) {
 
-                        //Accumulate zoom
-                        accumZoom *= zoom;
-
                         const sf::Vector2f newPos = window.mapPixelToCoords(
                                 sf::Vector2i(sf::Mouse::getPosition(window)));
                         simulationView.setSize(window.getDefaultView().getSize()); // Reset the size
                         simulationView.zoom(zoom); // Apply the zoom level (this transforms the view)
-
-                        if (zoom < currentZoom) {
-                            auto decalag = sf::Vector2i(newPos - simulationView.getCenter());
-                            auto mousePos = sf::Mouse::getPosition(window);
-
-                            cout << "---------------------" << endl;
-                            cout << decalag.x << " : " << decalag.y << endl;
-                            cout << mousePos.x << " : " << mousePos.y << endl;
-                            cout << simulationView.getCenter().x << " : " << simulationView.getCenter().y << endl;
-                            simulationView.move(sf::Vector2f(decalag));
-                            sf::Mouse::setPosition(sf::Vector2i(mousePos.x - decalag.x, mousePos.y - decalag.y),
-                                                   window);
-                        }
 
                         currentZoom = zoom;
                     }
@@ -121,6 +104,7 @@ void createInterface() {
 
         window.clear();
 
+        display_cell(&window);
         display_cell(&window);
 
         window.display();
