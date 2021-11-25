@@ -21,12 +21,6 @@ int Config::BASIC_CELL_MAX_ANT_ON_CELL = 12;
 int Config::COLONY_MAX_ANT_ON_CELL = 100;
 
 double Config::ROCK_PERCENT = 0.3;
-double Config::ROCK_SIZE_ONE_PERCENT = 0.5;
-double Config::ROCK_SIZE_TWO_PERCENT = 0.3;
-double Config::ROCK_SIZE_THREE_PERCENT = 0.1;
-double Config::ROCK_SIZE_FOUR_PERCENT = 0.5;
-double Config::ROCK_SIZE_FIVE_PERCENT = 0.4;
-double Config::ROCK_SIZE_SIZE_PERCENT = 0.1;
 
 double Config::FOOD_CASE_NUMBER_PERCENT = 0.0002;
 int Config::FOOD_UNIT_VALUE = 10;

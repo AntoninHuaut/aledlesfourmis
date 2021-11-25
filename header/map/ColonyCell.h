@@ -7,7 +7,8 @@
 class ColonyCell : public BoardCell {
 
 public:
-    ColonyCell(int posLength, int posHeight) : BoardCell(posLength, posHeight, Config::COLONY_MAX_ANT_ON_CELL) {};
+    ColonyCell(int posLength, int posHeight) :
+            BoardCell(posLength, posHeight, Config::COLONY_MAX_ANT_ON_CELL, ColonyCellType) {};
 
 };
 

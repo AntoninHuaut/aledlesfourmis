@@ -6,10 +6,15 @@
 
 using namespace std;
 
+enum BoardCellType {
+    BasicCellType, RockCellType, ColonyCellType
+};
+
 class BoardCell {
 
     int posLength;
     int posHeight;
+    BoardCellType boardCellType;
 
     double pheromoneAmount = 0;
     bool visited = false;
@@ -19,15 +24,18 @@ class BoardCell {
     void pheromoneSpreading() {};
 
 public:
-    explicit BoardCell(int posLength, int posHeight, int maxAntOnCell) {
+    explicit BoardCell(int posLength, int posHeight, int maxAntOnCell, BoardCellType boardCellType) {
         this->maxAntOnCell = maxAntOnCell;
         this->posLength = posLength;
         this->posHeight = posHeight;
+        this->boardCellType = boardCellType;
     };
 
     virtual void tick() {};
 
     int getMaxAntOnCell() const { return maxAntOnCell; };
+
+    BoardCellType getBoardCellType() const { return boardCellType; }
 
     bool haveSpace() { return this->antOnCell->size() < maxAntOnCell; };
 

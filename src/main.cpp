@@ -39,14 +39,13 @@ void createInterface() {
                         oldPos = window.mapPixelToCoords(sf::Vector2i(sf::Mouse::getPosition(window)));
                     }
                     break;
-                case  sf::Event::MouseButtonReleased:
+                case sf::Event::MouseButtonReleased:
                     // Mouse button is released, no longer move
                     if (event.mouseButton.button == 0) {
                         moving = false;
                     }
                     break;
-                case sf::Event::MouseMoved:
-                {
+                case sf::Event::MouseMoved: {
                     // Ignore mouse movement unless a button is pressed (see above)
                     if (!moving)
                         break;
@@ -78,42 +77,42 @@ void createInterface() {
                         zoom = std::max(.5f, zoom - .1f);
 
                     // Update our view
-                    if(currentZoom != zoom){
+                    if (currentZoom != zoom) {
 
                         //Accumulate zoom
                         accumZoom *= zoom;
 
-                        const sf::Vector2f newPos = window.mapPixelToCoords(sf::Vector2i(sf::Mouse::getPosition(window)));
+                        const sf::Vector2f newPos = window.mapPixelToCoords(
+                                sf::Vector2i(sf::Mouse::getPosition(window)));
                         simulationView.setSize(window.getDefaultView().getSize()); // Reset the size
                         simulationView.zoom(zoom); // Apply the zoom level (this transforms the view)
 
-                        if(zoom < currentZoom){
+                        if (zoom < currentZoom) {
                             auto decalag = sf::Vector2i(newPos - simulationView.getCenter());
                             auto mousePos = sf::Mouse::getPosition(window);
 
-                            cout << "---------------------"<< endl;
+                            cout << "---------------------" << endl;
                             cout << decalag.x << " : " << decalag.y << endl;
                             cout << mousePos.x << " : " << mousePos.y << endl;
                             cout << simulationView.getCenter().x << " : " << simulationView.getCenter().y << endl;
                             simulationView.move(sf::Vector2f(decalag));
-                            sf::Mouse::setPosition(sf::Vector2i(mousePos.x - decalag.x, mousePos.y - decalag.y), window);
+                            sf::Mouse::setPosition(sf::Vector2i(mousePos.x - decalag.x, mousePos.y - decalag.y),
+                                                   window);
                         }
 
                         currentZoom = zoom;
                     }
 
 
-
                     window.setView(simulationView);
                     break;
 
             }
-            
+
             if (event.type == sf::Event::Closed)
                 window.close();
 
-            if (event.type == sf::Event::Resized)
-            {
+            if (event.type == sf::Event::Resized) {
                 // update the view to the new size of the window
                 sf::FloatRect visibleArea(0.f, 0.f, event.size.width, event.size.height);
                 window.setView(sf::View(visibleArea));
@@ -131,7 +130,7 @@ void createInterface() {
 int main() {
     srand(time(nullptr)); // NOLINT(cert-msc51-cpp)
 
-//    auto *test = BoardGenerator::generateBoard();
+    auto *test = BoardGenerator::generateBoard();
 
 //    BoardCell *cell = new BasicCell(5);
 //    auto *antQueen = new Queen();
@@ -140,6 +139,6 @@ int main() {
 //    antQueen->tick();
 //    std::cout << antQueen->getCurrentCell()->getMaxAntOnCell() << std::endl;
 
-    createInterface();
+//    createInterface();
     return 0;
 }

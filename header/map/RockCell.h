@@ -7,7 +7,8 @@
 class RockCell : public BoardCell {
 
 public:
-    RockCell(int posLength, int posHeight) : BoardCell(posLength, posHeight, Config::ROCK_MAX_ANT_ON_CELL) {};
+    RockCell(int posLength, int posHeight) :
+            BoardCell(posLength, posHeight, Config::ROCK_MAX_ANT_ON_CELL, RockCellType) {};
 
 };
 

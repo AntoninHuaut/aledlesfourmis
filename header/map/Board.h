@@ -17,6 +17,8 @@ public:
 //        this->coloniesCells = coloniesCells;
     };
 
+    BoardCell ***getCells() { return cells; }
+
     list<BoardCell *> getNearbyCells(BoardCell *cell);
 };
 

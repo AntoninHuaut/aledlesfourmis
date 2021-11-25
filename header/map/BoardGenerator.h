@@ -3,14 +3,16 @@
 
 #include <cstdlib>
 #include <stdexcept>
+#include <cmath>
 
 #include "Board.h"
+#include "BoardCell.h"
+#include "BasicCell.h"
+#include "RockCell.h"
+#include "ColonyCell.h"
+#include "../Config.h"
 
 using namespace std;
-
-#define BOARD_LENGTH 211
-#define BOARD_HEIGHT 201
-#define ROCK_PERCENT 0.03
 
 class BoardGenerator {
 
@@ -20,10 +22,14 @@ class BoardGenerator {
 
     void generateRock();
 
+    void generateBasicCell();
+
 public:
     explicit BoardGenerator(Board *board) {
         this->board = board;
     }
+
+    Board *getBoard() { return board; }
 
     static Board *generateBoard();
 };

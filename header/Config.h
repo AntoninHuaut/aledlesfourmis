@@ -26,12 +26,6 @@ public:
     static int COLONY_MAX_ANT_ON_CELL;
 
     static double ROCK_PERCENT;
-    static double ROCK_SIZE_ONE_PERCENT;
-    static double ROCK_SIZE_TWO_PERCENT;
-    static double ROCK_SIZE_THREE_PERCENT;
-    static double ROCK_SIZE_FOUR_PERCENT;
-    static double ROCK_SIZE_FIVE_PERCENT;
-    static double ROCK_SIZE_SIZE_PERCENT;
 
     static double FOOD_CASE_NUMBER_PERCENT;
     static int FOOD_UNIT_VALUE;
