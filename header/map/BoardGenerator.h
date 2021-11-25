@@ -20,11 +20,27 @@ class BoardGenerator {
 
     static BoardGenerator *createBoard();
 
+    void generateSmallFoodUnit();
+
+    void generateBigFoodUnit();
+
+    void generateBigFoodUnitCross(int heightCenter, int searchPosLength);
+
+    BasicCell *findCellNearCoordinateWithCrossCellFree(int height, int length);
+
+    bool isBasicCellsCrossEmpty(int centerHeight, int centerLength);
+
+    bool isValidBigFoodUnitCell(int height, int length);
+
     void generateRock();
 
     void generateBasicCell();
 
-    bool isValidCell(int height, int length);
+    bool hasRockNeighbor(int height, int length);
+
+    bool hasFoodNeighbor(int height, int length);
+
+    static bool isValidCell(int height, int length);
 
     static int randInt(int maxInclusive, int minInclusive);
 

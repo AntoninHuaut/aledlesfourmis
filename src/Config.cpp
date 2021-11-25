@@ -23,7 +23,8 @@ int Config::COLONY_MAX_ANT_ON_CELL = 100;
 double Config::ROCK_PERCENT = 0.3;
 
 double Config::FOOD_CASE_NUMBER_PERCENT = 0.0002;
-int Config::FOOD_UNIT_VALUE = 10;
+int Config::SMALL_FOOD_UNIT_VALUE = 10;
+int Config::BIG_FOOD_UNIT_VALUE = 20000;
 
 int Config::LENGTH = 21;
 int Config::HEIGHT = 20;

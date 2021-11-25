@@ -32,7 +32,8 @@ class Config {
     + {static} double ROCK_SIZE_SIZE_PERCENT = 0.1
 
     + {static} double FOOD_CASE_NUMBER_PERCENT = 0.0002
-    + {static} int FOOD_UNIT_VALUE = 10
+    + {static} int SMALL_FOOD_UNIT_VALUE = 10
+    + {static} int BIG_FOOD_UNIT_VALUE = 20000
 
     + {static} int LENGTH = 211
     + {static} int HEIGHT = 201
