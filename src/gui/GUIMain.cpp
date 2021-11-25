@@ -6,6 +6,8 @@ void renderingThread(threadData data) {
     // activation du contexte de la fenêtre
     data.window->setActive(true);
 
+    data.window->setFramerateLimit(140);
+
     data.board->render();
 
     // la boucle de rendu
@@ -26,7 +28,7 @@ int runUI(Board *board) {
 
     // création de la fenêtre
     // (rappelez-vous : il est plus prudent de le faire dans le thread principal à cause des limitations de l'OS)
-    sf::RenderWindow window(sf::VideoMode(800, 600), "OpenGL");
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Ant Simulation");
 
     // désactivation de son contexte OpenGL
     window.setActive(false);

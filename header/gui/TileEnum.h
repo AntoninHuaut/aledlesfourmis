@@ -2,9 +2,10 @@
 #define ANT_SPRITEENUM_H
 
 
-enum class SpriteEnum {
-    BASIC_FLOOR = 50,
-    COLONY_FLOOR = 20
+enum TileEnum {
+    BASIC_FLOOR = 0,
+    ROCK_FLOOR = 5,
+    COLONY_FLOOR = 10
 };
 
 #endif

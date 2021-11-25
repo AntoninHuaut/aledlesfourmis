@@ -4,6 +4,7 @@
 #include "BoardCell.h"
 #include <SFML/Graphics.hpp>
 #include "../Config.h"
+#include "../gui/TileEnum.h"
 
 using namespace std;
 
@@ -15,7 +16,7 @@ class Board : public sf::Drawable, public sf::Transformable {
     sf::VertexArray m_vertices;
     sf::Texture m_tileset;
 
-    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const override
     {
         // apply the transform
         states.transform *= getTransform();

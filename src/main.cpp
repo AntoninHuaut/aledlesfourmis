@@ -5,7 +5,9 @@
 #include "../header/map/BoardGenerator.h"
 #include "../header/gui/GUIMain.h"
 
+
 using namespace std;
+
 
 int main() {
     srand(time(nullptr)); // NOLINT(cert-msc51-cpp)
