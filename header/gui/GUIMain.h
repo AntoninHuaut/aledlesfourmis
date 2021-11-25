@@ -18,6 +18,9 @@ class GUIMain {
 public:
     explicit GUIMain(Board *board) { this->board = board; }
 
+    static void preventOutOfBorder(sf::RenderWindow *window, sf::View *simulationView,
+                                   float zoom, sf::Vector2f *deltaPos);
+
     int start();
 };
 

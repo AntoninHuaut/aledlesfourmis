@@ -1,7 +1,9 @@
 {
   "board": {
     "height": 201,
-    "length": 211
+    "length": 211,
+    "tileSize": 32.0,
+    "marginOutOfBorder": 50.0
   },
   "generation": {
     "rockPercent": 0.3,

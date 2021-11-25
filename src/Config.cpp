@@ -18,9 +18,11 @@ Config::Config() {
 
     height = data["board"]["height"].asInt();
     length = data["board"]["length"].asInt();
+    tileSize = data["board"]["tileSize"].asFloat();
+    marginOutOfBorder = data["board"]["marginOutOfBorder"].asFloat();
 
-    rockPercent = data["generation"]["rockPercent"].asDouble();
-    foodPercent = data["generation"]["foodPercent"].asDouble();
+    rockPercent = data["generation"]["rockPercent"].asFloat();
+    foodPercent = data["generation"]["foodPercent"].asFloat();
     smallFoodUnitValue = data["generation"]["smallFoodUnit"].asInt();
     bigFoodUnitValue = data["generation"]["bigFoodUnit"].asInt();
 
@@ -28,8 +30,8 @@ Config::Config() {
     basicCellMaxAntOnCell = data["antOnCell"]["basic"].asInt();
     colonyMaxAntOnCell = data["antOnCell"]["colony"].asInt();
 
-    defaultFoodConsumingTick = data["ant"]["foodConsumption"]["default"].asDouble();
-    queenFoodConsumingTick = data["ant"]["foodConsumption"]["queen"].asDouble();
+    defaultFoodConsumingTick = data["ant"]["foodConsumption"]["default"].asFloat();
+    queenFoodConsumingTick = data["ant"]["foodConsumption"]["queen"].asFloat();
 
     queenHoursBeforeDeath = data["ant"]["hoursBeforeDeath"]["default"].asInt();
     defaultHoursBeforeDeath = data["ant"]["hoursBeforeDeath"]["queen"].asInt();
@@ -53,11 +55,19 @@ int Config::getLength() const {
     return length;
 }
 
-double Config::getRockPercent() const {
+float Config::getTileSize() const {
+    return tileSize;
+}
+
+float Config::getMarginOutOfBorder() const {
+    return marginOutOfBorder;
+}
+
+float Config::getRockPercent() const {
     return rockPercent;
 }
 
-double Config::getFoodPercent() const {
+float Config::getFoodPercent() const {
     return foodPercent;
 }
 
@@ -81,11 +91,11 @@ int Config::getColonyMaxAntOnCell() const {
     return colonyMaxAntOnCell;
 }
 
-double Config::getDefaultFoodConsumingTick() const {
+float Config::getDefaultFoodConsumingTick() const {
     return defaultFoodConsumingTick;
 }
 
-double Config::getQueenFoodConsumingTick() const {
+float Config::getQueenFoodConsumingTick() const {
     return queenFoodConsumingTick;
 }
 

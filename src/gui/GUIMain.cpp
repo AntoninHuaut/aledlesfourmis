@@ -1,39 +1,45 @@
 #include "../../header/gui/GUIMain.h"
 
-
 void renderingThread(threadData data) {
-
-    // activation du contexte de la fenêtre
     data.window->setActive(true);
-
     data.window->setFramerateLimit(140);
-
     data.board->render();
 
-    // la boucle de rendu
+    // Render loop
     while (data.window->isOpen()) {
-
         data.window->clear();
-
         data.window->draw(*(data.board));
-
         data.window->display();
-
     }
-
 }
 
+void GUIMain::preventOutOfBorder(sf::RenderWindow *window, sf::View *simulationView,
+                                 float zoom, sf::Vector2f *deltaPos) {
+    float tileSize = Config::get()->getTileSize();
+    float marginOutOfBorder = Config::get()->getMarginOutOfBorder();
+    float mapLengthX = tileSize * Config::get()->getLength(); // NOLINT(cppcoreguidelines-narrowing-conversions)
+    float mapHeightY = tileSize * Config::get()->getHeight(); // NOLINT(cppcoreguidelines-narrowing-conversions)
+
+    sf::Vector2f newCenterPos = {simulationView->getCenter().x + deltaPos->x,
+                                 simulationView->getCenter().y + deltaPos->y};
+
+    newCenterPos.x = max(newCenterPos.x, (simulationView->getSize().x / 2) - (marginOutOfBorder * zoom));
+    newCenterPos.y = max(newCenterPos.y, (simulationView->getSize().y / 2) - (marginOutOfBorder * zoom));
+
+    newCenterPos.x = min(newCenterPos.x, (mapLengthX - simulationView->getSize().x / 2) + marginOutOfBorder * zoom);
+    newCenterPos.y = min(newCenterPos.y, (mapHeightY - simulationView->getSize().y / 2) + marginOutOfBorder * zoom);
+
+    simulationView->setCenter(newCenterPos);
+    window->setView(*simulationView);
+}
 
 int runUI(Board *board) {
-
-    // création de la fenêtre
-    // (rappelez-vous : il est plus prudent de le faire dans le thread principal à cause des limitations de l'OS)
     sf::RenderWindow window(sf::VideoMode(800, 600), "Ant Simulation");
 
-    // désactivation de son contexte OpenGL
+    // Disabling OpenGL
     window.setActive(false);
 
-    // lancement du thread de dessin
+    // Launching draw thread
     threadData data;
     data.board = board;
     data.window = &window;
@@ -48,11 +54,10 @@ int runUI(Board *board) {
 
     sf::View simulationView = window.getDefaultView();
 
-    // la boucle d'évènements/logique/ce que vous voulez...
+    // Event loop
     while (window.isOpen()) {
         sf::Event event{};
         while (window.pollEvent(event)) {
-
             switch (event.type) {
                 case sf::Event::Closed:
                     window.close();
@@ -73,17 +78,13 @@ int runUI(Board *board) {
                     break;
                 case sf::Event::MouseMoved: {
                     // Ignore mouse movement unless a button is pressed (see above)
-                    if (!moving)
-                        break;
+                    if (!moving) break;
+
                     // Determine the new position in world coordinates
                     const sf::Vector2f newPos = window.mapPixelToCoords(sf::Vector2i(sf::Mouse::getPosition(window)));
-                    // Determine how the cursor has moved
-                    // Swap these to invert the movement direction
-                    const sf::Vector2f deltaPos = oldPos - newPos;
 
-                    // Move our view accordingly and update the window
-                    simulationView.setCenter(simulationView.getCenter() + deltaPos);
-                    window.setView(simulationView);
+                    sf::Vector2f deltaPos = oldPos - newPos;
+                    GUIMain::preventOutOfBorder(&window, &simulationView, zoom, &deltaPos);
 
                     // Save the new position as the old one
                     // We're recalculating this, since we've changed the view
@@ -91,39 +92,34 @@ int runUI(Board *board) {
                     break;
                 }
                 case sf::Event::MouseWheelScrolled:
-                    // Ignore the mouse wheel unless we're not moving
-                    //if (moving)
-                    //    break;
-
                     // Determine the scroll direction and adjust the zoom level
                     // Again, you can swap these to invert the direction
-                    if (event.mouseWheelScroll.delta <= -1)
-                        zoom = std::min(12.5f, zoom + .1f);
-                    else if (event.mouseWheelScroll.delta >= 1)
-                        zoom = std::max(.5f, zoom - .1f);
+                    if (event.mouseWheelScroll.delta <= -1) {
+                        zoom = std::min(10.f, zoom + 1.f);
+                    } else if (event.mouseWheelScroll.delta >= 1) {
+                        zoom = std::max(.5f, zoom - 1.f);
+                    }
 
                     // Update our view
                     if (currentZoom != zoom) {
-
-                        const sf::Vector2f newPos = window.mapPixelToCoords(
-                                sf::Vector2i(sf::Mouse::getPosition(window)));
                         simulationView.setSize(window.getDefaultView().getSize()); // Reset the size
                         simulationView.zoom(zoom); // Apply the zoom level (this transforms the view)
 
                         currentZoom = zoom;
                     }
 
-
                     window.setView(simulationView);
-                    break;
 
+                    sf::Vector2f deltaPos = {0, 0};
+                    GUIMain::preventOutOfBorder(&window, &simulationView, zoom, &deltaPos);
+                    break;
             }
 
             if (event.type == sf::Event::Closed)
                 window.close();
 
             if (event.type == sf::Event::Resized) {
-                // update the view to the new size of the window
+                // Udate the view to the new size of the window
                 sf::FloatRect visibleArea(0.f, 0.f, event.size.width, event.size.height);
                 window.setView(sf::View(visibleArea));
             }

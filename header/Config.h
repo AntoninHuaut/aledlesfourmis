@@ -11,9 +11,11 @@ class Config {
 
     int height;
     int length;
+    float tileSize;
+    float marginOutOfBorder;
 
-    double rockPercent;
-    double foodPercent;
+    float rockPercent;
+    float foodPercent;
     int smallFoodUnitValue;
     int bigFoodUnitValue;
 
@@ -21,8 +23,8 @@ class Config {
     int basicCellMaxAntOnCell;
     int colonyMaxAntOnCell;
 
-    double defaultFoodConsumingTick;
-    double queenFoodConsumingTick;
+    float defaultFoodConsumingTick;
+    float queenFoodConsumingTick;
 
     int queenHoursBeforeDeath;
     int defaultHoursBeforeDeath;
@@ -50,9 +52,13 @@ public:
 
     int getLength() const;
 
-    double getRockPercent() const;
+    float getTileSize() const;
 
-    double getFoodPercent() const;
+    float getMarginOutOfBorder() const;
+
+    float getRockPercent() const;
+
+    float getFoodPercent() const;
 
     int getSmallFoodUnitValue() const;
 
@@ -64,9 +70,9 @@ public:
 
     int getColonyMaxAntOnCell() const;
 
-    double getDefaultFoodConsumingTick() const;
+    float getDefaultFoodConsumingTick() const;
 
-    double getQueenFoodConsumingTick() const;
+    float getQueenFoodConsumingTick() const;
 
     int getQueenHoursBeforeDeath() const;
 
