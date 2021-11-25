@@ -58,50 +58,64 @@ void BoardGenerator::generateRock() {
     BoardCell ***cells = this->getBoard()->getCells();
 
     while (totalRockGenerated < amountRock) {
-        int centerRockHeight = rand() % (randHeightMax - randHeightMin + 1) + randHeightMin; // NOLINT(cert-msc50-cpp)
-        int centerRockLength = rand() % (randLengthMax - randLengthMin + 1) + randLengthMin; // NOLINT(cert-msc50-cpp)
+        int centerRockHeight = randInt(randHeightMax, randHeightMin);
+        int centerRockLength = randInt(randLengthMax, randLengthMin);
         BoardCell *cell = cells[centerRockHeight][centerRockLength];
 
-        if (cell == nullptr) {
-            cells[centerRockHeight][centerRockLength] = new RockCell(centerRockLength, centerRockHeight);
-            totalRockGenerated++;
+        // If a cell already exist, skip to next random cell
+        if (cell != nullptr) continue;
 
-            int rPercent = rand() % 100; // NOLINT(cert-msc50-cpp)
-            int additionalRockNear;
-            if (rPercent <= 1) {
-                additionalRockNear = 5;
-            } else if (rPercent <= 5) {
-                additionalRockNear = 4;
-            } else if (rPercent <= 10) {
-                additionalRockNear = 3;
-            } else if (rPercent <= 20) {
-                additionalRockNear = 2;
-            } else if (rPercent <= 50) {
-                additionalRockNear = 1;
-            } else {
-                additionalRockNear = 0;
-            }
+        // Checking if there are already some rocks nearby
+        bool hasRockNearby = false;
+        for (int i = -1; i <= 1 && !hasRockNearby; i++) {
+            for (int j = -1; j <= 1 && !hasRockNearby; j++) {
+                int tmpHeight = centerRockHeight + i;
+                int tmpLength = centerRockLength + j;
+                if (!isValidCell(tmpHeight, tmpLength)) continue;
 
-            int additionalRockGenerated = 0;
-            int nbTry = 0;
-            while (additionalRockGenerated < additionalRockNear && nbTry++ <= 100) {
-                int lengthDelta = (rand() % 2) - 1; // NOLINT(cert-msc50-cpp)
-                int heightDelta = (rand() % 2) - 1; // NOLINT(cert-msc50-cpp)
-
-                int possibleRockHeight = centerRockHeight + heightDelta;
-                int possibleRockLength = centerRockLength + lengthDelta;
-
-                if (possibleRockHeight < 0 || possibleRockHeight >= Config::HEIGHT) continue;
-                if (possibleRockLength < 0 || possibleRockLength >= Config::LENGTH) continue;
-
-                BoardCell *possibleCell = cells[possibleRockHeight][possibleRockLength];
-
-                if (possibleCell == nullptr) {
-                    cells[possibleRockHeight][possibleRockLength] =
-                            new RockCell(possibleRockHeight, possibleRockLength);
-                    additionalRockGenerated++;
-                    totalRockGenerated++;
+                BoardCell *nearbyCell = cells[centerRockHeight][centerRockLength];
+                if (nearbyCell != nullptr && nearbyCell->getBoardCellType() == RockCellType) {
+                    hasRockNearby = true;
                 }
+            }
+        }
+
+        // If there is at least one rock, skip generation of rock on the current cell
+        if (hasRockNearby) continue;
+
+        // Creating a new rock
+        cells[centerRockHeight][centerRockLength] = new RockCell(centerRockLength, centerRockHeight);
+        totalRockGenerated++;
+
+        // Generating how many rock will be near the rock
+        int rPercent = randInt(100, 1);
+        int additionalRockNear;
+        if (rPercent <= 1) additionalRockNear = 5;
+        else if (rPercent <= 5) additionalRockNear = 4;
+        else if (rPercent <= 10) additionalRockNear = 3;
+        else if (rPercent <= 20) additionalRockNear = 2;
+        else if (rPercent <= 50) additionalRockNear = 1;
+        else additionalRockNear = 0;
+
+        // Generating neighbor rocks
+        int additionalRockGenerated = 0;
+        int nbTry = 0;
+        while (additionalRockGenerated < additionalRockNear && nbTry++ <= 100) {
+            int heightDelta = randInt(1, -1);
+            int lengthDelta = randInt(1, -1);
+
+            int posRockHeight = centerRockHeight + heightDelta;
+            int posRockLength = centerRockLength + lengthDelta;
+
+            if (!isValidCell(posRockHeight, posRockLength)) continue;
+
+            BoardCell *posCell = cells[posRockHeight][posRockLength];
+
+            if (posCell == nullptr) {
+                cells[posRockHeight][posRockLength] = new RockCell(posRockHeight, posRockLength);
+
+                additionalRockGenerated++;
+                totalRockGenerated++;
             }
         }
     }
@@ -126,7 +140,8 @@ BoardGenerator *BoardGenerator::createBoard() {
     }
 
     for (int i = 0; i < Config::HEIGHT; i++) {
-        auto **cellsLine = (BoardCell **) calloc(Config::LENGTH, sizeof(BoardCell *));
+        auto **cellsLine = (BoardCell **) calloc(Config::LENGTH,
+                                                 sizeof(BoardCell *)); // NOLINT(bugprone-sizeof-expression)
 
         if (cellsLine == nullptr) {
             throw invalid_argument("Failed to allocate BoardCell*");
@@ -141,4 +156,12 @@ BoardGenerator *BoardGenerator::createBoard() {
 
     auto *board = new Board(cells2D);
     return new BoardGenerator(board);
+}
+
+bool BoardGenerator::isValidCell(int height, int length) {
+    return height >= 0 && height < Config::HEIGHT && length >= 0 && length < Config::LENGTH;
+}
+
+int BoardGenerator::randInt(int maxInclusive, int minInclusive) {
+    return rand() % (maxInclusive - minInclusive + 1) + minInclusive; // NOLINT(cert-msc50-cpp)
 }

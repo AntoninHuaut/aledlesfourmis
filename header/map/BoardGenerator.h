@@ -24,6 +24,10 @@ class BoardGenerator {
 
     void generateBasicCell();
 
+    bool isValidCell(int height, int length);
+
+    static int randInt(int maxInclusive, int minInclusive);
+
 public:
     explicit BoardGenerator(Board *board) {
         this->board = board;
