@@ -10,8 +10,9 @@ class Queen : public Ant {
     bool wasAssaulted = false;
 
 public:
-    Queen(BoardCell *currentCell) : Ant(Config::QUEEN_HOURS_BEFORE_DEATH, Config::QUEEN_FOOD_CONSUMING_TICK,
-                                        currentCell) {};
+    explicit Queen(BoardCell *currentCell) :
+            Ant(Config::get()->getQueenHoursBeforeDeath(), Config::get()->getQueenFoodConsumingTick(),
+                currentCell) {};
 
     void tick() override;
 

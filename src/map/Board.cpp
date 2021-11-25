@@ -5,9 +5,9 @@ bool Board::render() {
     if (!m_tileset.loadFromFile("./assets/TilesetFloor.png"))
         return false;
 
-    int width = Config::LENGTH;
-    int height = Config::HEIGHT;
-    sf::Vector2u tileSize = sf::Vector2u (16, 16);
+    int width = Config::get()->getLength();
+    int height = Config::get()->getHeight();
+    sf::Vector2u tileSize = sf::Vector2u(16, 16);
 
     // resize the vertex array to fit the level size
     m_vertices.setPrimitiveType(sf::Quads);
@@ -15,8 +15,7 @@ bool Board::render() {
 
 
     for (unsigned int i = 0; i < width; ++i)
-        for (unsigned int j = 0; j < height; ++j)
-        {
+        for (unsigned int j = 0; j < height; ++j) {
             // get the current tile number
             int tileNumber = 1;
 
@@ -25,7 +24,7 @@ bool Board::render() {
             int tv = tileNumber / (m_tileset.getSize().x / tileSize.x);
 
             // get a pointer to the current tile's quad
-            sf::Vertex* quad = &m_vertices[(i + j * width) * 4];
+            sf::Vertex *quad = &m_vertices[(i + j * width) * 4];
 
             // define its 4 corners
             quad[0].position = sf::Vector2f(i * tileSize.x, j * tileSize.y);

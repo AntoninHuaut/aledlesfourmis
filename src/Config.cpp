@@ -1,30 +1,122 @@
 #include "../header/Config.h"
 
-double Config::DEFAULT_FOOD_CONSUMING_TICK = 0.001;
-int Config::DEFAULT_HOURS_BEFORE_DEATH = 365 * 24;
+Config *Config::instance = nullptr;
 
-int Config::NEW_ANT_EVERY_DAY = 2;
-double Config::QUEEN_FOOD_CONSUMING_TICK = 0.01;
-int Config::QUEEN_HOURS_BEFORE_DEATH = 365 * 10 * 24;
+Config *Config::get() {
+    if (instance == nullptr) {
+        instance = new Config();
+    }
+    return instance;
+}
 
-int Config::WORKER_HOURS_BEFORE_ADULT = 15 * 24;
-int Config::WORKER_MAX_FOOD_CARRIED_AMOUNT = 1;
+Config::Config() {
+    std::cout << "Loading json configuration...";
 
-int Config::SCOOT_HOURS_BEFORE_ADULT = 2 * 24;
+    std::ifstream i("../assets/config.json");
+    json data;
+    i >> data;
 
-int Config::SOLDIER_HOURS_BEFORE_VISIT_COLONY = 100 * 24;
+    height = data["board"]["height"];
+    length = data["board"]["length"];
 
-int Config::SLAVE_OWNER_MAX_HOURS_SURVIVE_BEFORE_FEEDING = 10;
+    rockPercent = data["generation"]["rockPercent"];
+    foodPercent = data["generation"]["foodPercent"];
+    smallFoodUnitValue = data["generation"]["smallFoodUnit"];
+    bigFoodUnitValue = data["generation"]["bigFoodUnit"];
 
-int Config::ROCK_MAX_ANT_ON_CELL = 0;
-int Config::BASIC_CELL_MAX_ANT_ON_CELL = 12;
-int Config::COLONY_MAX_ANT_ON_CELL = 100;
+    rockMaxAntOnCell = data["antOnCell"]["rock"];
+    basicCellMaxAntOnCell = data["antOnCell"]["basic"];
+    colonyMaxAntOnCell = data["antOnCell"]["colony"];
 
-double Config::ROCK_PERCENT = 0.3;
+    defaultFoodConsumingTick = data["ant"]["foodConsumption"]["default"];
+    queenFoodConsumingTick = data["ant"]["foodConsumption"]["queen"];
 
-double Config::FOOD_CASE_NUMBER_PERCENT = 0.0002;
-int Config::SMALL_FOOD_UNIT_VALUE = 10;
-int Config::BIG_FOOD_UNIT_VALUE = 20000;
+    queenHoursBeforeDeath = data["ant"]["hoursBeforeDeath"]["default"];
+    defaultHoursBeforeDeath = data["ant"]["hoursBeforeDeath"]["queen"];
 
-int Config::LENGTH = 211;
-int Config::HEIGHT = 201;
+    scootHoursBeforeAdult = data["ant"]["hoursBeforeAdult"]["worker"];
+    workerHoursBeforeAdult = data["ant"]["hoursBeforeAdult"]["scout"];
+
+    newAntEveryDay = data["ant"]["newAntEveryDay"];
+    workerMaxFoodAmountCanCarried = data["ant"]["workerMaxFoodAmountCanCarried"];
+    soldierHoursBeforeVisitColony = data["ant"]["soldierHoursBeforeVisitColony"];
+    slaveOwnerHoursBeforeHunger = data["ant"]["slaveOwnerHoursBeforeHunger"];
+
+    std::cout << " OK" << std::endl;
+}
+
+int Config::getHeight() const {
+    return height;
+}
+
+int Config::getLength() const {
+    return length;
+}
+
+double Config::getRockPercent() const {
+    return rockPercent;
+}
+
+double Config::getFoodPercent() const {
+    return foodPercent;
+}
+
+int Config::getSmallFoodUnitValue() const {
+    return smallFoodUnitValue;
+}
+
+int Config::getBigFoodUnitValue() const {
+    return bigFoodUnitValue;
+}
+
+int Config::getRockMaxAntOnCell() const {
+    return rockMaxAntOnCell;
+}
+
+int Config::getBasicCellMaxAntOnCell() const {
+    return basicCellMaxAntOnCell;
+}
+
+int Config::getColonyMaxAntOnCell() const {
+    return colonyMaxAntOnCell;
+}
+
+double Config::getDefaultFoodConsumingTick() const {
+    return defaultFoodConsumingTick;
+}
+
+double Config::getQueenFoodConsumingTick() const {
+    return queenFoodConsumingTick;
+}
+
+int Config::getQueenHoursBeforeDeath() const {
+    return queenHoursBeforeDeath;
+}
+
+int Config::getDefaultHoursBeforeDeath() const {
+    return defaultHoursBeforeDeath;
+}
+
+int Config::getScootHoursBeforeAdult() const {
+    return scootHoursBeforeAdult;
+}
+
+int Config::getWorkerHoursBeforeAdult() const {
+    return workerHoursBeforeAdult;
+}
+
+int Config::getNewAntEveryDay() const {
+    return newAntEveryDay;
+}
+
+int Config::getWorkerMaxFoodAmountCanCarried() const {
+    return workerMaxFoodAmountCanCarried;
+}
+
+int Config::getSoldierHoursBeforeVisitColony() const {
+    return soldierHoursBeforeVisitColony;
+}
+
+int Config::getSlaveOwnerHoursBeforeHunger() const {
+    return slaveOwnerHoursBeforeHunger;
+}

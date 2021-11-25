@@ -1,38 +1,90 @@
 #ifndef ANT_CONFIG_H
 #define ANT_CONFIG_H
 
+#include <nlohmann/json.hpp>
+#include <fstream>
+#include <iostream>
+
+using json = nlohmann::json;
 
 class Config {
 
+    static Config *instance;
+
+    int height;
+    int length;
+
+    double rockPercent;
+    double foodPercent;
+    int smallFoodUnitValue;
+    int bigFoodUnitValue;
+
+    int rockMaxAntOnCell;
+    int basicCellMaxAntOnCell;
+    int colonyMaxAntOnCell;
+
+    double defaultFoodConsumingTick;
+    double queenFoodConsumingTick;
+
+    int queenHoursBeforeDeath;
+    int defaultHoursBeforeDeath;
+
+    int scootHoursBeforeAdult;
+    int workerHoursBeforeAdult;
+
+    int newAntEveryDay;
+    int workerMaxFoodAmountCanCarried;
+    int soldierHoursBeforeVisitColony;
+    int slaveOwnerHoursBeforeHunger;
+
+protected:
+    Config();
+
 public:
-    static double DEFAULT_FOOD_CONSUMING_TICK;
-    static int DEFAULT_HOURS_BEFORE_DEATH;
 
-    static int NEW_ANT_EVERY_DAY;
-    static double QUEEN_FOOD_CONSUMING_TICK;
-    static int QUEEN_HOURS_BEFORE_DEATH;
+    Config(Config &other) = delete; // Singletons should not be cloneable
 
-    static int WORKER_HOURS_BEFORE_ADULT;
-    static int WORKER_MAX_FOOD_CARRIED_AMOUNT;
+    void operator=(const Config &) = delete; // Singletons should not be assignable
 
-    static int SCOOT_HOURS_BEFORE_ADULT;
+    static Config *get();
 
-    static int SOLDIER_HOURS_BEFORE_VISIT_COLONY;
+    int getHeight() const;
 
-    static int SLAVE_OWNER_MAX_HOURS_SURVIVE_BEFORE_FEEDING;
+    int getLength() const;
 
-    static int ROCK_MAX_ANT_ON_CELL;
-    static int BASIC_CELL_MAX_ANT_ON_CELL;
-    static int COLONY_MAX_ANT_ON_CELL;
+    double getRockPercent() const;
 
-    static double ROCK_PERCENT;
+    double getFoodPercent() const;
 
-    static double FOOD_CASE_NUMBER_PERCENT;
-    static int SMALL_FOOD_UNIT_VALUE;
-    static int BIG_FOOD_UNIT_VALUE;
+    int getSmallFoodUnitValue() const;
 
-    static int LENGTH;
-    static int HEIGHT;
+    int getBigFoodUnitValue() const;
+
+    int getRockMaxAntOnCell() const;
+
+    int getBasicCellMaxAntOnCell() const;
+
+    int getColonyMaxAntOnCell() const;
+
+    double getDefaultFoodConsumingTick() const;
+
+    double getQueenFoodConsumingTick() const;
+
+    int getQueenHoursBeforeDeath() const;
+
+    int getDefaultHoursBeforeDeath() const;
+
+    int getScootHoursBeforeAdult() const;
+
+    int getWorkerHoursBeforeAdult() const;
+
+    int getNewAntEveryDay() const;
+
+    int getWorkerMaxFoodAmountCanCarried() const;
+
+    int getSoldierHoursBeforeVisitColony() const;
+
+    int getSlaveOwnerHoursBeforeHunger() const;
 
 };
 

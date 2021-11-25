@@ -11,7 +11,7 @@ class BasicCell : public BoardCell {
 
 public:
     BasicCell(int posLength, int posHeight) :
-            BoardCell(posLength, posHeight, Config::BASIC_CELL_MAX_ANT_ON_CELL, BasicCellType) {};
+            BoardCell(posLength, posHeight, Config::get()->getBasicCellMaxAntOnCell(), BasicCellType) {};
 
     void takeFood(Ant *ant);
 

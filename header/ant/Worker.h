@@ -15,10 +15,9 @@ class Worker : public Ant, public AntAge {
     void visitColony() {};
 
 public:
-
     explicit Worker(BoardCell *currentCell) :
-            Ant(Config::DEFAULT_HOURS_BEFORE_DEATH, Config::DEFAULT_FOOD_CONSUMING_TICK, currentCell),
-            AntAge(Config::WORKER_HOURS_BEFORE_ADULT) {};
+            Ant(Config::get()->getDefaultHoursBeforeDeath(), Config::get()->getDefaultFoodConsumingTick(), currentCell),
+            AntAge(Config::get()->getWorkerHoursBeforeAdult()) {};
 
 };
 

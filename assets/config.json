@@ -1,0 +1,35 @@
+{
+  "board": {
+    "height": 201,
+    "length": 211
+  },
+  "generation": {
+    "rockPercent": 0.3,
+    "foodPercent": 0.0002,
+    "smallFoodUnit": 10,
+    "bigFoodUnit": 20000
+  },
+  "antOnCell": {
+    "rock": 0,
+    "basic": 12,
+    "colony": 100
+  },
+  "ant": {
+    "foodConsumption": {
+      "default": 0.001,
+      "queen": 0.01
+    },
+    "hoursBeforeDeath": {
+      "default": 8760,
+      "queen": 87600
+    },
+    "hoursBeforeAdult": {
+      "worker": 360,
+      "scout": 48
+    },
+    "newAntEveryDay": 2,
+    "workerMaxFoodAmountCanCarried": 1,
+    "soldierHoursBeforeVisitColony": 2400,
+    "slaveOwnerHoursBeforeHunger": 240
+  }
+}

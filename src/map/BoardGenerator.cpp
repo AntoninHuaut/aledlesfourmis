@@ -1,15 +1,14 @@
 #include "../../header/map/BoardGenerator.h"
 
 /* test */
-#include <fstream>
 #include <iostream>
 
 void logBoardFile(BoardGenerator *boardGenerator) {
     ofstream outFile;
     outFile.open("mapTest.txt");
 
-    for (int height = 0; height < Config::HEIGHT; height++) {
-        for (int length = 0; length < Config::LENGTH; length++) {
+    for (int height = 0; height < Config::get()->getHeight(); height++) {
+        for (int length = 0; length < Config::get()->getLength(); length++) {
             BoardCell *boardCell = boardGenerator->getBoard()->getCells()[height][length];
             BoardCellType boardCellType = boardCell->getBoardCellType();
             string type;
@@ -42,7 +41,6 @@ Board *BoardGenerator::generateBoard() {
     boardGenerator->generateBasicCell();
     boardGenerator->generateSmallFoodUnit();
     boardGenerator->generateBigFoodUnit();
-    // TODO
 
     /* TODO TEST */
     logBoardFile(boardGenerator);
@@ -58,11 +56,11 @@ void BoardGenerator::generateBigFoodUnit() {
         posTwo = randInt(4, 1);
     }
 
-    int firstPosHeight = posOne == 1 % 2 == 1 ? 0 : Config::HEIGHT - 1;
-    int firstPosLength = posOne <= 2 ? 0 : Config::LENGTH - 1;
+    int firstPosHeight = posOne == 1 % 2 == 1 ? 0 : Config::get()->getHeight() - 1;
+    int firstPosLength = posOne <= 2 ? 0 : Config::get()->getLength() - 1;
 
-    int secondPosHeight = posTwo == 1 % 2 == 1 ? 0 : Config::HEIGHT - 1;
-    int secondPosLength = posTwo <= 2 ? 0 : Config::LENGTH - 1;
+    int secondPosHeight = posTwo == 1 % 2 == 1 ? 0 : Config::get()->getHeight() - 1;
+    int secondPosLength = posTwo <= 2 ? 0 : Config::get()->getLength() - 1;
 
     generateBigFoodUnitCross(firstPosHeight, firstPosLength);
     generateBigFoodUnitCross(secondPosHeight, secondPosLength);
@@ -92,7 +90,7 @@ void BoardGenerator::generateBigFoodUnitCross(int searchPosHeight, int searchPos
 
             auto *boardCell = board->getCells()[posHeight][posLength];
             auto *basicCell = dynamic_cast<BasicCell *>(boardCell);
-            basicCell->setFoodAmount(Config::BIG_FOOD_UNIT_VALUE);
+            basicCell->setFoodAmount(Config::get()->getBigFoodUnitValue());
         }
     }
 }
@@ -100,7 +98,7 @@ void BoardGenerator::generateBigFoodUnitCross(int searchPosHeight, int searchPos
 BasicCell *BoardGenerator::findCellNearCoordinateWithCrossCellFree(int height, int length) {
     int pad = 1;
 
-    while (pad < ((Config::LENGTH + Config::HEIGHT) / 4)) {
+    while (pad < ((Config::get()->getLength() + Config::get()->getHeight()) / 4)) {
         for (int padHeight = -pad; padHeight <= pad; padHeight++) {
             for (int padLength = -pad; padLength <= pad; padLength++) {
                 if (padHeight == 0 && padLength == 0) continue;
@@ -110,7 +108,7 @@ BasicCell *BoardGenerator::findCellNearCoordinateWithCrossCellFree(int height, i
 
                 if (!isValidCell(posHeight, posLength)) continue;
                 if (!isBasicCellsCrossEmpty(posHeight, posLength)) continue;
-                
+
                 auto *boardCell = board->getCells()[posHeight][posLength];
                 auto *basicCell = dynamic_cast<BasicCell *>(boardCell);
                 return basicCell;
@@ -153,11 +151,12 @@ bool BoardGenerator::isValidBigFoodUnitCell(int height, int length) {
 }
 
 void BoardGenerator::generateSmallFoodUnit() {
-    int amountFoodUnit = (int) round(Config::LENGTH * Config::HEIGHT * Config::FOOD_CASE_NUMBER_PERCENT);
+    int amountFoodUnit = (int) round(
+            Config::get()->getLength() * Config::get()->getHeight() * Config::get()->getFoodPercent());
     int totalFoodUnitGenerated = 0;
 
     int randLengthMin = 0, randHeightMin = 0;
-    int randLengthMax = Config::LENGTH - 1, randHeightMax = Config::HEIGHT - 1;
+    int randLengthMax = Config::get()->getLength() - 1, randHeightMax = Config::get()->getHeight() - 1;
 
     BoardCell ***cells = this->getBoard()->getCells();
 
@@ -174,18 +173,19 @@ void BoardGenerator::generateSmallFoodUnit() {
 
         // Setting food
         auto *basicCell = dynamic_cast<BasicCell *>(cell);
-        basicCell->setFoodAmount(Config::SMALL_FOOD_UNIT_VALUE);
+        basicCell->setFoodAmount(Config::get()->getSmallFoodUnitValue());
 
         totalFoodUnitGenerated++;
     }
 }
 
 void BoardGenerator::generateRock() {
-    int amountRock = (int) round(Config::LENGTH * Config::HEIGHT * Config::ROCK_PERCENT);
+    int amountRock = (int) round(
+            Config::get()->getLength() * Config::get()->getHeight() * Config::get()->getRockPercent());
     int totalRockGenerated = 0;
 
     int randLengthMin = 0, randHeightMin = 0;
-    int randLengthMax = Config::LENGTH - 1, randHeightMax = Config::HEIGHT - 1;
+    int randLengthMax = Config::get()->getLength() - 1, randHeightMax = Config::get()->getHeight() - 1;
 
     BoardCell ***cells = this->getBoard()->getCells();
 
@@ -239,8 +239,8 @@ void BoardGenerator::generateRock() {
 }
 
 void BoardGenerator::generateBasicCell() {
-    for (int height = 0; height < Config::HEIGHT; height++) {
-        for (int length = 0; length < Config::LENGTH; length++) {
+    for (int height = 0; height < Config::get()->getHeight(); height++) {
+        for (int length = 0; length < Config::get()->getLength(); length++) {
             BoardCell ***cells = getBoard()->getCells();
             if (cells[height][length] == nullptr) {
                 cells[height][length] = new BasicCell(length, height);
@@ -250,21 +250,21 @@ void BoardGenerator::generateBasicCell() {
 }
 
 BoardGenerator *BoardGenerator::createBoard() {
-    auto ***cells2D = (BoardCell ***) calloc(Config::HEIGHT, sizeof(BoardCell **));
+    auto ***cells2D = (BoardCell ***) calloc(Config::get()->getHeight(), sizeof(BoardCell **));
 
     if (cells2D == nullptr) {
         throw invalid_argument("Failed to allocate BoardCell**");
     }
 
-    for (int i = 0; i < Config::HEIGHT; i++) {
-        auto **cellsLine = (BoardCell **) calloc(Config::LENGTH,
+    for (int i = 0; i < Config::get()->getHeight(); i++) {
+        auto **cellsLine = (BoardCell **) calloc(Config::get()->getLength(),
                                                  sizeof(BoardCell *)); // NOLINT(bugprone-sizeof-expression)
 
         if (cellsLine == nullptr) {
             throw invalid_argument("Failed to allocate BoardCell*");
         }
 
-        for (int j = 0; j < Config::LENGTH; j++) {
+        for (int j = 0; j < Config::get()->getLength(); j++) {
             cellsLine[j] = nullptr;
         }
 
@@ -315,7 +315,7 @@ bool BoardGenerator::hasRockNeighbor(int height, int length) {
 }
 
 bool BoardGenerator::isValidCell(int height, int length) {
-    return height >= 0 && height < Config::HEIGHT && length >= 0 && length < Config::LENGTH;
+    return height >= 0 && height < Config::get()->getHeight() && length >= 0 && length < Config::get()->getLength();
 }
 
 int BoardGenerator::randInt(int maxInclusive, int minInclusive) {

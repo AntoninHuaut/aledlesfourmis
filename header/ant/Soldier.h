@@ -9,8 +9,9 @@ class Soldier : public Ant {
     int hoursSinceColonyVisited = 0;
 
 public:
-    Soldier(BoardCell *currentCell) : Ant(Config::DEFAULT_HOURS_BEFORE_DEATH, Config::DEFAULT_FOOD_CONSUMING_TICK,
-                                          currentCell) {};
+    explicit Soldier(BoardCell *currentCell) :
+            Ant(Config::get()->getDefaultHoursBeforeDeath(), Config::get()->getDefaultFoodConsumingTick(),
+                currentCell) {};
 
 };
 
