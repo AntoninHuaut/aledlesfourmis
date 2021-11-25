@@ -25,5 +25,5 @@ double Config::ROCK_PERCENT = 0.3;
 double Config::FOOD_CASE_NUMBER_PERCENT = 0.0002;
 int Config::FOOD_UNIT_VALUE = 10;
 
-int Config::LENGTH = 211;
-int Config::HEIGHT = 201;
+int Config::LENGTH = 21;
+int Config::HEIGHT = 20;

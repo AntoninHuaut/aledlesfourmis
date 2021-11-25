@@ -39,6 +39,10 @@ public:
 
     bool haveSpace() { return this->antOnCell->size() < maxAntOnCell; };
 
+    int getPosLength() { return posLength; };
+
+    int getPosHeight() { return posHeight; };
+
 
 };
 

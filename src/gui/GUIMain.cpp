@@ -1,19 +1,69 @@
-#include <iostream>
-#include <ctime>
-#include "../header/map/BoardCell.h"
-#include "../header/map/BasicCell.h"
-#include "../header/map/BoardGenerator.h"
-#include <SFML/Graphics.hpp>
-#include "../header/gui/GUIMain.h"
+#include "../../header/gui/GUIMain.h"
 
-TextureCache *TextureCache::instance = nullptr;
 
-using namespace std;
+void renderingThread(threadData data) {
 
-void createInterface(Board *board) {
-    sf::RenderWindow window(sf::VideoMode(1000, 600), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+    // activation du contexte de la fenêtre
+    data.window->setActive(true);
+
+    sf::Texture texture = TextureCache::getInstance()->getTexture(SpriteEnum::BASIC_FLOOR);
+
+    /*sf::Texture texture;
+
+    if (!texture.loadFromFile("./assets/TilesetFloor.png")) {
+        // error...
+    }*/
+
+    // la boucle de rendu
+    while (data.window->isOpen()) {
+
+        data.window->clear();
+
+        BoardCell ***cells = data.board->getCells();
+
+        sf::VertexArray quad(sf::Quads, Config::LENGTH * Config::HEIGHT);
+
+        for (int i = 0; i < Config::HEIGHT; i++) {
+            for (int j = 0; j < Config::LENGTH; j++) {
+
+                //if (cells[i][j])
+
+                //sprite.setTextureRect(
+                //sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(sprite.getTexture()->getSize())));
+
+                //sprite.setPosition(cell->getPosLength() * 16, cell->getPosHeight() * 16);
+
+                //display_cell(data.window, cells[i][j], texture);
+
+            }
+        }
+
+        data.window->draw(quad, &texture);
+
+        data.window->display();
+
+        //sf::sleep(sf::seconds(10));
+    }
+
+}
+
+
+int runUI(Board *board) {
+
+    // création de la fenêtre
+    // (rappelez-vous : il est plus prudent de le faire dans le thread principal à cause des limitations de l'OS)
+    sf::RenderWindow window(sf::VideoMode(800, 600), "OpenGL");
+
+    // désactivation de son contexte OpenGL
+    window.setActive(false);
+
+    // lancement du thread de dessin
+    threadData data;
+    data.board = board;
+    data.window = &window;
+
+    sf::Thread thread(&renderingThread, data);
+    thread.launch();
 
     sf::Vector2f oldPos;
     bool moving = false;
@@ -22,8 +72,7 @@ void createInterface(Board *board) {
 
     sf::View simulationView = window.getDefaultView();
 
-    window.setView(simulationView);
-
+    // la boucle d'évènements/logique/ce que vous voulez...
     while (window.isOpen()) {
         sf::Event event{};
         while (window.pollEvent(event)) {
@@ -37,6 +86,7 @@ void createInterface(Board *board) {
                     if (event.mouseButton.button == 0) {
                         moving = true;
                         oldPos = window.mapPixelToCoords(sf::Vector2i(sf::Mouse::getPosition(window)));
+                        cout << sf::Mouse::getPosition(window).x << endl;
                     }
                     break;
                 case sf::Event::MouseButtonReleased:
@@ -102,43 +152,11 @@ void createInterface(Board *board) {
                 window.setView(sf::View(visibleArea));
             }
         }
-
-        window.clear();
-
-        BoardCell ***cells = board->getCells();
-
-        //display_cell(&window, cells[0][0]);
-        //display_cell(&window, cells[0][1]);
-
-        for (int i = 0; i < Config::HEIGHT; i++) {
-            for (int j = 0; j < Config::LENGTH; j++) {
-
-                //display_cell(&window, cells[i][j]);
-
-            }
-        }
-
-        window.display();
     }
-}
-
-int main() {
-    srand(time(nullptr)); // NOLINT(cert-msc51-cpp)
-
-    auto *test = BoardGenerator::generateBoard();
-
-//    BoardCell *cell = new BasicCell(5);
-//    auto *antQueen = new Queen();
-//
-//    antQueen->setCell(cell);
-//    antQueen->tick();
-//    std::cout << antQueen->getCurrentCell()->getMaxAntOnCell() << std::endl;
-
-    //createInterface(test);
-
-    auto *gui = new GUIMain(test);
-
-    gui->start();
 
     return 0;
+}
+
+int GUIMain::start() {
+    return runUI(this->board);
 }
