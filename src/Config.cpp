@@ -16,10 +16,12 @@ Config::Config() {
     std::ifstream i("../assets/config.json", std::ifstream::binary);
     i >> data;
 
+    tileSize = data["gui"]["tileSize"].asFloat();
+    marginOutOfBorder = data["gui"]["marginOutOfBorder"].asFloat();
+    fpsMax = data["gui"]["fpsMax"].asInt();
+
     height = data["board"]["height"].asInt();
     length = data["board"]["length"].asInt();
-    tileSize = data["board"]["tileSize"].asFloat();
-    marginOutOfBorder = data["board"]["marginOutOfBorder"].asFloat();
 
     rockPercent = data["generation"]["rockPercent"].asFloat();
     foodPercent = data["generation"]["foodPercent"].asFloat();
@@ -47,20 +49,24 @@ Config::Config() {
     std::cout << " OK" << std::endl;
 }
 
-int Config::getHeight() const {
-    return height;
-}
-
-int Config::getLength() const {
-    return length;
-}
-
 float Config::getTileSize() const {
     return tileSize;
 }
 
 float Config::getMarginOutOfBorder() const {
     return marginOutOfBorder;
+}
+
+int Config::getFpsMax() const {
+    return fpsMax;
+}
+
+int Config::getHeight() const {
+    return height;
+}
+
+int Config::getLength() const {
+    return length;
 }
 
 float Config::getRockPercent() const {

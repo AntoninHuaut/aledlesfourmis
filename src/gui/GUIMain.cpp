@@ -2,7 +2,7 @@
 
 void renderingThread(threadData data) {
     data.window->setActive(true);
-    data.window->setFramerateLimit(140);
+    data.window->setFramerateLimit(Config::get()->getFpsMax());
     data.board->render();
 
     // Render loop

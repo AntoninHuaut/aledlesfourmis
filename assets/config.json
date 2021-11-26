@@ -1,9 +1,12 @@
 {
+  "gui": {
+    "tileSize": 32.0,
+    "marginOutOfBorder": 0.0,
+    "fpsMax": 60
+  },
   "board": {
     "height": 201,
-    "length": 211,
-    "tileSize": 32.0,
-    "marginOutOfBorder": 0.0
+    "length": 211
   },
   "generation": {
     "rockPercent": 0.3,

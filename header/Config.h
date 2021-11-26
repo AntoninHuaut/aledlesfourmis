@@ -9,10 +9,12 @@ class Config {
 
     static Config *instance;
 
-    int height;
-    int length;
     float tileSize;
     float marginOutOfBorder;
+    int fpsMax;
+
+    int height;
+    int length;
 
     float rockPercent;
     float foodPercent;
@@ -48,13 +50,15 @@ public:
 
     static Config *get();
 
-    int getHeight() const;
-
-    int getLength() const;
-
     float getTileSize() const;
 
     float getMarginOutOfBorder() const;
+
+    int getFpsMax() const;
+
+    int getHeight() const;
+
+    int getLength() const;
 
     float getRockPercent() const;
 
