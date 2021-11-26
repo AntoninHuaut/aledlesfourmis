@@ -3,6 +3,7 @@
 
 #include <list>
 #include "../ant/Ant.h"
+#include "../lib/CustomRandom.h"
 
 using namespace std;
 
@@ -11,6 +12,8 @@ enum BoardCellType {
 };
 
 class BoardCell {
+
+    int randomCellDecoration;
 
     int posLength;
     int posHeight;
@@ -29,6 +32,8 @@ public:
         this->posLength = posLength;
         this->posHeight = posHeight;
         this->boardCellType = boardCellType;
+
+        this->randomCellDecoration = CustomRandom::getInstance()->randInt(0, 3);
     };
 
     virtual void tick() {};
@@ -37,15 +42,13 @@ public:
 
     int getPosHeight() const { return posHeight; }
 
-    int getMaxAntOnCell() const { return maxAntOnCell; };
+    int getMaxAntOnCell() const { return maxAntOnCell; }
 
     BoardCellType getBoardCellType() const { return boardCellType; }
 
-    bool haveSpace() { return this->antOnCell->size() < maxAntOnCell; };
+    bool haveSpace() { return this->antOnCell->size() < maxAntOnCell; }
 
-    int getPosLength() { return posLength; };
-
-    int getPosHeight() { return posHeight; };
+    int getRandomCellDecoration() const { return this->randomCellDecoration; }
 
 
 };

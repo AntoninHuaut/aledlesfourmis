@@ -1,7 +1,7 @@
 #include "../../header/map/Board.h"
 
 
-int getTileNumber(BoardCell *cell, int cellIPlusJ){
+int getTileNumber(BoardCell *cell) {
 
     switch (cell->getBoardCellType()) {
 
@@ -9,7 +9,7 @@ int getTileNumber(BoardCell *cell, int cellIPlusJ){
             return ROCK_FLOOR;
 
         default:
-            return BASIC_FLOOR + (cellIPlusJ%4);
+            return BASIC_FLOOR + (cell->getRandomCellDecoration());
     }
 }
 
@@ -28,17 +28,16 @@ bool Board::render() {
 
 
     for (unsigned int i = 0; i < width; ++i)
-        for (unsigned int j = 0; j < height; ++j)
-        {
+        for (unsigned int j = 0; j < height; ++j) {
             // get the current tile number
-            int tileNumber = getTileNumber(cells[j][i], i+j);
+            int tileNumber = getTileNumber(cells[j][i]);
 
             // find its position in the tileset texture
             int tu = tileNumber % (m_tileset.getSize().x / tileSize.x);
             int tv = tileNumber / (m_tileset.getSize().x / tileSize.x);
 
             // get a pointer to the current tile's quad
-            sf::Vertex* quad = &m_vertices[(i + j * width) * 4];
+            sf::Vertex *quad = &m_vertices[(i + j * width) * 4];
 
             // define its 4 corners
             quad[0].position = sf::Vector2f(i * tileSize.x, j * tileSize.y);

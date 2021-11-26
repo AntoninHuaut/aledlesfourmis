@@ -11,6 +11,7 @@
 #include "RockCell.h"
 #include "ColonyCell.h"
 #include "../Config.h"
+#include "../lib/CustomRandom.h"
 
 using namespace std;
 
@@ -42,8 +43,6 @@ class BoardGenerator {
 
     static bool isValidCell(int height, int length);
 
-    static int randInt(int maxInclusive, int minInclusive);
-
 public:
     explicit BoardGenerator(Board *board) {
         this->board = board;
@@ -52,6 +51,7 @@ public:
     Board *getBoard() { return board; }
 
     static Board *generateBoard();
+
 };
 
 #endif

@@ -50,10 +50,10 @@ Board *BoardGenerator::generateBoard() {
 }
 
 void BoardGenerator::generateBigFoodUnit() {
-    int posOne = randInt(4, 1); // 1 = NO, 2 = SO, 3 = NE, 4 = SE
+    int posOne = CustomRandom::getInstance()->randInt(1, 4); // 1 = NO, 2 = SO, 3 = NE, 4 = SE
     int posTwo = posOne;
     while (posTwo == posOne) {
-        posTwo = randInt(4, 1);
+        posTwo = CustomRandom::getInstance()->randInt(1, 4);
     }
 
     int firstPosHeight = posOne == 1 % 2 == 1 ? 0 : Config::get()->getHeight() - 1;
@@ -161,8 +161,8 @@ void BoardGenerator::generateSmallFoodUnit() {
     BoardCell ***cells = this->getBoard()->getCells();
 
     while (totalFoodUnitGenerated < amountFoodUnit) {
-        int centerFoodHeight = randInt(randHeightMax, randHeightMin);
-        int centerFoodLength = randInt(randLengthMax, randLengthMin);
+        int centerFoodHeight = CustomRandom::getInstance()->randInt(randHeightMin, randHeightMax);
+        int centerFoodLength = CustomRandom::getInstance()->randInt(randLengthMin, randLengthMax);
         BoardCell *cell = cells[centerFoodHeight][centerFoodLength];
 
         // If a cell not exist or not a BasicCell, skip to next random cell
@@ -190,8 +190,8 @@ void BoardGenerator::generateRock() {
     BoardCell ***cells = this->getBoard()->getCells();
 
     while (totalRockGenerated < amountRock) {
-        int centerRockHeight = randInt(randHeightMax, randHeightMin);
-        int centerRockLength = randInt(randLengthMax, randLengthMin);
+        int centerRockHeight = CustomRandom::getInstance()->randInt(randHeightMin, randHeightMax);
+        int centerRockLength = CustomRandom::getInstance()->randInt(randLengthMin, randLengthMax);
         BoardCell *cell = cells[centerRockHeight][centerRockLength];
 
         // If a cell already exist, skip to next random cell
@@ -205,7 +205,7 @@ void BoardGenerator::generateRock() {
         totalRockGenerated++;
 
         // Generating how many rock will be near the rock
-        int rPercent = randInt(100, 1);
+        int rPercent = CustomRandom::getInstance()->randInt(1, 100);
         int additionalRockNear;
         if (rPercent <= 1) additionalRockNear = 5;
         else if (rPercent <= 5) additionalRockNear = 4;
@@ -218,8 +218,8 @@ void BoardGenerator::generateRock() {
         int additionalRockGenerated = 0;
         int nbTry = 0;
         while (additionalRockGenerated < additionalRockNear && nbTry++ <= 100) {
-            int heightDelta = randInt(1, -1);
-            int lengthDelta = randInt(1, -1);
+            int heightDelta = CustomRandom::getInstance()->randInt(-1, 1);
+            int lengthDelta = CustomRandom::getInstance()->randInt(-1, 1);
 
             int posRockHeight = centerRockHeight + heightDelta;
             int posRockLength = centerRockLength + lengthDelta;
@@ -316,8 +316,4 @@ bool BoardGenerator::hasRockNeighbor(int height, int length) {
 
 bool BoardGenerator::isValidCell(int height, int length) {
     return height >= 0 && height < Config::get()->getHeight() && length >= 0 && length < Config::get()->getLength();
-}
-
-int BoardGenerator::randInt(int maxInclusive, int minInclusive) {
-    return rand() % (maxInclusive - minInclusive + 1) + minInclusive; // NOLINT(cert-msc50-cpp)
 }
