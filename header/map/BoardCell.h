@@ -4,6 +4,7 @@
 #include <list>
 #include "../ant/Ant.h"
 #include "../lib/CustomRandom.h"
+#include "../gui/TileEnum.h"
 
 using namespace std;
 
@@ -22,7 +23,7 @@ class BoardCell {
     double pheromoneAmount = 0;
     bool visited = false;
     int maxAntOnCell;
-    list<Ant *> *antOnCell{};
+    list<Ant *> *antOnCell = new list<Ant *>;
 
     void pheromoneSpreading() {};
 
@@ -38,6 +39,8 @@ public:
 
     virtual void tick() {};
 
+    int numberOfLayers();
+
     int getPosLength() const { return posLength; }
 
     int getPosHeight() const { return posHeight; }
@@ -50,6 +53,7 @@ public:
 
     int getRandomCellDecoration() const { return this->randomCellDecoration; }
 
+    int getFloorTileNumber();
 
 };
 
