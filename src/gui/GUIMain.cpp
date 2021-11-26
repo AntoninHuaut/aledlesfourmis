@@ -14,7 +14,7 @@ void renderingThread(threadData data) {
 }
 
 int runUI(Board *board) {
-    sf::RenderWindow window(sf::VideoMode(1200, 1200), "Ant Simulation");
+    sf::RenderWindow window(sf::VideoMode(1200, 900), "Ant Simulation");
 
     // Disabling OpenGL
     window.setActive(false);
