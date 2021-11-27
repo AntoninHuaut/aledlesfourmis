@@ -1,6 +1,6 @@
 {
   "gui": {
-    "tileSize": 32.0,
+    "tileSize": 32,
     "marginOutOfBorder": 0.0,
     "fpsMax": 60
   },

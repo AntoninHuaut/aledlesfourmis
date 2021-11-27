@@ -16,7 +16,7 @@ Config::Config() {
     std::ifstream i("../assets/config.json", std::ifstream::binary);
     i >> data;
 
-    tileSize = data["gui"]["tileSize"].asFloat();
+    tileSize = data["gui"]["tileSize"].asInt();
     marginOutOfBorder = data["gui"]["marginOutOfBorder"].asFloat();
     fpsMax = data["gui"]["fpsMax"].asInt();
 
@@ -49,7 +49,7 @@ Config::Config() {
     std::cout << " OK" << std::endl;
 }
 
-float Config::getTileSize() const {
+int Config::getTileSize() const {
     return tileSize;
 }
 

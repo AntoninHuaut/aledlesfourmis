@@ -9,7 +9,7 @@ class Config {
 
     static Config *instance;
 
-    float tileSize;
+    int tileSize;
     float marginOutOfBorder;
     int fpsMax;
 
@@ -50,7 +50,7 @@ public:
 
     static Config *get();
 
-    float getTileSize() const;
+    int getTileSize() const;
 
     float getMarginOutOfBorder() const;
 

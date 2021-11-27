@@ -118,7 +118,7 @@ int GUIMain::start() {
 
 void GUIMain::preventOutOfBorder(sf::RenderWindow *window, sf::View *simulationView,
                                  float zoom, sf::Vector2f *deltaPos) {
-    float tileSize = Config::get()->getTileSize();
+    int tileSize = Config::get()->getTileSize();
     float marginOutOfBorder = Config::get()->getMarginOutOfBorder();
     float mapLengthX = tileSize * Config::get()->getLength(); // NOLINT(cppcoreguidelines-narrowing-conversions)
     float mapHeightY = tileSize * Config::get()->getHeight(); // NOLINT(cppcoreguidelines-narrowing-conversions)
