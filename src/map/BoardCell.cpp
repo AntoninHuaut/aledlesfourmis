@@ -24,3 +24,13 @@ int BoardCell::numberOfLayers() {
 
     return 1;
 }
+
+list<int> *BoardCell::getOtherLayerTileNumbers() {
+    auto *tiles = new list<int>;
+
+    if (!antOnCell->empty()) {
+        tiles->push_back(antOnCell->back()->getAntTileNumber());
+    }
+
+    return tiles;
+}

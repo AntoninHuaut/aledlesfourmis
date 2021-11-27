@@ -57,6 +57,8 @@ public:
 
     int getFloorTileNumber();
 
+    list<int> *getOtherLayerTileNumbers();
+
 };
 
 #endif
