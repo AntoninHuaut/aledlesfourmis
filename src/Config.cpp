@@ -49,7 +49,7 @@ Config::Config() {
     std::cout << " OK" << std::endl;
 }
 
-unsigned int Config::getTileSize() const {
+float Config::getTileSize() const {
     return tileSize;
 }
 
