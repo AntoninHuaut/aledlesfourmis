@@ -73,10 +73,15 @@ int runUI(Board *board) {
                 case sf::Event::MouseWheelScrolled:
                     // Determine the scroll direction and adjust the zoom level
                     // Again, you can swap these to invert the direction
+
+                    auto boardHeight = Config::get()->getHeightFloat();
+                    auto boardLength = Config::get()->getLengthFloat();
+                    float zoomPadding = (log(boardHeight) * log(boardLength)) / (log(201.f) * log(211.f));
+
                     if (event.mouseWheelScroll.delta <= -1) {
-                        zoom = std::min(6.f, zoom + 1.f);
+                        zoom = std::min(6.f, zoom + zoomPadding);
                     } else if (event.mouseWheelScroll.delta >= 1) {
-                        zoom = std::max(.5f, zoom - 1.f);
+                        zoom = std::max(.5f, zoom - zoomPadding);
                     }
 
                     // Update our simView

@@ -56,6 +56,10 @@ public:
 
     int getFpsMax() const;
 
+    float getHeightFloat() const;
+
+    float getLengthFloat() const;
+
     int getHeight() const;
 
     int getLength() const;

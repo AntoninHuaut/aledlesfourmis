@@ -61,6 +61,14 @@ int Config::getFpsMax() const {
     return fpsMax;
 }
 
+float Config::getHeightFloat() const {
+    return static_cast<float>(height);
+}
+
+float Config::getLengthFloat() const {
+    return static_cast<float>(length);
+}
+
 int Config::getHeight() const {
     return height;
 }

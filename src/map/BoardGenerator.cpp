@@ -41,6 +41,7 @@ Board *BoardGenerator::generateBoard() {
     boardGenerator->generateBasicCell();
     boardGenerator->generateSmallFoodUnit();
     boardGenerator->generateBigFoodUnit();
+    boardGenerator->generateColony();
 
     /* TODO TEST */
     logBoardFile(boardGenerator);
@@ -180,8 +181,9 @@ void BoardGenerator::generateSmallFoodUnit() {
 }
 
 void BoardGenerator::generateRock() {
-    int amountRock = (int) round(
-            Config::get()->getLength() * Config::get()->getHeight() * Config::get()->getRockPercent());
+    auto boardHeight = Config::get()->getHeightFloat();
+    auto boardLength = Config::get()->getLengthFloat();
+    int amountRock = (int) round(boardHeight * boardLength * Config::get()->getRockPercent());
     int totalRockGenerated = 0;
 
     int randLengthMin = 0, randHeightMin = 0;
@@ -247,6 +249,22 @@ void BoardGenerator::generateBasicCell() {
             }
         }
     }
+}
+
+void BoardGenerator::generateColony() {
+    int centerHeight = Config::get()->getHeight();
+    centerHeight = (centerHeight - (centerHeight % 2)) / 2;
+    int centerLength = Config::get()->getLength();
+    centerLength = (centerLength - (centerLength % 2)) / 2;
+
+    auto cells = board->getCells();
+    auto centerCell = cells[centerHeight][centerLength];
+    if (centerCell != nullptr) {
+        delete centerCell;
+        cells[centerHeight][centerLength] = nullptr;
+    }
+
+    cells[centerHeight][centerLength] = new ColonyCell(centerLength, centerHeight);
 }
 
 BoardGenerator *BoardGenerator::createBoard() {

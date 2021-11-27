@@ -37,6 +37,8 @@ class BoardGenerator {
 
     void generateBasicCell();
 
+    void generateColony();
+
     bool hasRockNeighbor(int height, int length);
 
     bool hasFoodNeighbor(int height, int length);
