@@ -1,8 +1,8 @@
 #include "../../header/map/BoardGenerator.h"
 
-/* test */
 #include <iostream>
 
+/* test */
 void logBoardFile(BoardGenerator *boardGenerator) {
     ofstream outFile;
     outFile.open("mapTest.txt");
@@ -265,6 +265,22 @@ void BoardGenerator::generateColony() {
     }
 
     cells[centerHeight][centerLength] = new ColonyCell(centerLength, centerHeight);
+
+    // Removing the rock cells near the colony
+    for (int iHeight = -1; iHeight <= 1; iHeight++) {
+        for (int iLength = -1; iLength <= 1; iLength++) {
+            if (iHeight == 0 && iLength == 0) continue;
+
+            int tmpHeight = centerHeight + iHeight;
+            int tmpLength = centerLength + iLength;
+            auto neighborCell = cells[tmpHeight][tmpLength];
+
+            if (neighborCell != nullptr && neighborCell->getBoardCellType() == RockCellType) {
+                delete neighborCell;
+                cells[tmpHeight][tmpLength] = new BasicCell(tmpLength, tmpHeight);
+            }
+        }
+    }
 }
 
 BoardGenerator *BoardGenerator::createBoard() {
