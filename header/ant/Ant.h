@@ -2,6 +2,9 @@
 #define ANT_ANT_H
 
 #include <list>
+#include "../gui/TileEnum.h"
+#include <SFML/Graphics.hpp>
+#include "../map/BoardCell.h"
 
 using namespace std;
 
@@ -14,7 +17,7 @@ class Ant {
     int hoursSinceLastFeeding = 0;
     double foodConsumedEachDay;
 
-    list<BoardCell *> *cellTraveledSinceColony{};
+    list<BoardCell *> *cellTraveledSinceColony = new list<BoardCell *>;
 
     virtual void eatFood() {};
 
@@ -36,6 +39,8 @@ public:
     void setCell(BoardCell *cell) { this->currentCell = cell; };
 
     BoardCell *getCurrentCell() { return this->currentCell; };
+
+    int getAntTileNumber();
 
 };
 

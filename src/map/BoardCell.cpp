@@ -5,6 +5,9 @@ int BoardCell::getFloorTileNumber() {
 
     switch (this->boardCellType) {
 
+        case ColonyCellType:
+            return COLONY_FLOOR;
+
         case RockCellType:
             return ROCK_FLOOR;
 

@@ -8,6 +8,8 @@
 
 using namespace std;
 
+class Ant;
+
 enum BoardCellType {
     BasicCellType, RockCellType, ColonyCellType
 };
