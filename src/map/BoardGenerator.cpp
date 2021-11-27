@@ -9,7 +9,7 @@ void logBoardFile(BoardGenerator *boardGenerator) {
 
     for (int height = 0; height < Config::get()->getHeight(); height++) {
         for (int length = 0; length < Config::get()->getLength(); length++) {
-            BoardCell *boardCell = boardGenerator->getBoard()->getCells()[height][length];
+            auto *boardCell = boardGenerator->getBoard()->getCells()[height][length];
             BoardCellType boardCellType = boardCell->getBoardCellType();
             string type;
 
@@ -152,14 +152,15 @@ bool BoardGenerator::isValidBigFoodUnitCell(int height, int length) {
 }
 
 void BoardGenerator::generateSmallFoodUnit() {
-    int amountFoodUnit = (int) round(
-            Config::get()->getLength() * Config::get()->getHeight() * Config::get()->getFoodPercent());
+    auto boardHeight = Config::get()->getHeightFloat();
+    auto boardLength = Config::get()->getLengthFloat();
+    int amountFoodUnit = (int) round(boardHeight * boardLength * Config::get()->getFoodPercent());
     int totalFoodUnitGenerated = 0;
 
     int randLengthMin = 0, randHeightMin = 0;
     int randLengthMax = Config::get()->getLength() - 1, randHeightMax = Config::get()->getHeight() - 1;
 
-    BoardCell ***cells = this->getBoard()->getCells();
+    auto ***cells = this->getBoard()->getCells();
 
     while (totalFoodUnitGenerated < amountFoodUnit) {
         int centerFoodHeight = CustomRandom::getInstance()->randInt(randHeightMin, randHeightMax);
@@ -189,12 +190,12 @@ void BoardGenerator::generateRock() {
     int randLengthMin = 0, randHeightMin = 0;
     int randLengthMax = Config::get()->getLength() - 1, randHeightMax = Config::get()->getHeight() - 1;
 
-    BoardCell ***cells = this->getBoard()->getCells();
+    auto ***cells = this->getBoard()->getCells();
 
     while (totalRockGenerated < amountRock) {
         int centerRockHeight = CustomRandom::getInstance()->randInt(randHeightMin, randHeightMax);
         int centerRockLength = CustomRandom::getInstance()->randInt(randLengthMin, randLengthMax);
-        BoardCell *cell = cells[centerRockHeight][centerRockLength];
+        auto *cell = cells[centerRockHeight][centerRockLength];
 
         // If a cell already exist, skip to next random cell
         if (cell != nullptr) continue;
@@ -243,7 +244,7 @@ void BoardGenerator::generateRock() {
 void BoardGenerator::generateBasicCell() {
     for (int height = 0; height < Config::get()->getHeight(); height++) {
         for (int length = 0; length < Config::get()->getLength(); length++) {
-            BoardCell ***cells = getBoard()->getCells();
+            auto ***cells = getBoard()->getCells();
             if (cells[height][length] == nullptr) {
                 cells[height][length] = new BasicCell(length, height);
             }
@@ -257,8 +258,8 @@ void BoardGenerator::generateColony() {
     int centerLength = Config::get()->getLength();
     centerLength = (centerLength - (centerLength % 2)) / 2;
 
-    auto cells = board->getCells();
-    auto centerCell = cells[centerHeight][centerLength];
+    auto ***cells = board->getCells();
+    auto *centerCell = cells[centerHeight][centerLength];
     if (centerCell != nullptr) {
         delete centerCell;
         cells[centerHeight][centerLength] = nullptr;
@@ -273,7 +274,7 @@ void BoardGenerator::generateColony() {
 
             int tmpHeight = centerHeight + iHeight;
             int tmpLength = centerLength + iLength;
-            auto neighborCell = cells[tmpHeight][tmpLength];
+            auto *neighborCell = cells[tmpHeight][tmpLength];
 
             if (neighborCell != nullptr && neighborCell->getBoardCellType() == RockCellType) {
                 delete neighborCell;
@@ -318,7 +319,7 @@ bool BoardGenerator::hasFoodNeighbor(int height, int length) {
             int tmpLength = length + j;
             if (!isValidCell(tmpHeight, tmpLength)) continue;
 
-            BoardCell *nearbyCell = this->board->getCells()[tmpHeight][tmpLength];
+            auto *nearbyCell = this->board->getCells()[tmpHeight][tmpLength];
             if (nearbyCell != nullptr && nearbyCell->getBoardCellType() == BasicCellType) {
                 auto *basicCell = dynamic_cast<BasicCell *>(nearbyCell);
                 if (basicCell->getFoodAmount() > 0) {
@@ -339,7 +340,7 @@ bool BoardGenerator::hasRockNeighbor(int height, int length) {
             int tmpLength = length + j;
             if (!isValidCell(tmpHeight, tmpLength)) continue;
 
-            BoardCell *nearbyCell = this->board->getCells()[tmpHeight][tmpLength];
+            auto *nearbyCell = this->board->getCells()[tmpHeight][tmpLength];
             if (nearbyCell != nullptr && nearbyCell->getBoardCellType() == RockCellType) {
                 return true;
             }
