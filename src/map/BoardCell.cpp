@@ -4,7 +4,6 @@
 int BoardCell::getFloorTileNumber() {
 
     switch (this->boardCellType) {
-
         case ColonyCellType:
             return COLONY_FLOOR;
 
@@ -13,7 +12,6 @@ int BoardCell::getFloorTileNumber() {
 
         default:
             return BASIC_FLOOR + (this->getRandomCellDecoration());
-
     }
 }
 

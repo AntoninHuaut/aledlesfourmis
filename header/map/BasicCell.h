@@ -18,6 +18,11 @@ public:
     void setFoodAmount(double newFoodAmount) { this->foodAmount = newFoodAmount; };
 
     double getFoodAmount() const { return this->foodAmount; };
+
+    int numberOfLayers() override;
+
+    list<int> *getOtherLayerTileNumbers() override;
+    
 };
 
 #endif

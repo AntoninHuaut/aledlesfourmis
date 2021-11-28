@@ -41,7 +41,7 @@ public:
 
     virtual void tick() {};
 
-    int numberOfLayers();
+    virtual int numberOfLayers();
 
     int getPosLength() const { return posLength; }
 
@@ -57,7 +57,7 @@ public:
 
     int getFloorTileNumber();
 
-    list<int> *getOtherLayerTileNumbers();
+    virtual list<int> *getOtherLayerTileNumbers();
 
     list<Ant *> *getAntOnCell() const {
         return antOnCell;
