@@ -2,6 +2,7 @@
 #define ANT_BOARD_H
 
 #include "BoardCell.h"
+#include "ColonyCell.h"
 #include <SFML/Graphics.hpp>
 #include "../Config.h"
 #include "../gui/TileEnum.h"
@@ -11,13 +12,12 @@ using namespace std;
 class Board : public sf::Drawable, public sf::Transformable {
 
     BoardCell ***cells;
-//    list<ColonyCell*> coloniesCells;
+    list<ColonyCell *> *coloniesCells;
 
     sf::VertexArray m_vertices;
     sf::Texture m_tileset;
 
-    void draw(sf::RenderTarget& target, sf::RenderStates states) const override
-    {
+    void draw(sf::RenderTarget &target, sf::RenderStates states) const override {
         // apply the transform
         states.transform *= getTransform();
 
@@ -29,13 +29,16 @@ class Board : public sf::Drawable, public sf::Transformable {
     }
 
 public:
-    explicit Board(BoardCell ***cells/*, list<ColonyCell*> coloniesCells*/) {
+    explicit Board(BoardCell ***cells) {
+        this->coloniesCells = new list<ColonyCell *>;
         this->cells = cells;
-//        this->coloniesCells = coloniesCells;
-
     };
 
     BoardCell ***getCells() { return cells; }
+
+    list<ColonyCell *> *getColoniesCells() const;
+
+    void addColoniesCell(ColonyCell *newColoniesCells);
 
     list<BoardCell *> getNearbyCells(BoardCell *cell);
 

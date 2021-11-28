@@ -83,3 +83,11 @@ bool Board::render() {
     return true;
 
 }
+
+list<ColonyCell *> *Board::getColoniesCells() const {
+    return coloniesCells;
+}
+
+void Board::addColoniesCell(ColonyCell *newColoniesCells) {
+    this->coloniesCells->push_back(newColoniesCells);
+}

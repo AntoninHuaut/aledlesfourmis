@@ -10,6 +10,7 @@
 #include "BasicCell.h"
 #include "RockCell.h"
 #include "ColonyCell.h"
+#include "../ant/Queen.h"
 #include "../Config.h"
 #include "../lib/CustomRandom.h"
 
@@ -38,6 +39,8 @@ class BoardGenerator {
     void generateBasicCell();
 
     void generateColony();
+
+    void removeRockNearColony(int centerHeight, int centerLength);
 
     bool hasRockNeighbor(int height, int length);
 

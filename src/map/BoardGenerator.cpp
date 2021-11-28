@@ -1,40 +1,5 @@
 #include "../../header/map/BoardGenerator.h"
 
-#include <iostream>
-
-/* test */
-void logBoardFile(BoardGenerator *boardGenerator) {
-    ofstream outFile;
-    outFile.open("mapTest.txt");
-
-    for (int height = 0; height < Config::get()->getHeight(); height++) {
-        for (int length = 0; length < Config::get()->getLength(); length++) {
-            auto *boardCell = boardGenerator->getBoard()->getCells()[height][length];
-            BoardCellType boardCellType = boardCell->getBoardCellType();
-            string type;
-
-            if (boardCellType == RockCellType) {
-                type = " X ";
-            } else if (boardCellType == ColonyCellType) {
-                type = " O ";
-            } else if (boardCellType == BasicCellType) {
-                auto *basicCell = dynamic_cast<BasicCell *>(boardCell);
-                type = " " + to_string(basicCell->getFoodAmount()) + " ";
-            } else {
-                type = " ? ";
-            }
-
-            outFile << type;
-        }
-
-        outFile << "\n\n\n";
-    }
-
-    outFile.close();
-}
-
-/* */
-
 Board *BoardGenerator::generateBoard() {
     auto *boardGenerator = BoardGenerator::createBoard();
     boardGenerator->generateRock();
@@ -42,10 +7,6 @@ Board *BoardGenerator::generateBoard() {
     boardGenerator->generateSmallFoodUnit();
     boardGenerator->generateBigFoodUnit();
     boardGenerator->generateColony();
-
-    /* TODO TEST */
-    logBoardFile(boardGenerator);
-    /* END TEST */
 
     return boardGenerator->board;
 }
@@ -265,9 +226,20 @@ void BoardGenerator::generateColony() {
         cells[centerHeight][centerLength] = nullptr;
     }
 
-    cells[centerHeight][centerLength] = new ColonyCell(centerLength, centerHeight);
+    auto *colonyCell = new ColonyCell(centerLength, centerHeight);
 
-    // Removing the rock cells near the colony
+    cells[centerHeight][centerLength] = colonyCell;
+    board->addColoniesCell(colonyCell);
+
+    auto *queen = new Queen(colonyCell);
+    colonyCell->addAntOnCell(queen);
+
+    removeRockNearColony(centerHeight, centerLength);
+}
+
+void BoardGenerator::removeRockNearColony(int centerHeight, int centerLength) {
+    auto ***cells = board->getCells();
+    
     for (int iHeight = -1; iHeight <= 1; iHeight++) {
         for (int iLength = -1; iLength <= 1; iLength++) {
             if (iHeight == 0 && iLength == 0) continue;
