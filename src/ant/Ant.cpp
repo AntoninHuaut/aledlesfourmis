@@ -25,6 +25,6 @@ int Ant::getAntTileNumber() {
             tile += 7;
 
     }
-    
+
     return tile;
 }

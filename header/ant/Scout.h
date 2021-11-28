@@ -9,7 +9,8 @@ class Scout : public Ant, public AntAge {
 
 public:
     explicit Scout(BoardCell *currentCell) :
-            Ant(Config::get()->getDefaultHoursBeforeDeath(), Config::get()->getDefaultFoodConsumingTick(), currentCell),
+            Ant(Config::get()->getDefaultHoursBeforeDeath(), Config::get()->getDefaultFoodConsumingTick(),
+                currentCell, ScoutType),
             AntAge(Config::get()->getScootHoursBeforeAdult()) {};
 
 };

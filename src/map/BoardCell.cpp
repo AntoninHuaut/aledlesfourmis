@@ -34,15 +34,3 @@ list<int> *BoardCell::getOtherLayerTileNumbers() {
 
     return tiles;
 }
-
-list<Ant *> *BoardCell::getAntOnCell() const {
-    return antOnCell;
-}
-
-void BoardCell::addAntOnCell(Ant *antToAdd) {
-    this->antOnCell->push_back(antToAdd);
-}
-
-void BoardCell::removeAntOnCell(Ant *antToRemove) {
-    this->antOnCell->remove(antToRemove);
-}

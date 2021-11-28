@@ -53,17 +53,23 @@ public:
 
     bool haveSpace() { return this->antOnCell->size() < maxAntOnCell; }
 
-    list<Ant *> *getAntOnCell() const;
-
-    void addAntOnCell(Ant *antToAdd);
-
-    void removeAntOnCell(Ant *antToRemove);
-
     int getRandomCellDecoration() const { return this->randomCellDecoration; }
 
     int getFloorTileNumber();
 
     list<int> *getOtherLayerTileNumbers();
+
+    list<Ant *> *getAntOnCell() const {
+        return antOnCell;
+    }
+
+    void addAntOnCell(Ant *antToAdd) {
+        this->antOnCell->push_back(antToAdd);
+    }
+
+    void removeAntOnCell(Ant *antToRemove) {
+        this->antOnCell->remove(antToRemove);
+    }
 
 };
 

@@ -38,23 +38,35 @@ public:
         this->cells = cells;
     };
 
-    list<ColonyCell *> *getColoniesCells() const;
-
-    void addColoniesCell(ColonyCell *newColoniesCells);
-
-    list<Ant *> *getAntList() const;
-
-    void addAntList(Ant *ant);
-
-    Ant *getAntQueen() const;
-
-    void setAntQueen(Ant *newAntQueen);
-
     BoardCell ***getCells() { return cells; }
 
     list<BoardCell *> getNearbyCells(BoardCell *cell);
 
     bool render();
+
+    list<ColonyCell *> *getColoniesCells() const {
+        return coloniesCells;
+    }
+
+    void addColoniesCell(ColonyCell *newColoniesCells) {
+        coloniesCells->push_back(newColoniesCells);
+    }
+
+    list<Ant *> *getAntList() const {
+        return antList;
+    }
+
+    void addAntList(Ant *ant) {
+        antList->push_back(ant);
+    }
+
+    Ant *getAntQueen() const {
+        return antQueen;
+    }
+
+    void setAntQueen(Ant *newAntQueen) {
+        antQueen = newAntQueen;
+    }
 };
 
 #endif

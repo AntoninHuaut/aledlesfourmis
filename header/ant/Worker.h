@@ -16,7 +16,8 @@ class Worker : public Ant, public AntAge {
 
 public:
     explicit Worker(BoardCell *currentCell) :
-            Ant(Config::get()->getDefaultHoursBeforeDeath(), Config::get()->getDefaultFoodConsumingTick(), currentCell),
+            Ant(Config::get()->getDefaultHoursBeforeDeath(), Config::get()->getDefaultFoodConsumingTick(),
+                currentCell, WorkerType),
             AntAge(Config::get()->getWorkerHoursBeforeAdult()) {};
 
 };

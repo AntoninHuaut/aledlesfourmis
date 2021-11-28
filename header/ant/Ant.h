@@ -2,17 +2,23 @@
 #define ANT_ANT_H
 
 #include <list>
-#include "../gui/TileEnum.h"
 #include <SFML/Graphics.hpp>
+#include "../gui/TileEnum.h"
 #include "../map/BoardCell.h"
 
 using namespace std;
 
 class BoardCell;
 
+enum AntType {
+    QueenType, ScoutType, SoldierType, WorkerType, SlaveOwnerType
+};
+
 class Ant {
 
     BoardCell *currentCell;
+    AntType antType;
+
     int hoursBeforeDeath;
     int hoursSinceLastFeeding = 0;
     double foodConsumedEachDay;
@@ -26,21 +32,26 @@ class Ant {
     virtual void kill() {};
 
 public:
-    Ant(int hoursBeforeDeath, double foodConsumedEachDay, BoardCell *currentCell) {
+    Ant(int hoursBeforeDeath, double foodConsumedEachDay, BoardCell *currentCell, AntType antType) {
         this->hoursBeforeDeath = hoursBeforeDeath;
         this->foodConsumedEachDay = foodConsumedEachDay;
         this->currentCell = currentCell;
+        this->antType = antType;
     };
 
     virtual void tick() {};
 
-    virtual bool attackAnt(Ant *target) { return false; };
+    virtual bool attackAnt(Ant *target) { return false; }
 
-    void setCell(BoardCell *cell) { this->currentCell = cell; };
+    void setCell(BoardCell *cell) { this->currentCell = cell; }
 
-    BoardCell *getCurrentCell() { return this->currentCell; };
+    BoardCell *getCurrentCell() { return this->currentCell; }
 
     int getAntTileNumber();
+
+    AntType getAntType() {
+        return antType;
+    }
 
 };
 

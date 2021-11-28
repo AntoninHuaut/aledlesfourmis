@@ -12,7 +12,7 @@ class Queen : public Ant {
 public:
     explicit Queen(BoardCell *currentCell) :
             Ant(Config::get()->getQueenHoursBeforeDeath(), Config::get()->getQueenFoodConsumingTick(),
-                currentCell) {};
+                currentCell, QueenType) {};
 
     void tick() override;
 
