@@ -15,16 +15,40 @@ struct threadData {
 class GUIMain {
 
     Board *board;
+    sf::RenderWindow *window;
+    sf::View simView;
+
+    sf::Vector2f oldPos;
+    bool moving = false;
+    float zoom = 1;
+    float currentZoom = zoom;
+
+    void runUI();
 
 public:
-    explicit GUIMain(Board *board) { this->board = board; }
 
-    int start();
+    explicit GUIMain(Board *board) {
+        this->board = board;
+        this->window = new sf::RenderWindow(sf::VideoMode(1200, 900), "Ant Simulation");
 
-    static void preventOutOfBorder(sf::RenderWindow *window, sf::View *simulationView,
-                                   float zoom, sf::Vector2f *deltaPos);
+        runUI();
+    }
 
-    static sf::View getLetterboxView(sf::View view, float windowWidth, float windowHeight);
+    void onClosed();
+
+    void onMouseButtonPressed(sf::Event event);
+
+    void onMouseButtonReleased(sf::Event event);
+
+    void onMouseMoved(sf::Event event);
+
+    void onMouseWheelScrolled(sf::Event event);
+
+    void onResized(sf::Event event);
+
+    void preventOutOfBorder(sf::Vector2f *deltaPos);
+
+    void letterBoxView(float windowWidth, float windowHeight);
 };
 
 

@@ -14,8 +14,7 @@ int main() {
     Config::get(); // Force configuration to be loaded
 
     auto *board = BoardGenerator::generateBoard();
-    auto *gui = new GUIMain(board);
-    gui->start();
+    new GUIMain(board);
 
     return 0;
 }
