@@ -21,7 +21,7 @@ bool Board::render() {
         for (unsigned int j = 0; j < width; ++j) {
 
             // Cells with multiple layers
-            if (cells[i][j]->getBoardCellType() == BasicCellType && cells[i][j]->numberOfLayers() >= 2) {
+            if (cells[i][j]->numberOfLayers() >= 2) {
                 cellsWithOtherLayer->push_back(cells[i][j]);
             }
 
@@ -54,8 +54,9 @@ bool Board::render() {
 
         for (auto const &tileNumber: *cell->getOtherLayerTileNumbers()) {
 
-            sf::Vertex *quad = &m_vertices[vertriceSize];
             vertriceSize += 4;
+            m_vertices.resize(vertriceSize);
+            sf::Vertex *quad = &m_vertices[vertriceSize - 4];
 
             int tu = tileNumber % (m_tileset.getSize().x / tileSize.x);
             int tv = tileNumber / (m_tileset.getSize().x / tileSize.x);
@@ -78,6 +79,6 @@ bool Board::render() {
         }
 
     }
-    
+
     return true;
 }
