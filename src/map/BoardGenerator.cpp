@@ -18,10 +18,10 @@ void BoardGenerator::generateBigFoodUnit() {
         posTwo = CustomRandom::randInt(1, 4);
     }
 
-    int firstPosHeight = posOne == 1 % 2 == 1 ? 0 : Config::get()->getHeight() - 1;
+    int firstPosHeight = (posOne % 2) == 1 == 1 ? 0 : Config::get()->getHeight() - 1;
     int firstPosLength = posOne <= 2 ? 0 : Config::get()->getLength() - 1;
 
-    int secondPosHeight = posTwo == 1 % 2 == 1 ? 0 : Config::get()->getHeight() - 1;
+    int secondPosHeight = (posTwo % 2) == 1 == 1 ? 0 : Config::get()->getHeight() - 1;
     int secondPosLength = posTwo <= 2 ? 0 : Config::get()->getLength() - 1;
 
     generateBigFoodUnitCross(firstPosHeight, firstPosLength);
