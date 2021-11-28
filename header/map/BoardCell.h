@@ -36,7 +36,7 @@ public:
         this->posHeight = posHeight;
         this->boardCellType = boardCellType;
 
-        this->randomCellDecoration = CustomRandom::getInstance()->randInt(0, 3);
+        this->randomCellDecoration = CustomRandom::randInt(0, 3);
     };
 
     virtual void tick() {};

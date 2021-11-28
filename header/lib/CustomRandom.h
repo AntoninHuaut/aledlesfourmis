@@ -5,19 +5,10 @@
 
 class CustomRandom {
 
-    static CustomRandom *instance;
-
 public:
     CustomRandom() = default;
 
-    static CustomRandom *getInstance() {
-        if (instance == nullptr) {
-            instance = new CustomRandom();
-        }
-        return instance;
-    }
-
-    int randInt(int minInclusive, int maxInclusive);
+    static int randInt(int minInclusive, int maxInclusive);
 
 };
 

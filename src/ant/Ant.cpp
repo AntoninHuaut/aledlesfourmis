@@ -8,7 +8,7 @@ Ant::Ant(int hoursBeforeDeath, double foodConsumedEachDay, BoardCell *currentCel
     this->antType = antType;
 
     this->currentCell->addAntOnCell(this);
-};
+}
 
 int Ant::getAntTileNumber() {
     int tile = BLACK_ANT;
