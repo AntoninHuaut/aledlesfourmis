@@ -1,4 +1,14 @@
 #include "../../header/ant/Ant.h"
+#include "../../header/map/BoardCell.h"
+
+Ant::Ant(int hoursBeforeDeath, double foodConsumedEachDay, BoardCell *currentCell, AntType antType) {
+    this->hoursBeforeDeath = hoursBeforeDeath;
+    this->foodConsumedEachDay = foodConsumedEachDay;
+    this->currentCell = currentCell;
+    this->antType = antType;
+
+    this->currentCell->addAntOnCell(this);
+};
 
 int Ant::getAntTileNumber() {
     int tile = BLACK_ANT;

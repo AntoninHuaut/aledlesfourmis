@@ -229,12 +229,14 @@ void BoardGenerator::generateColony() {
     auto *colonyCell = new ColonyCell(centerLength, centerHeight);
     cells[centerHeight][centerLength] = colonyCell;
     board->addColoniesCell(colonyCell);
+    board->setAntQueen(new Queen(colonyCell));
 
     removeRockNearColony(centerHeight, centerLength);
 
-    auto *queen = new Queen(colonyCell);
-    colonyCell->addAntOnCell(queen);
-    board->setAntQueen(queen);
+    /* TODO TEST */
+    auto *firstCell = cells[0][0];
+    firstCell->addAntOnCell(new Scout(firstCell));
+    /* */
 }
 
 void BoardGenerator::removeRockNearColony(int centerHeight, int centerLength) {

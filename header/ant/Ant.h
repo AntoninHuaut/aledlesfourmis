@@ -4,7 +4,6 @@
 #include <list>
 #include <SFML/Graphics.hpp>
 #include "../gui/TileEnum.h"
-#include "../map/BoardCell.h"
 
 using namespace std;
 
@@ -32,18 +31,13 @@ class Ant {
     virtual void kill() {};
 
 public:
-    Ant(int hoursBeforeDeath, double foodConsumedEachDay, BoardCell *currentCell, AntType antType) {
-        this->hoursBeforeDeath = hoursBeforeDeath;
-        this->foodConsumedEachDay = foodConsumedEachDay;
-        this->currentCell = currentCell;
-        this->antType = antType;
-    };
+    Ant(int hoursBeforeDeath, double foodConsumedEachDay, BoardCell *currentCell, AntType antType);
 
     virtual void tick() {};
 
     virtual bool attackAnt(Ant *target) { return false; }
 
-    void setCell(BoardCell *cell) { this->currentCell = cell; }
+    void setCurrentCell(BoardCell *cell) { this->currentCell = cell; }
 
     BoardCell *getCurrentCell() { return this->currentCell; }
 
