@@ -14,6 +14,9 @@ class Board : public sf::Drawable, public sf::Transformable {
     BoardCell ***cells;
     list<ColonyCell *> *coloniesCells;
 
+    list<Ant *> *antList;
+    Ant *antQueen;
+
     sf::VertexArray m_vertices;
     sf::Texture m_tileset;
 
@@ -31,14 +34,23 @@ class Board : public sf::Drawable, public sf::Transformable {
 public:
     explicit Board(BoardCell ***cells) {
         this->coloniesCells = new list<ColonyCell *>;
+        this->antList = new list<Ant *>;
         this->cells = cells;
     };
-
-    BoardCell ***getCells() { return cells; }
 
     list<ColonyCell *> *getColoniesCells() const;
 
     void addColoniesCell(ColonyCell *newColoniesCells);
+
+    list<Ant *> *getAntList() const;
+
+    void addAntList(Ant *ant);
+
+    Ant *getAntQueen() const;
+
+    void setAntQueen(Ant *newAntQueen);
+
+    BoardCell ***getCells() { return cells; }
 
     list<BoardCell *> getNearbyCells(BoardCell *cell);
 

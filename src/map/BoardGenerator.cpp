@@ -227,19 +227,19 @@ void BoardGenerator::generateColony() {
     }
 
     auto *colonyCell = new ColonyCell(centerLength, centerHeight);
-
     cells[centerHeight][centerLength] = colonyCell;
     board->addColoniesCell(colonyCell);
 
+    removeRockNearColony(centerHeight, centerLength);
+
     auto *queen = new Queen(colonyCell);
     colonyCell->addAntOnCell(queen);
-
-    removeRockNearColony(centerHeight, centerLength);
+    board->setAntQueen(queen);
 }
 
 void BoardGenerator::removeRockNearColony(int centerHeight, int centerLength) {
     auto ***cells = board->getCells();
-    
+
     for (int iHeight = -1; iHeight <= 1; iHeight++) {
         for (int iLength = -1; iLength <= 1; iLength++) {
             if (iHeight == 0 && iLength == 0) continue;

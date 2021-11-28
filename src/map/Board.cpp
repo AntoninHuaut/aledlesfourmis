@@ -91,3 +91,19 @@ list<ColonyCell *> *Board::getColoniesCells() const {
 void Board::addColoniesCell(ColonyCell *newColoniesCells) {
     this->coloniesCells->push_back(newColoniesCells);
 }
+
+list<Ant *> *Board::getAntList() const {
+    return antList;
+}
+
+void Board::addAntList(Ant *ant) {
+    this->antList->push_back(ant);
+}
+
+Ant *Board::getAntQueen() const {
+    return antQueen;
+}
+
+void Board::setAntQueen(Ant *newAntQueen) {
+    this->antQueen = newAntQueen;
+}
