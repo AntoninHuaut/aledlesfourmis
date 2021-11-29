@@ -62,3 +62,12 @@ list<BoardCell *> *Ant::getAvailableCellToMove(Board *board) {
 
     return cells;
 }
+
+void Ant::goToCell(BoardCell *newCell) {
+    this->currentCell->removeAntOnCell(this);
+    this->addCellTraveled(this->currentCell);
+
+    newCell->addAntOnCell(this);
+    this->currentCell = newCell;
+}
+

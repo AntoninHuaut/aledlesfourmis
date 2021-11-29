@@ -42,8 +42,6 @@ public:
         this->finishGame = newFinishGame;
     }
 
-    void moveAnt(Ant *ant, BoardCell *newCell);
-
     BoardCell ***getCells() { return cells; }
 
     list<BoardCell *> *getNearbyCells(BoardCell *cell);
@@ -73,6 +71,9 @@ public:
     void setAntQueen(Queen *newAntQueen) {
         antQueen = newAntQueen;
     }
+
+    BoardCell *getCenterCell();
+
 };
 
 #endif

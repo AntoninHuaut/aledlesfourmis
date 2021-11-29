@@ -1,4 +1,5 @@
 #include "../../header/map/BoardGenerator.h"
+#include "../../header/ant/SlaveOwner.h"
 
 Board *BoardGenerator::generateBoard() {
     auto *boardGenerator = BoardGenerator::createBoard();
@@ -231,12 +232,12 @@ void BoardGenerator::generateColony() {
     board->addColoniesCell(colonyCell);
     board->setAntQueen(new Queen(colonyCell));
 
-    removeRockNearColony(centerHeight, centerLength);
-
-    /* TODO TEST */
     auto *firstCell = cells[0][0];
-    firstCell->addAntOnCell(new Scout(firstCell));
-    /* */
+    auto ant = new SlaveOwner(firstCell);
+    firstCell->addAntOnCell(ant);
+    board->addAntList(ant);
+
+    removeRockNearColony(centerHeight, centerLength);
 }
 
 void BoardGenerator::removeRockNearColony(int centerHeight, int centerLength) {

@@ -24,14 +24,14 @@ class Ant {
     int hoursSinceLastFeeding = 0;
     double foodConsumedEachDay;
 
-    list<BoardCell *> *cellTraveledSinceColony = new list<BoardCell *>;
-
     virtual void eatFood() {};
 
     virtual void putPheromones() {};
 
     virtual void kill() {};
 
+protected:
+    list<BoardCell *> *cellTraveledSinceColony = new list<BoardCell *>;
 public:
     Ant(int hoursBeforeDeath, double foodConsumedEachDay, BoardCell *currentCell, AntType antType);
 
@@ -40,8 +40,6 @@ public:
     virtual void tick(Board *board) {};
 
     virtual bool attackAnt(Ant *target) { return false; }
-
-    void setCurrentCell(BoardCell *cell) { this->currentCell = cell; }
 
     BoardCell *getCurrentCell() { return this->currentCell; }
 
@@ -56,6 +54,9 @@ public:
     }
 
     list<BoardCell *> *getAvailableCellToMove(Board *board);
+
+    void goToCell(BoardCell *newCell);
+
 
 };
 

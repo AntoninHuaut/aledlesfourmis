@@ -9,6 +9,6 @@ void Queen::tick(Board *board) {
 
     auto newCellIt = list->begin();
     std::advance(newCellIt, rand() % list->size()); // NOLINT(cert-msc50-cpp)
-    board->moveAnt(this, *newCellIt);
+    this->goToCell(*newCellIt);
     /* */
 }
