@@ -58,7 +58,7 @@ list<BoardCell *> *Ant::getAvailableCellToMove(Board *board) {
         }
     }
 
-    free(nearbyCells);
+    //free(nearbyCells);
 
     return cells;
 }

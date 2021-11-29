@@ -98,7 +98,7 @@ list<BoardCell *> *Board::getNearbyCells(BoardCell *cell) {
 
             int tmpHeight = cell->getPosHeight() + i;
             int tmpLength = cell->getPosLength() + j;
-            if (!BoardGenerator::isValidCell(tmpHeight, tmpLength)) continue;
+            if (tmpHeight < 0 || tmpLength < 0 || tmpHeight >= Config::get()->getHeight() || tmpLength >= Config::get()->getLength()) continue;
 
             if (this->cells[tmpHeight][tmpLength] != nullptr)
                 nearbyCells->push_back(this->cells[tmpHeight][tmpLength]);
