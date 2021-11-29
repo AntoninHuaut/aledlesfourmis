@@ -1,7 +1,12 @@
 #include "../../header/map/Board.h"
 
-bool Board::render() {
+void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    states.transform *= getTransform();
+    states.texture = &m_tileset;
+    target.draw(m_vertices, states);
+}
 
+bool Board::render() {
     if (!m_tileset.loadFromFile("./assets/tileset.png"))
         return false;
 

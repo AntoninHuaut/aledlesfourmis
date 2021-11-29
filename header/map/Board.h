@@ -20,16 +20,7 @@ class Board : public sf::Drawable, public sf::Transformable {
     sf::VertexArray m_vertices;
     sf::Texture m_tileset;
 
-    void draw(sf::RenderTarget &target, sf::RenderStates states) const override {
-        // apply the transform
-        states.transform *= getTransform();
-
-        // apply the tileset texture
-        states.texture = &m_tileset;
-
-        // draw the vertex array
-        target.draw(m_vertices, states);
-    }
+    void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 public:
     explicit Board(BoardCell ***cells) {
