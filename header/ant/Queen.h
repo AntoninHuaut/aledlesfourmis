@@ -14,7 +14,7 @@ public:
             Ant(Config::get()->getQueenHoursBeforeDeath(), Config::get()->getQueenFoodConsumingTick(),
                 currentCell, QueenType) {};
 
-    void tick() override;
+    void tick(Board *board) override;
 
 };
 

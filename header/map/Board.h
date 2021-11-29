@@ -9,13 +9,15 @@
 
 using namespace std;
 
+class Queen;
+
 class Board : public sf::Drawable, public sf::Transformable {
 
     BoardCell ***cells;
     list<ColonyCell *> *coloniesCells;
 
     list<Ant *> *antList;
-    Ant *antQueen;
+    Queen *antQueen;
 
     sf::VertexArray m_vertices;
     sf::Texture m_tileset;
@@ -59,11 +61,11 @@ public:
         antList->push_back(ant);
     }
 
-    Ant *getAntQueen() const {
+    Queen *getAntQueen() const {
         return antQueen;
     }
 
-    void setAntQueen(Ant *newAntQueen) {
+    void setAntQueen(Queen *newAntQueen) {
         antQueen = newAntQueen;
     }
 };

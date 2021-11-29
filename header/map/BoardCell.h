@@ -2,7 +2,6 @@
 #define ANT_BOARDCELL_H
 
 #include <list>
-#include "../ant/Ant.h"
 #include "../lib/CustomRandom.h"
 #include "../core/TileEnum.h"
 

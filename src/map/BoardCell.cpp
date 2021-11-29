@@ -1,5 +1,5 @@
 #include "../../header/map/BoardCell.h"
-
+#include "../../header/ant/Ant.h"
 
 int BoardCell::getFloorTileNumber() {
 

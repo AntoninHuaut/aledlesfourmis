@@ -4,6 +4,7 @@
 #include <list>
 #include <SFML/Graphics.hpp>
 #include "../core/TileEnum.h"
+#include "../map/Board.h"
 
 using namespace std;
 
@@ -33,7 +34,7 @@ class Ant {
 public:
     Ant(int hoursBeforeDeath, double foodConsumedEachDay, BoardCell *currentCell, AntType antType);
 
-    virtual void tick() {};
+    virtual void tick(Board *board) {};
 
     virtual bool attackAnt(Ant *target) { return false; }
 

@@ -1,26 +1,24 @@
 #include "../../header/core/Game.h"
+#include "../../header/ant/Ant.h"
+#include "../../header/ant/Queen.h"
 
 void Game::tickGame() {
-    incrementAge();
-    checkQueenChild();
-    moveAnts();
-    consumeFoods();
+    tickQueen();
+    tickAnts();
 
     board->calcRender();
 }
 
-void Game::incrementAge() {
-    
+void Game::tickAnts() {
+    for (auto *ant: *board->getAntList()) {
+        // TODO arg
+        // increment age
+        // move ant
+        // consume food
+        ant->tick(board);
+    }
 }
 
-void Game::checkQueenChild() {
-
-}
-
-void Game::moveAnts() {
-
-}
-
-void Game::consumeFoods() {
-
+void Game::tickQueen() {
+    board->getAntQueen()->tick(board);
 }

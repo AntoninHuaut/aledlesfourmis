@@ -14,13 +14,9 @@ public:
 
     void tickGame();
 
-    void incrementAge();
+    void tickAnts();
 
-    void checkQueenChild();
-
-    void moveAnts();
-
-    void consumeFoods();
+    void tickQueen();
 };
 
 
