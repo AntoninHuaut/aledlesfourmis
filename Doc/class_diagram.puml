@@ -1,42 +1,39 @@
 @startuml Ant
 
 class Config {
-    + {static} double DEFAULT_FOOD_CONSUMING_TICK = 0.001
-    + {static} int DEFAULT_HOURS_BEFORE_DEATH = 8760
+    - {static} Config *instance
 
-    + {static} int NEW_ANT_EVERY_DAY = 2    
-    + {static} double QUEEN_FOOD_CONSUMING_TICK = 0.01
-    + {static} int QUEEN_HOURS_BEFORE_DEATH = 87600
+    - int tileSize
+    - float marginOutOfBorder
+    - int fpsMax
 
-    + {static} int WORKER_HOURS_BEFORE_ADULT = 360
-    + {static} int WORKER_MAX_FOOD_CARRIED_AMOUNT = 1
+    - int height
+    - int length
 
-    + {static} int SCOOT_HOURS_BEFORE_ADULT = 48
+    - float rockPercent
+    - float foodPercent
+    - int smallFoodUnitValue
+    - int bigFoodUnitValue
 
-    + {static} int SOLDIER_HOURS_BEFORE_VISIT_COLONY = 2400
+    - int rockMaxAntOnCell
+    - int basicCellMaxAntOnCell
+    - int colonyMaxAntOnCell
 
-    + {static} int SLAVE_OWNER_MAX_HOURS_SURVIVE_BEFORE_FEEDING = 240
+    - float defaultFoodConsumingTick
+    - float queenFoodConsumingTick
 
-    + {static} int ROCK_MAX_ANT_ON_CELL = 0
+    - int queenHoursBeforeDeath
+    - int defaultHoursBeforeDeath
 
-    + {static} int BASIC_CELL_MAX_ANT_ON_CELL = 12
+    - int scootHoursBeforeAdult
+    - int workerHoursBeforeAdult
 
-    + {static} int COLONY_MAX_ANT_ON_CELL = 100
+    - int newAntEveryDay
+    - int workerMaxFoodAmountCanCarried
+    - int soldierHoursBeforeVisitColony
+    - int slaveOwnerHoursBeforeHunger
 
-    + {static} double ROCK_PERCENT = 0.3
-    + {static} double ROCK_SIZE_ONE_PERCENT = 0.5
-    + {static} double ROCK_SIZE_TWO_PERCENT = 0.3
-    + {static} double ROCK_SIZE_THREE_PERCENT = 0.1
-    + {static} double ROCK_SIZE_FOUR_PERCENT = 0.5
-    + {static} double ROCK_SIZE_FIVE_PERCENT = 0.4
-    + {static} double ROCK_SIZE_SIZE_PERCENT = 0.1
-
-    + {static} double FOOD_CASE_NUMBER_PERCENT = 0.0002
-    + {static} int SMALL_FOOD_UNIT_VALUE = 10
-    + {static} int BIG_FOOD_UNIT_VALUE = 20000
-
-    + {static} int LENGTH = 211
-    + {static} int HEIGHT = 201
+    + {static} Config get()
 }
 
 abstract class Ant {
