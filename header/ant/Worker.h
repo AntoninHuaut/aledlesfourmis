@@ -2,10 +2,10 @@
 #define ANT_WORKER_H
 
 #include "Ant.h"
-#include "AntAge.h"
+#include "Age.h"
 #include "../Config.h"
 
-class Worker : public Ant, public AntAge {
+class Worker : public Ant, public Age {
 
     double pheromoneAmount = 500;
     double foodCarriedAmount = 0;
@@ -18,7 +18,7 @@ public:
     explicit Worker(BoardCell *currentCell) :
             Ant(Config::get()->getDefaultHoursBeforeDeath(), Config::get()->getDefaultFoodConsumingTick(),
                 currentCell, WorkerType),
-            AntAge(Config::get()->getWorkerHoursBeforeAdult()) {};
+            Age(Config::get()->getWorkerHoursBeforeAdult()) {};
 
 };
 
