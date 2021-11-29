@@ -43,13 +43,17 @@ public:
 
     BoardCell *getCurrentCell() { return this->currentCell; }
 
+    void addCellTraveled(BoardCell *cell) {
+        this->cellTraveledSinceColony->push_back(cell);
+    }
+
     int getAntTileNumber();
 
     AntType getAntType() {
         return antType;
     }
 
-    list<BoardCell *> *availableCellToMove(Board *board);
+    list<BoardCell *> *getAvailableCellToMove(Board *board);
 
 };
 

@@ -11,7 +11,7 @@ void gameTickingThread(Board *board) {
     sf::Clock clock;
     Game *game = new Game(board);
 
-    float wantedTPS = 60;
+    float wantedTPS = 1;
     auto minDiffMicroSecond = static_cast<sf::Int64>((1.f / wantedTPS) * pow(10, 6));
 
     int test = 0;

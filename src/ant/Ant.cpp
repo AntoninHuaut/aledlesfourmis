@@ -40,7 +40,7 @@ int Ant::getAntTileNumber() {
     return tile;
 }
 
-list<BoardCell *> *Ant::availableCellToMove(Board *board) {
+list<BoardCell *> *Ant::getAvailableCellToMove(Board *board) {
     if (currentCell == nullptr)
         return new list<BoardCell *>;
 
