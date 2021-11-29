@@ -6,7 +6,8 @@ void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     target.draw(m_vertices, states);
 }
 
-bool Board::render() {
+bool Board::calcRender() {
+    // TODO QUENTIN : Charger une seule fois
     if (!m_tileset.loadFromFile("./assets/tileset.png"))
         return false;
 

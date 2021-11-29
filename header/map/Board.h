@@ -5,7 +5,7 @@
 #include "ColonyCell.h"
 #include <SFML/Graphics.hpp>
 #include "../Config.h"
-#include "../gui/TileEnum.h"
+#include "../core/TileEnum.h"
 
 using namespace std;
 
@@ -20,6 +20,8 @@ class Board : public sf::Drawable, public sf::Transformable {
     sf::VertexArray m_vertices;
     sf::Texture m_tileset;
 
+    bool finishGame = false;
+
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 public:
@@ -29,11 +31,17 @@ public:
         this->cells = cells;
     };
 
+    bool isFinishGame() const { return finishGame; }
+
+    void setFinishGame(bool newFinishGame) {
+        this->finishGame = newFinishGame;
+    }
+
     BoardCell ***getCells() { return cells; }
 
     list<BoardCell *> getNearbyCells(BoardCell *cell);
 
-    bool render();
+    bool calcRender();
 
     list<ColonyCell *> *getColoniesCells() const {
         return coloniesCells;

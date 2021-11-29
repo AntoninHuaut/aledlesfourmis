@@ -3,7 +3,7 @@
 
 #include <list>
 #include <SFML/Graphics.hpp>
-#include "../gui/TileEnum.h"
+#include "../core/TileEnum.h"
 
 using namespace std;
 

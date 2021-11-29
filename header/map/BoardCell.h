@@ -4,7 +4,7 @@
 #include <list>
 #include "../ant/Ant.h"
 #include "../lib/CustomRandom.h"
-#include "../gui/TileEnum.h"
+#include "../core/TileEnum.h"
 
 using namespace std;
 

@@ -1,17 +1,18 @@
-#include "../../header/gui/GUIMain.h"
+#include "../../header/core/GUIMain.h"
 
 void renderingThread(threadData data) {
     data.window->setActive(true);
     data.window->setVerticalSyncEnabled(true);
-    data.board->render();
+    data.board->calcRender();
 
     // Render loop
     while (data.window->isOpen()) {
         data.window->clear();
         data.window->draw(*(data.board));
-        data.window->draw(*(data.board)); // Prevent some flickering
         data.window->display();
     }
+
+    data.board->setFinishGame(true);
 }
 
 void GUIMain::runUI() {
