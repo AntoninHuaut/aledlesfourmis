@@ -18,7 +18,6 @@ Config::Config() {
 
     tileSize = data["gui"]["tileSize"].asInt();
     marginOutOfBorder = data["gui"]["marginOutOfBorder"].asFloat();
-    fpsMax = data["gui"]["fpsMax"].asInt();
 
     height = data["board"]["height"].asInt();
     length = data["board"]["length"].asInt();
@@ -55,10 +54,6 @@ int Config::getTileSize() const {
 
 float Config::getMarginOutOfBorder() const {
     return marginOutOfBorder;
-}
-
-int Config::getFpsMax() const {
-    return fpsMax;
 }
 
 float Config::getHeightFloat() const {
