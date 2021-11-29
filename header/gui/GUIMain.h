@@ -25,14 +25,7 @@ class GUIMain {
 
     void runUI();
 
-public:
-
-    explicit GUIMain(Board *board) {
-        this->board = board;
-        this->window = new sf::RenderWindow(sf::VideoMode(1200, 900), "Ant Simulation");
-
-        runUI();
-    }
+    void smoothOnKeyPressed();
 
     void onClosed();
 
@@ -46,9 +39,23 @@ public:
 
     void onResized(sf::Event event);
 
-    void preventOutOfBorder(sf::Vector2f *deltaPos);
+    void center();
+
+    void preventOutOfBorder(sf::Vector2f deltaPos);
 
     void letterBoxView(float windowWidth, float windowHeight);
+
+    static sf::Vector2f getMapSize();
+
+public:
+
+    explicit GUIMain(Board *board) {
+        this->board = board;
+        this->window = new sf::RenderWindow(sf::VideoMode(1200, 900), "Ant Simulation");
+
+        runUI();
+
+    }
 };
 
 

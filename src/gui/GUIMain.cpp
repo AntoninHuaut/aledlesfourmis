@@ -26,10 +26,13 @@ void GUIMain::runUI() {
     thread.launch();
 
     simView = window->getDefaultView();
+    center();
 
     // Event loop
     while (window->isOpen()) {
         sf::Event event{};
+        smoothOnKeyPressed();
+
         while (window->pollEvent(event)) {
             switch (event.type) {
                 case sf::Event::Closed:
@@ -69,13 +72,45 @@ void GUIMain::onMouseButtonPressed(sf::Event event) {
     }
 }
 
-void GUIMain::preventOutOfBorder(sf::Vector2f *deltaPos) {
-    int tileSize = Config::get()->getTileSize();
-    float marginOutOfBorder = Config::get()->getMarginOutOfBorder();
-    float mapLengthX = tileSize * Config::get()->getLength(); // NOLINT(cppcoreguidelines-narrowing-conversions)
-    float mapHeightY = tileSize * Config::get()->getHeight(); // NOLINT(cppcoreguidelines-narrowing-conversions)
+void GUIMain::smoothOnKeyPressed() {
+    float padding = 0.01f * zoom;
+    float speedMultiplier = 2.5f;
+    sf::Vector2f deltaPos = {0, 0};
 
-    sf::Vector2f newCenterPos = {simView.getCenter().x + deltaPos->x, simView.getCenter().y + deltaPos->y};
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) center();
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) deltaPos.x -= padding;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) deltaPos.x += padding;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) deltaPos.y -= padding;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) deltaPos.y += padding;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) {
+        deltaPos.x *= speedMultiplier;
+        deltaPos.y *= speedMultiplier;
+    }
+
+    if (deltaPos.x != 0 || deltaPos.y != 0) {
+        GUIMain::preventOutOfBorder(deltaPos);
+    }
+}
+
+void GUIMain::center() {
+    auto mapSize = getMapSize();
+    float mapLengthX = mapSize.x;
+    float mapHeightY = mapSize.y;
+
+    sf::Vector2f newCenterPos = {mapLengthX / 2, mapHeightY / 2};
+
+    simView.setCenter(newCenterPos);
+    window->setView(simView);
+}
+
+void GUIMain::preventOutOfBorder(sf::Vector2f deltaPos) {
+    auto mapSize = getMapSize();
+    float mapLengthX = mapSize.x;
+    float mapHeightY = mapSize.y;
+    float marginOutOfBorder = Config::get()->getMarginOutOfBorder();
+
+    sf::Vector2f newCenterPos = {simView.getCenter().x + deltaPos.x, simView.getCenter().y + deltaPos.y};
 
     newCenterPos.x = max(newCenterPos.x, (simView.getSize().x / 2) - (marginOutOfBorder * zoom));
     newCenterPos.y = max(newCenterPos.y, (simView.getSize().y / 2) - (marginOutOfBorder * zoom));
@@ -123,7 +158,7 @@ void GUIMain::onMouseMoved(sf::Event event) {
     const sf::Vector2f newPos = window->mapPixelToCoords(sf::Vector2i(sf::Mouse::getPosition(*window)));
 
     sf::Vector2f deltaPos = oldPos - newPos;
-    GUIMain::preventOutOfBorder(&deltaPos);
+    GUIMain::preventOutOfBorder(deltaPos);
 
     // Save the new position as the old one
     // We're recalculating this, since we've changed the simView
@@ -139,7 +174,7 @@ void GUIMain::onMouseWheelScrolled(sf::Event event) {
     float zoomPadding = (log(boardHeight) * log(boardLength)) / (log(201.f) * log(211.f));
 
     if (event.mouseWheelScroll.delta <= -1) {
-        zoom = std::min(6.f, zoom + zoomPadding);
+        zoom = std::min(5.625f, zoom + zoomPadding);
     } else if (event.mouseWheelScroll.delta >= 1) {
         zoom = std::max(.5f, zoom - zoomPadding);
     }
@@ -155,14 +190,21 @@ void GUIMain::onMouseWheelScrolled(sf::Event event) {
     window->setView(simView);
 
     sf::Vector2f deltaPos = {0, 0};
-    GUIMain::preventOutOfBorder(&deltaPos);
+    GUIMain::preventOutOfBorder(deltaPos);
 }
 
 void GUIMain::onResized(sf::Event event) {
     GUIMain::letterBoxView((float) event.size.width, (float) event.size.height);
 
     sf::Vector2f deltaPos = {0, 0};
-    GUIMain::preventOutOfBorder(&deltaPos);
+    GUIMain::preventOutOfBorder(deltaPos);
 
     window->setView(simView);
+}
+
+sf::Vector2f GUIMain::getMapSize() {
+    int tileSize = Config::get()->getTileSize();
+    float mapLengthX = tileSize * Config::get()->getLength(); // NOLINT(cppcoreguidelines-narrowing-conversions)
+    float mapHeightY = tileSize * Config::get()->getHeight(); // NOLINT(cppcoreguidelines-narrowing-conversions)
+    return {mapLengthX, mapHeightY};
 }

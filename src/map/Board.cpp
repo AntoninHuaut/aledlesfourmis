@@ -14,11 +14,11 @@ bool Board::render() {
     int maxHeight = Config::get()->getHeight();
     sf::Vector2u tileSize = sf::Vector2u(Config::get()->getTileSize(), Config::get()->getTileSize());
 
-    int vertriceSize = maxLength * maxHeight * 4;
+    int verticeSize = maxLength * maxHeight * 4;
 
     // resize the vertex array to fit the level size
     m_vertices.setPrimitiveType(sf::Quads);
-    m_vertices.resize(vertriceSize);
+    m_vertices.resize(verticeSize);
 
     auto *cellsWithOtherLayer = new list<BoardCell *>;
 
@@ -59,9 +59,9 @@ bool Board::render() {
 
         for (auto const &tileNumber: *cell->getOtherLayerTileNumbers()) {
 
-            vertriceSize += 4;
-            m_vertices.resize(vertriceSize);
-            sf::Vertex *quad = &m_vertices[vertriceSize - 4];
+            verticeSize += 4;
+            m_vertices.resize(verticeSize);
+            sf::Vertex *quad = &m_vertices[verticeSize - 4];
 
             int tu = tileNumber % (m_tileset.getSize().x / tileSize.x);
             int tv = tileNumber / (m_tileset.getSize().x / tileSize.x);
