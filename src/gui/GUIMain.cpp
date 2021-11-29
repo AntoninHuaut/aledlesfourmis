@@ -2,13 +2,14 @@
 
 void renderingThread(threadData data) {
     data.window->setActive(true);
-    data.window->setFramerateLimit(Config::get()->getFpsMax());
+    data.window->setVerticalSyncEnabled(true);
     data.board->render();
 
     // Render loop
     while (data.window->isOpen()) {
         data.window->clear();
         data.window->draw(*(data.board));
+        data.window->draw(*(data.board)); // Prevent some flickering
         data.window->display();
     }
 }

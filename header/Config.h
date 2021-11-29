@@ -11,7 +11,6 @@ class Config {
 
     int tileSize;
     float marginOutOfBorder;
-    int fpsMax;
 
     int height;
     int length;
@@ -53,9 +52,7 @@ public:
     int getTileSize() const;
 
     float getMarginOutOfBorder() const;
-
-    int getFpsMax() const;
-
+    
     float getHeightFloat() const;
 
     float getLengthFloat() const;

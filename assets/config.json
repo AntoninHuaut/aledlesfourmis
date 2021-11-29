@@ -1,8 +1,7 @@
 {
   "gui": {
     "tileSize": 32,
-    "marginOutOfBorder": 0.0,
-    "fpsMax": 60
+    "marginOutOfBorder": 0.0
   },
   "board": {
     "height": 201,
