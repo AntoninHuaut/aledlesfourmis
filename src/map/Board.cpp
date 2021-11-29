@@ -1,6 +1,17 @@
 #include "../../header/map/Board.h"
 #include "../../header/map/BoardGenerator.h"
 
+
+void Board::moveAnt(Ant *ant, BoardCell *newCell) {
+    auto *currentCell = ant->getCurrentCell();
+
+    currentCell->removeAntOnCell(ant);
+    ant->addCellTraveled(currentCell);
+
+    newCell->addAntOnCell(ant);
+    ant->setCurrentCell(newCell);
+}
+
 void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     states.transform *= getTransform();
     states.texture = &m_tileset;

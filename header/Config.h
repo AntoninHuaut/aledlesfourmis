@@ -14,6 +14,7 @@ class Config {
 
     int height;
     int length;
+    float maxTps;
 
     float rockPercent;
     float foodPercent;
@@ -52,7 +53,7 @@ public:
     int getTileSize() const;
 
     float getMarginOutOfBorder() const;
-    
+
     float getHeightFloat() const;
 
     float getLengthFloat() const;
@@ -60,6 +61,8 @@ public:
     int getHeight() const;
 
     int getLength() const;
+
+    float getMaxTps() const;
 
     float getRockPercent() const;
 

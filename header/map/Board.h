@@ -31,6 +31,8 @@ public:
         this->coloniesCells = new list<ColonyCell *>;
         this->antList = new list<Ant *>;
         this->cells = cells;
+        this->antQueen = nullptr;
+        
         m_tileset.loadFromFile("./assets/tileset.png");
     };
 
@@ -39,6 +41,8 @@ public:
     void setFinishGame(bool newFinishGame) {
         this->finishGame = newFinishGame;
     }
+
+    void moveAnt(Ant *ant, BoardCell *newCell);
 
     BoardCell ***getCells() { return cells; }
 

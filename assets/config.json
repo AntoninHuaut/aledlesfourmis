@@ -5,7 +5,8 @@
   },
   "board": {
     "height": 201,
-    "length": 211
+    "length": 211,
+    "maxTps": 10
   },
   "generation": {
     "rockPercent": 0.3,

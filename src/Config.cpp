@@ -21,6 +21,7 @@ Config::Config() {
 
     height = data["board"]["height"].asInt();
     length = data["board"]["length"].asInt();
+    maxTps = data["board"]["maxTps"].asFloat();
 
     rockPercent = data["generation"]["rockPercent"].asFloat();
     foodPercent = data["generation"]["foodPercent"].asFloat();
@@ -138,4 +139,8 @@ int Config::getSoldierHoursBeforeVisitColony() const {
 
 int Config::getSlaveOwnerHoursBeforeHunger() const {
     return slaveOwnerHoursBeforeHunger;
+}
+
+float Config::getMaxTps() const {
+    return maxTps;
 }

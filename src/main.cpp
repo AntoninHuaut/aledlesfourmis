@@ -11,33 +11,20 @@ void gameTickingThread(Board *board) {
     sf::Clock clock;
     Game *game = new Game(board);
 
-    float wantedTPS = 1;
+    float wantedTPS = Config::get()->getMaxTps();
     auto minDiffMicroSecond = static_cast<sf::Int64>((1.f / wantedTPS) * pow(10, 6));
 
-    int test = 0;
-    while (!board->isFinishGame()) { // TODO while queen is alive or game stop (window closed)
+    while (!board->isFinishGame()) {
         clock.restart();
         game->tickGame();
         sf::Time elapsed = clock.getElapsedTime();
 
         sf::Int64 diffMicroSecond = elapsed.asMicroseconds();
-//        auto currentTps = (1.0 / static_cast<float>(diffMicroSecond) * pow(10, 6));
-//        cout << "Current TPS: " << currentTps << endl;
-//        cout << "Diff microSecond: " << diffMicroSecond << endl;
-//        cout << "Min diff second: " << minDiffMicroSecond << endl;
-
         sf::Int64 sleepTime = minDiffMicroSecond - diffMicroSecond;
-//        auto sleepTimeFloat = static_cast<float>(sleepTime);
 
         if (sleepTime > 0) {
-//            cout << "Sleeping: " << (sleepTimeFloat / pow(10, 6))
-//                 << " second for getting " << wantedTPS << " tps" << endl;
             sf::sleep(sf::microseconds(sleepTime));
         }
-
-//        cout << endl;
-
-        test++;
     }
 }
 
