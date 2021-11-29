@@ -10,6 +10,8 @@ using namespace std;
 
 class BoardCell;
 
+class Board;
+
 enum AntType {
     QueenType, ScoutType, SoldierType, WorkerType, SlaveOwnerType
 };
@@ -47,6 +49,8 @@ public:
     AntType getAntType() {
         return antType;
     }
+
+    list<BoardCell *> *availableCellToMove(Board *board);
 
 };
 

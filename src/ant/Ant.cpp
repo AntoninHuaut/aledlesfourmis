@@ -1,5 +1,6 @@
 #include "../../header/ant/Ant.h"
 #include "../../header/map/BoardCell.h"
+#include "../../header/map/Board.h"
 
 Ant::Ant(int hoursBeforeDeath, double foodConsumedEachDay, BoardCell *currentCell, AntType antType) {
     this->hoursBeforeDeath = hoursBeforeDeath;
@@ -37,4 +38,23 @@ int Ant::getAntTileNumber() {
     }
 
     return tile;
+}
+
+list<BoardCell *> *Ant::availableCellToMove(Board *board) {
+    if (currentCell == nullptr)
+        return new list<BoardCell *>;
+
+    auto *cells = new list<BoardCell *>;
+
+    auto *nearbyCells = board->getNearbyCells(this->currentCell);
+
+    for (auto const &cell: *nearbyCells) {
+        if (cell->getBoardCellType() != RockCellType && cell->haveSpace()) {
+            cells->push_back(cell);
+        }
+    }
+
+    free(nearbyCells);
+
+    return cells;
 }

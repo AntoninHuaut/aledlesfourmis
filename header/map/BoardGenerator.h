@@ -50,9 +50,8 @@ class BoardGenerator {
 
     bool hasFoodNeighbor(int height, int length);
 
-    static bool isValidCell(int height, int length);
-
 public:
+
     explicit BoardGenerator(Board *board) {
         this->board = board;
     }
@@ -60,6 +59,8 @@ public:
     Board *getBoard() { return board; }
 
     static Board *generateBoard();
+
+    static bool isValidCell(int height, int length);
 
 };
 
