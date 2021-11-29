@@ -35,6 +35,8 @@ class Ant {
 public:
     Ant(int hoursBeforeDeath, double foodConsumedEachDay, BoardCell *currentCell, AntType antType);
 
+    ~Ant();
+
     virtual void tick(Board *board) {};
 
     virtual bool attackAnt(Ant *target) { return false; }

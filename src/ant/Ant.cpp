@@ -2,6 +2,10 @@
 #include "../../header/map/BoardCell.h"
 #include "../../header/map/Board.h"
 
+Ant::~Ant() {
+    delete cellTraveledSinceColony;
+}
+
 Ant::Ant(int hoursBeforeDeath, double foodConsumedEachDay, BoardCell *currentCell, AntType antType) {
     this->hoursBeforeDeath = hoursBeforeDeath;
     this->foodConsumedEachDay = foodConsumedEachDay;
