@@ -4,7 +4,6 @@
 #include <list>
 #include <SFML/Graphics.hpp>
 #include "../core/TileEnum.h"
-#include "../map/Board.h"
 
 using namespace std;
 
