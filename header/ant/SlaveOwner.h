@@ -12,7 +12,7 @@ public:
 
     explicit SlaveOwner(BoardCell *currentCell) :
             Ant(Config::get()->getDefaultHoursBeforeDeath(), Config::get()->getDefaultFoodConsumingTick(),
-                currentCell, SoldierType) {};
+                currentCell, SlaveOwnerType) {};
 
 };
 
