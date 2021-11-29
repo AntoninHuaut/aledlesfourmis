@@ -29,6 +29,7 @@ public:
         this->coloniesCells = new list<ColonyCell *>;
         this->antList = new list<Ant *>;
         this->cells = cells;
+        m_tileset.loadFromFile("./assets/tileset.png");
     };
 
     bool isFinishGame() const { return finishGame; }
@@ -39,7 +40,7 @@ public:
 
     BoardCell ***getCells() { return cells; }
 
-    list<BoardCell *> getNearbyCells(BoardCell *cell);
+    list<BoardCell *> *getNearbyCells(BoardCell *cell);
 
     bool calcRender();
 

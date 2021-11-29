@@ -1,4 +1,5 @@
 #include "../../header/map/Board.h"
+#include "../../header/map/BoardGenerator.h"
 
 void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     states.transform *= getTransform();
@@ -7,19 +8,14 @@ void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 }
 
 bool Board::calcRender() {
-    // TODO QUENTIN : Charger une seule fois
-    if (!m_tileset.loadFromFile("./assets/tileset.png"))
-        return false;
-
     int maxLength = Config::get()->getLength();
     int maxHeight = Config::get()->getHeight();
     sf::Vector2u tileSize = sf::Vector2u(Config::get()->getTileSize(), Config::get()->getTileSize());
 
     int verticeSize = maxLength * maxHeight * 4;
 
-    // resize the vertex array to fit the level size
-    m_vertices.setPrimitiveType(sf::Quads);
-    m_vertices.resize(verticeSize);
+    // create new vertex array
+    sf::VertexArray tmpVertex(sf::Quads, verticeSize);
 
     auto *cellsWithOtherLayer = new list<BoardCell *>;
 
@@ -39,7 +35,7 @@ bool Board::calcRender() {
             int tv = tileNumber / (m_tileset.getSize().x / tileSize.x);
 
             // get a pointer to the current tile's quad
-            sf::Vertex *quad = &m_vertices[(length + (height * maxLength)) * 4];
+            sf::Vertex *quad = &tmpVertex[(length + (height * maxLength)) * 4];
 
             // define its 4 corners
             quad[0].position = sf::Vector2f(length * tileSize.x, height * tileSize.y);
@@ -61,8 +57,8 @@ bool Board::calcRender() {
         for (auto const &tileNumber: *cell->getOtherLayerTileNumbers()) {
 
             verticeSize += 4;
-            m_vertices.resize(verticeSize);
-            sf::Vertex *quad = &m_vertices[verticeSize - 4];
+            tmpVertex.resize(verticeSize);
+            sf::Vertex *quad = &tmpVertex[verticeSize - 4];
 
             int tu = tileNumber % (m_tileset.getSize().x / tileSize.x);
             int tv = tileNumber / (m_tileset.getSize().x / tileSize.x);
@@ -86,5 +82,27 @@ bool Board::calcRender() {
 
     }
 
+    m_vertices = tmpVertex;
+
     return true;
+}
+
+list<BoardCell *> *Board::getNearbyCells(BoardCell *cell) {
+
+    auto *nearbyCells = new list<BoardCell *>;
+
+    for (int i = -1; i <= 1; i++) {
+        for (int j = -1; j <= 1; j++) {
+            if (i == 0 || j == 0) continue;
+
+            int tmpHeight = cell->getPosHeight() + i;
+            int tmpLength = cell->getPosLength() + j;
+            if (!BoardGenerator::isValidCell(tmpHeight, tmpLength)) continue;
+
+            if (this->cells[tmpHeight][tmpLength] != nullptr)
+                nearbyCells->push_back(this->cells[tmpHeight][tmpLength]);
+        }
+    }
+
+    return nearbyCells;
 }
