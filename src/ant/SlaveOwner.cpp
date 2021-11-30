@@ -21,9 +21,10 @@ void SlaveOwner::goToCenter(Board *board) {
 
     for (auto *cell: *possibleCells) {
 
-        std::cout << cellsDistance(cell, target) << endl;
+        int newDist = cellsDistance(cell, target);
 
-        if(cellsDistance(cell, target) <= min && find(this->cellTraveledSinceColony->begin(), this->cellTraveledSinceColony->end(), cell) == this->cellTraveledSinceColony->end()){
+        if(newDist <= min && find(this->cellTraveledSinceColony->begin(), this->cellTraveledSinceColony->end(), cell) == this->cellTraveledSinceColony->end()){
+            min = newDist;
             bestCell = cell;
         }
     }
