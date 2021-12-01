@@ -5,13 +5,16 @@
 void Game::tickGame() {
     tickQueen();
     tickAnts();
-    
+
     board->incrementCurrentTick();
     board->calcRender();
 }
 
 void Game::tickAnts() {
     for (auto *ant: *board->getAntList()) {
+        if (ant == nullptr) continue; // Should never happen
+        if (checkAndRemoveDeadAnt(ant)) continue;
+
         ant->tick(board);
     }
 }

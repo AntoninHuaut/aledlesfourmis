@@ -7,18 +7,19 @@ class Game {
 
     Board *board;
 
+    void tickAnts();
+
+    void tickQueen();
+    
+    bool checkAndRemoveDeadAnt(Ant *ant);
+
 public:
+
     explicit Game(Board *board) {
         this->board = board;
     }
 
     void tickGame();
-
-    void tickAnts();
-
-    void tickQueen();
-
-    bool checkAndRemoveDeadAnt(Ant *ant);
 };
 
 
