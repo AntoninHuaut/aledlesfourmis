@@ -26,7 +26,7 @@ class Ant {
 
     virtual bool hasEatFood(double amountToEat);
 
-    bool isDyingHunger();
+    bool isDyingHunger() const;
 
     void genericEatFood();
 

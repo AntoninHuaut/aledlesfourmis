@@ -74,7 +74,7 @@ bool Ant::hasEatFood(double amountToEat) {
     return false;
 }
 
-bool Ant::isDyingHunger() {
+bool Ant::isDyingHunger() const {
     return hoursSinceLastFeeding >= maxHoursWithoutFeeding;
 }
 
