@@ -50,12 +50,13 @@ bool Board::calcRender() {
     for (int height = 0; height < maxHeight; ++height) {
         for (int length = 0; length < maxLength; ++length) {
             // Cells with multiple layers
-            if (cells[height][length]->numberOfLayers() >= 2) {
-                cellsWithOtherLayer.push_back(cells[height][length]);
+            BoardCell *cell = cells[height][length];
+            if (cell->numberOfLayers() >= 2) {
+                cellsWithOtherLayer.push_back(cell);
             }
 
             // get the current tile number
-            int tileNumber = cells[height][length]->getFloorTileNumber();
+            int tileNumber = cell->getFloorTileNumber();
 
             // find its position in the tileset texture
             int tu = tileNumber % (m_tileset.getSize().x / tileSize.x);

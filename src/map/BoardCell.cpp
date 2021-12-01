@@ -55,7 +55,7 @@ list<int> BoardCell::getBottomLayerTileNumbers() {
 list<int> BoardCell::getTopLayerTileNumbers() {
     list<int> tiles;
 
-    if (!visited) {
+    if (!this->visited) {
         tiles.push_back(CLOUD_LAYER);
     }
 
