@@ -82,8 +82,8 @@ bool Board::calcRender() {
     return true;
 }
 
-list<BoardCell *> *Board::getNearbyCells(BoardCell *cell) {
-    auto *nearbyCells = new list<BoardCell *>;
+list<BoardCell *> Board::getNearbyCells(BoardCell *cell) {
+    list<BoardCell *> nearbyCells;
 
     for (int i = -1; i <= 1; i++) {
         for (int j = -1; j <= 1; j++) {
@@ -97,7 +97,7 @@ list<BoardCell *> *Board::getNearbyCells(BoardCell *cell) {
             }
 
             if (this->cells[tmpHeight][tmpLength] != nullptr) {
-                nearbyCells->push_back(this->cells[tmpHeight][tmpLength]);
+                nearbyCells.push_back(this->cells[tmpHeight][tmpLength]);
             }
         }
     }
@@ -135,9 +135,9 @@ BasicCell *Board::findExpandableBasicCell() {
     BasicCell *expandCellFound = nullptr;
 
     for (ColonyCell *colonyCell: *getColoniesCells()) {
-        auto *nearbyCells = getNearbyCells(colonyCell);
+        auto nearbyCells = getNearbyCells(colonyCell);
 
-        for (BoardCell *nearbyCell: *nearbyCells) {
+        for (BoardCell *nearbyCell: nearbyCells) {
             if ((nearbyCell->getPosHeight() != colonyCell->getPosHeight() && // No generation in the diagonal
                  nearbyCell->getPosLength() != colonyCell->getPosLength())
                 || nearbyCell->getBoardCellType() != BasicCellType) {
@@ -147,9 +147,7 @@ BasicCell *Board::findExpandableBasicCell() {
             expandCellFound = dynamic_cast<BasicCell *>(nearbyCell);
             break;
         }
-
-        delete nearbyCells;
-
+        
         if (expandCellFound != nullptr) {
             return expandCellFound;
         }

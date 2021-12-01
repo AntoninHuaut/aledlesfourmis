@@ -57,7 +57,7 @@ public:
 
     BoardCell ***getCells() { return cells; }
 
-    list<BoardCell *> *getNearbyCells(BoardCell *cell);
+    list<BoardCell *> getNearbyCells(BoardCell *cell);
 
     bool calcRender();
 

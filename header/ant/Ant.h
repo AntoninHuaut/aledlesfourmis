@@ -73,7 +73,7 @@ public:
 
     bool isAlive() const { return alive; }
 
-    list<BoardCell *> *getAvailableCellToMove(Board *board);
+    list<BoardCell *> getAvailableCellToMove(Board *board);
 
     void goToCell(BoardCell *newCell, bool haveToVisit);
 

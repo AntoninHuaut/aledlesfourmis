@@ -6,19 +6,16 @@ int cellsDistance(BoardCell *cell1, BoardCell *cell2) {
 }
 
 void SlaveOwner::goToCenter(Board *board) {
-    list<BoardCell *> *possibleCells = this->getAvailableCellToMove(board);
+    auto possibleCells = this->getAvailableCellToMove(board);
 
-    if (possibleCells->empty()) {
-        delete possibleCells;
-        return;
-    }
+    if (possibleCells.empty()) return;
 
     BoardCell *target = board->getCenterCell();
 
-    int min = cellsDistance(possibleCells->front(), target);
-    BoardCell *bestCell = possibleCells->front();
+    int min = cellsDistance(possibleCells.front(), target);
+    BoardCell *bestCell = possibleCells.front();
 
-    for (auto *cell: *possibleCells) {
+    for (auto *cell: possibleCells) {
         int newDist = cellsDistance(cell, target);
 
         if (newDist <= min &&
@@ -34,7 +31,6 @@ void SlaveOwner::goToCenter(Board *board) {
     }
 
     this->goToCell(bestCell, false);
-    delete possibleCells;
 }
 
 void SlaveOwner::tickMove(Board *board) {

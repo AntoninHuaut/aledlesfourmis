@@ -44,19 +44,18 @@ int Ant::getAntTileNumber() {
     return tile;
 }
 
-list<BoardCell *> *Ant::getAvailableCellToMove(Board *board) {
-    if (currentCell == nullptr) return new list<BoardCell *>;
+list<BoardCell *> Ant::getAvailableCellToMove(Board *board) {
+    if (currentCell == nullptr) return {};
 
-    auto *cells = new list<BoardCell *>;
-    auto *nearbyCells = board->getNearbyCells(this->currentCell);
+    list<BoardCell *> cells;
+    auto nearbyCells = board->getNearbyCells(this->currentCell);
 
-    for (auto const &cell: *nearbyCells) {
+    for (auto const &cell: nearbyCells) {
         if (cell->getBoardCellType() != RockCellType && cell->haveSpace()) {
-            cells->push_back(cell);
+            cells.push_back(cell);
         }
     }
 
-    delete nearbyCells;
     return cells;
 }
 
