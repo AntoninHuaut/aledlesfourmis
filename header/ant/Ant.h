@@ -43,7 +43,7 @@ protected:
     static double colonyFood;
 
 public:
-    Ant(int hoursBeforeDeath, int maxHoursWithoutFeeding, double foodConsumedEachDay, BoardCell *currentCell,
+    Ant(int hoursBeforeDeath, int maxDaysWithoutFeeding, double foodConsumedEachDay, BoardCell *currentCell,
         AntType antType);
 
     ~Ant();
