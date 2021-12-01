@@ -18,6 +18,8 @@ enum AntType {
 class Ant {
 
     BoardCell *currentCell;
+    BoardCell *lastCell = nullptr;
+
     AntType antType;
 
     int hoursBeforeDeath;

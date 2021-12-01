@@ -27,9 +27,8 @@ Ant::Ant(int hoursBeforeDeath, int maxDaysWithoutFeeding,
 int Ant::getAntTileNumber() {
     int tile = BLACK_ANT;
 
-    if (!cellTraveledSinceColony->empty()) {
+    if (this->lastCell != nullptr) {
 
-        BoardCell *lastCell = cellTraveledSinceColony->back();
         int lengthDiff = currentCell->getPosLength() - lastCell->getPosLength();
         int heightDiff = currentCell->getPosHeight() - lastCell->getPosHeight();
 
@@ -65,8 +64,11 @@ list<BoardCell *> *Ant::getAvailableCellToMove(Board *board) {
 void Ant::goToCell(BoardCell *newCell) {
     this->currentCell->removeAntOnCell(this);
     this->addCellTraveled(this->currentCell);
+    this->lastCell = this->currentCell;
 
     newCell->addAntOnCell(this);
+    newCell->setVisited(true);
+
     this->currentCell = newCell;
 }
 
@@ -75,6 +77,7 @@ bool Ant::goBackToLastCell() {
     if (cellTraveledSinceColony->empty()) return false;
 
     if (cellTraveledSinceColony->back()->haveSpace()) {
+        this->lastCell = this->currentCell;
         this->currentCell->removeAntOnCell(this);
         cellTraveledSinceColony->back()->addAntOnCell(this);
         this->currentCell = cellTraveledSinceColony->back();
