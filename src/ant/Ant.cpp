@@ -70,6 +70,22 @@ void Ant::goToCell(BoardCell *newCell) {
     this->currentCell = newCell;
 }
 
+bool Ant::goBackToLastCell() {
+
+    if (cellTraveledSinceColony->empty()) return false;
+
+    if (cellTraveledSinceColony->back()->haveSpace()) {
+        this->currentCell->removeAntOnCell(this);
+        cellTraveledSinceColony->back()->addAntOnCell(this);
+        this->currentCell = cellTraveledSinceColony->back();
+
+        cellTraveledSinceColony->pop_back();
+        return true;
+    }
+
+    return false;
+}
+
 void Ant::tick(Board *board) {
     // Ticking Age
     if (--hoursBeforeDeath <= 0) {

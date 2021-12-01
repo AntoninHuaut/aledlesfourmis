@@ -89,6 +89,7 @@ bool Board::calcRender() {
 }
 
 list<BoardCell *> *Board::getNearbyCells(BoardCell *cell) {
+
     auto *nearbyCells = new list<BoardCell *>;
 
     for (int i = -1; i <= 1; i++) {
@@ -113,6 +114,6 @@ list<BoardCell *> *Board::getNearbyCells(BoardCell *cell) {
 
 BoardCell *Board::getCenterCell() {
 
-    return cells[Config::get()->getLength() / 2][Config::get()->getHeight() / 2];
+    return cells[Config::get()->getHeight() / 2][Config::get()->getLength() / 2];
 
 }

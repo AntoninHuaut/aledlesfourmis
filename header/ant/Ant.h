@@ -72,6 +72,7 @@ public:
     list<BoardCell *> *getAvailableCellToMove(Board *board);
 
     void goToCell(BoardCell *newCell);
+    bool goBackToLastCell();
 };
 
 #endif
