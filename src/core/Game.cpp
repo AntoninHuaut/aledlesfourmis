@@ -17,11 +17,10 @@ void Game::tickAnts() {
             continue;
         }
 
-//        ant->tick(board);
+        ant->tick(board);
     }
 
     for (auto *antToDelete: antDeleteList) {
-        cout << "Deleting ant" << endl;
         board->getAntList()->remove(antToDelete);
         delete antToDelete;
     }
@@ -32,7 +31,7 @@ void Game::tickQueen() {
     if (queen == nullptr) return;
 
     if (!queen->isAlive()) {
-        cout << "Deleting queen" << endl;
+        cerr << "Queen DIE" << endl;
         board->setAntQueen(nullptr);
         delete queen;
         // TODO END GAME
