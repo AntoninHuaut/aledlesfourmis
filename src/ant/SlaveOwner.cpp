@@ -30,11 +30,11 @@ void SlaveOwner::goToCenter(Board *board) {
         haveArrivedToCenter = true;
     }
 
-    this->goToCell(bestCell);
+    this->goToCell(bestCell, false);
 }
 
-void SlaveOwner::tick(Board *board) {
-    
+void SlaveOwner::tickMove(Board *board) {
+
     if (!haveArrivedToCenter)
         goToCenter(board);
     else

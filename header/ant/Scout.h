@@ -13,6 +13,9 @@ public:
                 currentCell, ScoutType),
             AgeAdult(Config::get()->getScootHoursBeforeAdult()) {};
 
+    void tickMove(Board *board) override;
+
+
 };
 
 

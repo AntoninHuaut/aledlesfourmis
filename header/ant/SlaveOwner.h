@@ -21,7 +21,7 @@ public:
 
     void goToCenter(Board *board);
 
-    void tick(Board *board) override;
+    void tickMove(Board *board) override;
 
     bool hasEatFood(double amountToEat) override;
 

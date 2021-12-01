@@ -73,7 +73,8 @@ public:
 
     list<BoardCell *> *getAvailableCellToMove(Board *board);
 
-    void goToCell(BoardCell *newCell);
+    void goToCell(BoardCell *newCell, bool haveToVisit);
+
 
     bool goBackToLastCell();
 };
