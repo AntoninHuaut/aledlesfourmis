@@ -8,7 +8,10 @@ int cellsDistance(BoardCell *cell1, BoardCell *cell2) {
 void SlaveOwner::goToCenter(Board *board) {
     list<BoardCell *> *possibleCells = this->getAvailableCellToMove(board);
 
-    if (possibleCells->empty()) return;
+    if (possibleCells->empty()) {
+        delete possibleCells;
+        return;
+    }
 
     BoardCell *target = board->getCenterCell();
 
@@ -31,6 +34,7 @@ void SlaveOwner::goToCenter(Board *board) {
     }
 
     this->goToCell(bestCell, false);
+    delete possibleCells;
 }
 
 void SlaveOwner::tickMove(Board *board) {

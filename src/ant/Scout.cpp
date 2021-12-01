@@ -2,33 +2,35 @@
 #include "../../header/map/Board.h"
 
 void Scout::tickMove(Board *board) {
-
     auto *cells = getAvailableCellToMove(board);
 
-    if(cells->empty()) return;
+    if (cells->empty()) {
+        delete cells;
+        return;
+    }
 
-    auto *unKnownCells = new list<BoardCell *>;
+    auto *unknownCells = new list<BoardCell *>;
 
     for (auto const &cell: *cells) {
-        if (!cell->isVisited()){
-            unKnownCells->push_back(cell);
+        if (!cell->isVisited()) {
+            unknownCells->push_back(cell);
         }
     }
 
-    BoardCell *nextCell = nullptr;
+    BoardCell *nextCell;
 
-    if(!unKnownCells->empty()){
-        auto l_front = unKnownCells->begin();
-        std::advance(l_front, CustomRandom::randInt(0, unKnownCells->size()-1));
+    if (!unknownCells->empty()) {
+        auto l_front = unknownCells->begin();
+        std::advance(l_front, CustomRandom::randInt(0, static_cast<int>(unknownCells->size()) - 1));
         nextCell = *l_front;
     } else {
         auto l_front = cells->begin();
-        std::advance(l_front, CustomRandom::randInt(0, cells->size()-1));
+        std::advance(l_front, CustomRandom::randInt(0, static_cast<int>(cells->size()) - 1));
         nextCell = *l_front;
     }
 
-    if(nextCell != nullptr){
-        goToCell(nextCell, true);
-    }
+    goToCell(nextCell, true);
 
+    delete cells;
+    delete unknownCells;
 }

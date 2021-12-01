@@ -45,8 +45,7 @@ int Ant::getAntTileNumber() {
 }
 
 list<BoardCell *> *Ant::getAvailableCellToMove(Board *board) {
-    if (currentCell == nullptr)
-        return new list<BoardCell *>;
+    if (currentCell == nullptr) return new list<BoardCell *>;
 
     auto *cells = new list<BoardCell *>;
     auto *nearbyCells = board->getNearbyCells(this->currentCell);
