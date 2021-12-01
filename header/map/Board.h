@@ -32,14 +32,9 @@ class Board : public sf::Drawable, public sf::Transformable {
     BasicCell *findExpandableBasicCell();
 
 public:
-    explicit Board(BoardCell ***cells) {
-        this->coloniesCells = new list<ColonyCell *>;
-        this->antList = new list<Ant *>;
-        this->cells = cells;
-        this->antQueen = nullptr;
+    explicit Board(BoardCell ***cells);
 
-        m_tileset.loadFromFile("./assets/tileset.png");
-    };
+    ~Board();
 
     int getCurrentTick() const { return currentTick; }
 

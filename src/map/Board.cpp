@@ -1,6 +1,34 @@
 #include "../../header/map/Board.h"
 #include "../../header/map/BoardGenerator.h"
 
+Board::Board(BoardCell ***cells) {
+    this->coloniesCells = new list<ColonyCell *>;
+    this->antList = new list<Ant *>;
+    this->cells = cells;
+    this->antQueen = nullptr;
+
+    m_tileset.loadFromFile("./assets/tileset.png");
+}
+
+Board::~Board() {
+    delete antQueen;
+
+    for (Ant *ant: *antList) {
+        delete ant;
+    }
+    delete antList;
+
+    for (int height = 0; height < Config::get()->getHeight(); height++) {
+        for (int length = 0; length < Config::get()->getLength(); length++) {
+            delete cells[height][length];
+        }
+        delete cells[height];
+    }
+
+    delete cells;
+    delete coloniesCells;
+}
+
 void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     states.transform *= getTransform();
     states.texture = &m_tileset;
@@ -147,7 +175,7 @@ BasicCell *Board::findExpandableBasicCell() {
             expandCellFound = dynamic_cast<BasicCell *>(nearbyCell);
             break;
         }
-        
+
         if (expandCellFound != nullptr) {
             return expandCellFound;
         }
