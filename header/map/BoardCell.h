@@ -70,6 +70,14 @@ public:
         this->antOnCell->remove(antToRemove);
     }
 
+    void setVisited(bool isVisited) {
+        this->visited = isVisited;
+    }
+
+    bool isVisited() const {
+        return this->visited;
+    }
+
 };
 
 #endif
