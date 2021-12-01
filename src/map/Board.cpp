@@ -53,7 +53,9 @@ bool Board::calcRender() {
 
     for (auto const &cell: *cellsWithOtherLayer) {
 
-        for (auto const &tileNumber: *cell->getOtherLayerTileNumbers()) {
+        auto *layers = cell->getOtherLayerTileNumbers();
+
+        for (auto const &tileNumber: *layers) {
 
             verticeSize += 4;
             tmpVertex.resize(verticeSize);
@@ -79,7 +81,11 @@ bool Board::calcRender() {
 
         }
 
+        delete layers;
+
     }
+
+    delete cellsWithOtherLayer;
 
     m_vertices = tmpVertex;
 
