@@ -8,22 +8,33 @@
 using namespace std;
 
 void gameTickingThread(Board *board) {
-    sf::Clock clock;
+    sf::Clock clock_TPS;
+    sf::Clock clock_FPS;
+
     Game *game = new Game(board);
 
-    float wantedTPS = Config::get()->getMaxTps();
-    auto minDiffMicroSecond = static_cast<sf::Int64>((1.f / wantedTPS) * pow(10, 6));
+    float wanted_TPS = Config::get()->getMaxTps();
+    int wanted_FPS = Config::get()->getMaxFps();
+
+    auto minDiffMicroSecond_TPS = static_cast<sf::Int64>((1.f / wanted_TPS) * pow(10, 6));
+    auto minDiffMicroSecond_FPS = static_cast<sf::Int64>((1.f / static_cast<float>(wanted_FPS)) * pow(10, 6));
 
     while (!board->isWindowClosed() && board->isQueenAlive()) {
-        clock.restart();
+        clock_TPS.restart();
         game->tickGame();
-        sf::Time elapsed = clock.getElapsedTime();
 
-        sf::Int64 diffMicroSecond = elapsed.asMicroseconds();
-        sf::Int64 sleepTime = minDiffMicroSecond - diffMicroSecond;
+        sf::Int64 diffMicroSecond_FPS = clock_FPS.getElapsedTime().asMicroseconds();
+//        cout << diffMicroSecond_FPS << " - " << minDiffMicroSecond_FPS << endl;
+        if (diffMicroSecond_FPS > minDiffMicroSecond_FPS) {
+            clock_FPS.restart();
+            board->calcRender();
+        }
 
-        if (sleepTime > 0) {
-            sf::sleep(sf::microseconds(sleepTime));
+        sf::Int64 diffMicroSecond_TPS = clock_TPS.getElapsedTime().asMicroseconds();
+        sf::Int64 sleepTime_TPS = minDiffMicroSecond_TPS - diffMicroSecond_TPS;
+
+        if (sleepTime_TPS > 0) {
+            sf::sleep(sf::microseconds(sleepTime_TPS));
         }
     }
 }

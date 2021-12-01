@@ -25,7 +25,15 @@ void Queen::tickChild(Board *board) {
         generateAnt(board);
     }
 
-    // TODO CREATE NEW COLONY IF COLONIESCELL * 100 > ACTUAL NB ANT
+    int nbColonies = static_cast<int>(board->getColoniesCells()->size());
+    int actualMaxAntsCapacity = Config::get()->getColonyMaxAntOnCell() * nbColonies;
+    int nbAnts = static_cast<int>(board->getAntList()->size()) + 1; // + Queen
+
+    if (nbAnts > actualMaxAntsCapacity) {
+        board->expandColonies();
+    }
+
+    cout << nbChild << endl;
 }
 
 void Queen::generateAnt(Board *board) {

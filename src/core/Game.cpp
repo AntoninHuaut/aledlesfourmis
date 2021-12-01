@@ -1,5 +1,4 @@
 #include "../../header/core/Game.h"
-#include "../../header/ant/Ant.h"
 #include "../../header/ant/Queen.h"
 
 void Game::tickGame() {
@@ -7,7 +6,6 @@ void Game::tickGame() {
     tickAnts();
 
     board->incrementCurrentTick();
-    board->calcRender();
 }
 
 void Game::tickAnts() {

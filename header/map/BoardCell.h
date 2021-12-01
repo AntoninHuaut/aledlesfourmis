@@ -29,14 +29,9 @@ class BoardCell {
     void pheromoneSpreading() {};
 
 public:
-    explicit BoardCell(int posLength, int posHeight, int maxAntOnCell, BoardCellType boardCellType) {
-        this->maxAntOnCell = maxAntOnCell;
-        this->posLength = posLength;
-        this->posHeight = posHeight;
-        this->boardCellType = boardCellType;
+    explicit BoardCell(int posLength, int posHeight, int maxAntOnCell, BoardCellType boardCellType);
 
-        this->randomCellDecoration = CustomRandom::randInt(0, 3);
-    };
+    ~BoardCell();
 
     virtual void tick() {};
 

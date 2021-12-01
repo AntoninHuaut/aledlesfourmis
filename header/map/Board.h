@@ -1,9 +1,11 @@
 #ifndef ANT_BOARD_H
 #define ANT_BOARD_H
 
-#include "BoardCell.h"
-#include "ColonyCell.h"
+#include <random>
 #include <SFML/Graphics.hpp>
+#include "BoardCell.h"
+#include "BasicCell.h"
+#include "ColonyCell.h"
 #include "../Config.h"
 #include "../core/TileEnum.h"
 
@@ -26,6 +28,8 @@ class Board : public sf::Drawable, public sf::Transformable {
     bool windowClosed = false;
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+
+    BasicCell *findExpandableBasicCell();
 
 public:
     explicit Board(BoardCell ***cells) {
@@ -83,6 +87,7 @@ public:
 
     BoardCell *getCenterCell();
 
+    void expandColonies();
 };
 
 #endif

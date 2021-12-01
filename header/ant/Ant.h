@@ -59,6 +59,8 @@ public:
 
     BoardCell *getCurrentCell() { return this->currentCell; }
 
+    void setCurrentCell(BoardCell *newCurrentCell) { currentCell = newCurrentCell; }
+
     void addCellTraveled(BoardCell *cell) {
         this->cellTraveledSinceColony->push_back(cell);
     }

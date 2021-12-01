@@ -1,6 +1,19 @@
 #include "../../header/map/BoardCell.h"
 #include "../../header/ant/Ant.h"
 
+BoardCell::BoardCell(int posLength, int posHeight, int maxAntOnCell, BoardCellType boardCellType) {
+    this->maxAntOnCell = maxAntOnCell;
+    this->posLength = posLength;
+    this->posHeight = posHeight;
+    this->boardCellType = boardCellType;
+
+    this->randomCellDecoration = CustomRandom::randInt(0, 3);
+};
+
+BoardCell::~BoardCell() {
+    delete antOnCell;
+}
+
 int BoardCell::getFloorTileNumber() {
 
     switch (this->boardCellType) {

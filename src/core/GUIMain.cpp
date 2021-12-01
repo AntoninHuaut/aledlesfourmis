@@ -2,7 +2,7 @@
 
 void renderingThread(threadData data) {
     data.window->setActive(true);
-    data.window->setVerticalSyncEnabled(true);
+    data.window->setFramerateLimit(Config::get()->getMaxFps());
     data.board->calcRender();
 
     // Render loop

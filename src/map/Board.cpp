@@ -1,7 +1,6 @@
 #include "../../header/map/Board.h"
 #include "../../header/map/BoardGenerator.h"
 
-
 void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     states.transform *= getTransform();
     states.texture = &m_tileset;
@@ -89,7 +88,6 @@ bool Board::calcRender() {
 }
 
 list<BoardCell *> *Board::getNearbyCells(BoardCell *cell) {
-
     auto *nearbyCells = new list<BoardCell *>;
 
     for (int i = -1; i <= 1; i++) {
@@ -114,4 +112,49 @@ list<BoardCell *> *Board::getNearbyCells(BoardCell *cell) {
 
 BoardCell *Board::getCenterCell() {
     return cells[Config::get()->getHeight() / 2][Config::get()->getLength() / 2];
+}
+
+void Board::expandColonies() {
+    BasicCell *expCell = findExpandableBasicCell();
+    if (expCell == nullptr) {
+        cerr << "Impossible to expand the colony" << endl;
+        return;
+    }
+
+    auto antOnCell = *expCell->getAntOnCell();
+    int length = expCell->getPosLength();
+    int height = expCell->getPosHeight();
+
+    expCell->~BasicCell();
+
+    auto *newColonyCell = new(expCell) ColonyCell(length, height);
+
+    for (Ant *ant: antOnCell) {
+        newColonyCell->addAntOnCell(ant);
+    }
+
+    addColoniesCell(newColonyCell);
+}
+
+BasicCell *Board::findExpandableBasicCell() {
+    BasicCell *expandCellFound = nullptr;
+
+    for (ColonyCell *colonyCell: *getColoniesCells()) {
+        auto *nearbyCells = getNearbyCells(colonyCell);
+
+        for (BoardCell *nearbyCell: *nearbyCells) {
+            if (nearbyCell->getBoardCellType() != BasicCellType) continue;
+
+            expandCellFound = dynamic_cast<BasicCell *>(nearbyCell);
+            break;
+        }
+
+        delete nearbyCells;
+
+        if (expandCellFound != nullptr) {
+            return expandCellFound;
+        }
+    }
+
+    return nullptr;
 }
