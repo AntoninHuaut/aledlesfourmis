@@ -29,8 +29,6 @@ class Ant {
 
     virtual void tickMove(Board *board) {};
 
-    virtual bool hasEatFood(double amountToEat);
-
     bool isDyingHunger() const;
 
     void tickFood();
@@ -41,6 +39,8 @@ protected:
     double foodConsumedEachDay;
 
     void setAlive(bool newAlive) { alive = newAlive; }
+
+    virtual bool hasEatFood(double amountToEat);
 
     static double colonyFood;
 
@@ -74,6 +74,7 @@ public:
     list<BoardCell *> *getAvailableCellToMove(Board *board);
 
     void goToCell(BoardCell *newCell);
+
     bool goBackToLastCell();
 };
 

@@ -8,7 +8,7 @@ bool Worker::hasEatFood(double amountToEat) {
     double foodRemainToEat = amountToEat - foodEaten;
 
     if (foodRemainToEat > 0) {
-        return this->hasEatFood(foodRemainToEat);
+        return Ant::hasEatFood(foodRemainToEat);
     }
     return true;
 }

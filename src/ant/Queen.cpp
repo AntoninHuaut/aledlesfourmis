@@ -33,11 +33,11 @@ void Queen::generateAnt(Board *board) {
 
     Ant *ant = nbChild > 0 ? createRandomAnt(spawnCell) : new Scout(spawnCell);
     board->getAntList()->push_back(ant);
+
+    nbChild++;
 }
 
 Ant *Queen::createRandomAnt(BoardCell *spawnCell) {
-    nbChild++;
-
     int luck = CustomRandom::randInt(1, 100);
     if (luck <= 80) {
         return new Worker(spawnCell);
