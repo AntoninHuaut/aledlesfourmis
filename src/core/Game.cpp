@@ -5,7 +5,8 @@
 void Game::tickGame() {
     tickQueen();
     tickAnts();
-
+    
+    board->incrementCurrentTick();
     board->calcRender();
 }
 
@@ -24,6 +25,7 @@ void Game::tickQueen() {
         // TODO END GAME
         return;
     }
+
     queen->tick(board);
 }
 

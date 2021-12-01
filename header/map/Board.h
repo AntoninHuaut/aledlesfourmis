@@ -15,6 +15,7 @@ class Board : public sf::Drawable, public sf::Transformable {
 
     BoardCell ***cells;
     list<ColonyCell *> *coloniesCells;
+    int currentTick = 0;
 
     list<Ant *> *antList;
     Queen *antQueen;
@@ -35,6 +36,10 @@ public:
 
         m_tileset.loadFromFile("./assets/tileset.png");
     };
+
+    int getCurrentTick() const { return currentTick; }
+
+    void incrementCurrentTick() { currentTick++; }
 
     bool isWindowClosed() const { return windowClosed; }
 

@@ -113,7 +113,5 @@ list<BoardCell *> *Board::getNearbyCells(BoardCell *cell) {
 }
 
 BoardCell *Board::getCenterCell() {
-
     return cells[Config::get()->getHeight() / 2][Config::get()->getLength() / 2];
-
 }

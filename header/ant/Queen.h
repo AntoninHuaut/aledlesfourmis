@@ -7,14 +7,26 @@
 class Queen : public Ant {
 
     int nbChild = 0;
-    bool wasAssaulted = false;
+    bool assaulted = false;
 
 public:
     explicit Queen(BoardCell *currentCell) :
             Ant(Config::get()->getQueenHoursBeforeDeath(), 1, Config::get()->getQueenFoodConsumingTick(),
                 currentCell, QueenType) {};
 
+    void setAssaulted(bool newAssaulted) {
+        assaulted = newAssaulted;
+    }
+
+    bool isAssaulted() const { return assaulted; }
+
     void tick(Board *board) override;
+
+    void tickChild(Board *board);
+
+    void generateAnt(Board *board);
+
+    Ant *createRandomAnt(BoardCell *spawnCell);
 };
 
 

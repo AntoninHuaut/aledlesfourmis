@@ -4,15 +4,6 @@
 
 double Ant::colonyFood = 0;
 
-Ant::~Ant() {
-    this->currentCell->removeAntOnCell(this);
-    delete cellTraveledSinceColony;
-}
-
-void Ant::kill() {
-    setAlive(false);
-}
-
 Ant::Ant(int hoursBeforeDeath, int maxDaysWithoutFeeding,
          double foodConsumedEachDay, BoardCell *currentCell, AntType antType) {
     this->hoursBeforeDeath = hoursBeforeDeath;
@@ -22,6 +13,15 @@ Ant::Ant(int hoursBeforeDeath, int maxDaysWithoutFeeding,
     this->antType = antType;
 
     this->currentCell->addAntOnCell(this);
+}
+
+Ant::~Ant() {
+    this->currentCell->removeAntOnCell(this);
+    delete cellTraveledSinceColony;
+}
+
+void Ant::kill() {
+    setAlive(false);
 }
 
 int Ant::getAntTileNumber() {

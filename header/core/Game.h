@@ -5,7 +5,7 @@
 
 class Game {
 
-    Board *board{};
+    Board *board;
 
 public:
     explicit Game(Board *board) {
