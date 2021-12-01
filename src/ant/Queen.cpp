@@ -12,13 +12,15 @@ void Queen::tick(Board *board) {
 }
 
 void Queen::tickChild(Board *board) {
-    if (board->getCurrentTick() % 24 != 0) return;
+    if (board->getCurrentTick() % 24 != 0) return; // Only once a day
 
+    // No child if the Queen was assaulted
     if (this->isAssaulted()) {
         this->setAssaulted(false);
         return;
     }
 
+    // Generating two ants
     for (int i = 0; i < 2; i++) {
         generateAnt(board);
     }
