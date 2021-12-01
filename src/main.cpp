@@ -24,7 +24,6 @@ void gameTickingThread(Board *board) {
         game->tickGame();
 
         sf::Int64 diffMicroSecond_FPS = clock_FPS.getElapsedTime().asMicroseconds();
-//        cout << diffMicroSecond_FPS << " - " << minDiffMicroSecond_FPS << endl;
         if (diffMicroSecond_FPS > minDiffMicroSecond_FPS) {
             clock_FPS.restart();
             board->calcRender();

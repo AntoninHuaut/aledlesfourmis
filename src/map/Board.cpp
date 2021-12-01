@@ -21,7 +21,6 @@ bool Board::calcRender() {
 
     for (int height = 0; height < maxHeight; ++height) {
         for (int length = 0; length < maxLength; ++length) {
-
             // Cells with multiple layers
             if (cells[height][length]->numberOfLayers() >= 2) {
                 cellsWithOtherLayer->push_back(cells[height][length]);

@@ -10,9 +10,7 @@ class Game {
     void tickAnts();
 
     void tickQueen();
-
-    bool checkAndRemoveDeadAnt(Ant *ant);
-
+    
 public:
 
     explicit Game(Board *board) {

@@ -7,7 +7,7 @@
     "height": 201,
     "length": 211,
     "maxTps": 5120.0,
-    "maxFps": 5
+    "maxFps": 60
   },
   "generation": {
     "rockPercent": 0.3,

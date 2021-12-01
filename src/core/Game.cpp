@@ -9,11 +9,21 @@ void Game::tickGame() {
 }
 
 void Game::tickAnts() {
+    list<Ant *> antDeleteList{};
     for (auto *ant: *board->getAntList()) {
         if (ant == nullptr) continue; // Should never happen
-        if (checkAndRemoveDeadAnt(ant)) continue;
+        if (!ant->isAlive()) {
+            antDeleteList.push_back(ant);
+            continue;
+        }
 
-        ant->tick(board);
+//        ant->tick(board);
+    }
+
+    for (auto *antToDelete: antDeleteList) {
+        cout << "Deleting ant" << endl;
+        board->getAntList()->remove(antToDelete);
+        delete antToDelete;
     }
 }
 
@@ -21,21 +31,13 @@ void Game::tickQueen() {
     Queen *queen = board->getAntQueen();
     if (queen == nullptr) return;
 
-    if (checkAndRemoveDeadAnt(queen)) {
+    if (!queen->isAlive()) {
+        cout << "Deleting queen" << endl;
         board->setAntQueen(nullptr);
+        delete queen;
         // TODO END GAME
         return;
     }
 
     queen->tick(board);
-}
-
-bool Game::checkAndRemoveDeadAnt(Ant *ant) {
-    if (!ant->isAlive()) {
-        board->getAntList()->remove(ant);
-        delete ant;
-        return true;
-    }
-
-    return false;
 }

@@ -36,8 +36,8 @@ Config::Config() {
     defaultFoodConsumingTick = data["ant"]["foodConsumption"]["default"].asFloat();
     queenFoodConsumingTick = data["ant"]["foodConsumption"]["queen"].asFloat();
 
-    queenHoursBeforeDeath = data["ant"]["hoursBeforeDeath"]["default"].asInt();
-    defaultHoursBeforeDeath = data["ant"]["hoursBeforeDeath"]["queen"].asInt();
+    defaultHoursBeforeDeath = data["ant"]["hoursBeforeDeath"]["default"].asInt();
+    queenHoursBeforeDeath = data["ant"]["hoursBeforeDeath"]["queen"].asInt();
 
     scootHoursBeforeAdult = data["ant"]["hoursBeforeAdult"]["worker"].asInt();
     workerHoursBeforeAdult = data["ant"]["hoursBeforeAdult"]["scout"].asInt();

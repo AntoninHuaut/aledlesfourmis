@@ -232,10 +232,12 @@ void BoardGenerator::generateColony() {
     board->addColoniesCell(colonyCell);
     board->setAntQueen(new Queen(colonyCell));
 
+    /* TODO TEST */
     auto *firstCell = cells[0][0];
     auto ant = new SlaveOwner(firstCell);
     firstCell->addAntOnCell(ant);
     board->addAntList(ant);
+    /* */
 
     removeRockNearColony(centerHeight, centerLength);
 }
