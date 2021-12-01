@@ -69,6 +69,6 @@ list<int> *BoardCell::getOtherLayerTileNumbers() {
 
     tiles->splice(tiles->end(),*top);
 
-    free(top);
+    delete top;
     return tiles;
 }
