@@ -2,12 +2,16 @@
 #include "../../header/map/BoardCell.h"
 #include "../../header/map/Board.h"
 
+double Ant::colonyFood = 0;
+
 Ant::~Ant() {
     delete cellTraveledSinceColony;
 }
 
-Ant::Ant(int hoursBeforeDeath, double foodConsumedEachDay, BoardCell *currentCell, AntType antType) {
+Ant::Ant(int hoursBeforeDeath, int maxDaysWithoutFeeding,
+         double foodConsumedEachDay, BoardCell *currentCell, AntType antType) {
     this->hoursBeforeDeath = hoursBeforeDeath;
+    this->maxHoursWithoutFeeding = maxDaysWithoutFeeding * 24;
     this->foodConsumedEachDay = foodConsumedEachDay;
     this->currentCell = currentCell;
     this->antType = antType;
@@ -69,5 +73,29 @@ void Ant::goToCell(BoardCell *newCell) {
 
     newCell->addAntOnCell(this);
     this->currentCell = newCell;
+}
+
+bool Ant::hasEatFood(double amountToEat) { // Default this->foodConsumedEachDay
+    if (Ant::colonyFood >= amountToEat) {
+        Ant::colonyFood -= amountToEat;
+        return true;
+    }
+
+    return false;
+}
+
+bool Ant::isDyingHunger() {
+    return hoursSinceLastFeeding >= maxHoursWithoutFeeding;
+}
+
+void Ant::genericEatFood() {
+    bool _hasEatFood = hasEatFood();
+    if (_hasEatFood) {
+        hoursSinceLastFeeding = 0;
+    }
+
+    if (isDyingHunger()) {
+        this->kill();
+    }
 }
 

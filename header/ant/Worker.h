@@ -16,10 +16,11 @@ class Worker : public Ant, public Age {
 
 public:
     explicit Worker(BoardCell *currentCell) :
-            Ant(Config::get()->getDefaultHoursBeforeDeath(), Config::get()->getDefaultFoodConsumingTick(),
+            Ant(Config::get()->getDefaultHoursBeforeDeath(), 1, Config::get()->getDefaultFoodConsumingTick(),
                 currentCell, WorkerType),
             Age(Config::get()->getWorkerHoursBeforeAdult()) {};
 
+    bool hasEatFood(double amountToEat) override;
 };
 
 

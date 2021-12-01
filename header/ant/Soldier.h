@@ -10,7 +10,7 @@ class Soldier : public Ant {
 
 public:
     explicit Soldier(BoardCell *currentCell) :
-            Ant(Config::get()->getDefaultHoursBeforeDeath(), Config::get()->getDefaultFoodConsumingTick(),
+            Ant(Config::get()->getDefaultHoursBeforeDeath(), 1, Config::get()->getDefaultFoodConsumingTick(),
                 currentCell, SoldierType) {};
 
 };

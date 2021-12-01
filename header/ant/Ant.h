@@ -22,18 +22,29 @@ class Ant {
 
     int hoursBeforeDeath;
     int hoursSinceLastFeeding = 0;
-    double foodConsumedEachDay;
+    int maxHoursWithoutFeeding;
 
-    virtual void eatFood() {};
+    virtual bool hasEatFood(double amountToEat);
+
+    bool isDyingHunger();
+
+    void genericEatFood();
 
     virtual void putPheromones() {};
 
-    virtual void kill() {};
 
 protected:
     list<BoardCell *> *cellTraveledSinceColony = new list<BoardCell *>;
+
+    double foodConsumedEachDay;
+
+    virtual void kill() {};
+
+    static double colonyFood;
+
 public:
-    Ant(int hoursBeforeDeath, double foodConsumedEachDay, BoardCell *currentCell, AntType antType);
+    Ant(int hoursBeforeDeath, int maxHoursWithoutFeeding, double foodConsumedEachDay, BoardCell *currentCell,
+        AntType antType);
 
     ~Ant();
 
