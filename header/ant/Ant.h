@@ -71,7 +71,7 @@ public:
         return antType;
     }
 
-    bool isAlive() const { return alive; } // TODO CRASH
+    bool isAlive() const { return alive; }
 
     list<BoardCell *> *getAvailableCellToMove(Board *board);
 

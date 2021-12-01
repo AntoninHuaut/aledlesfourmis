@@ -32,11 +32,11 @@ int BoardCell::numberOfLayers() {
     int layers = 1;
 
     if (!this->antOnCell->empty()) {
-        layers ++;
+        layers++;
     }
 
-    if(!this->visited){
-        layers ++;
+    if (!this->visited) {
+        layers++;
     }
 
     return layers;
@@ -67,7 +67,7 @@ list<int> *BoardCell::getOtherLayerTileNumbers() {
     auto *tiles = getBottomLayerTileNumbers();
     auto *top = getTopLayerTileNumbers();
 
-    tiles->splice(tiles->end(),*top);
+    tiles->splice(tiles->end(), *top);
 
     delete top;
     return tiles;
