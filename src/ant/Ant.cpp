@@ -5,7 +5,12 @@
 double Ant::colonyFood = 0;
 
 Ant::~Ant() {
+    this->currentCell->removeAntOnCell(this);
     delete cellTraveledSinceColony;
+}
+
+void Ant::kill() {
+    setAlive(false);
 }
 
 Ant::Ant(int hoursBeforeDeath, int maxDaysWithoutFeeding,
@@ -65,6 +70,20 @@ void Ant::goToCell(BoardCell *newCell) {
     this->currentCell = newCell;
 }
 
+void Ant::tick(Board *board) {
+    // Ticking Age
+    if (--hoursBeforeDeath <= 0) {
+        kill();
+        return;
+    }
+
+    // Ticking movement (empty by default)
+    tickMove(board);
+
+    // Ticking food
+    tickFood();
+}
+
 bool Ant::hasEatFood(double amountToEat) {
     if (Ant::colonyFood >= amountToEat) {
         Ant::colonyFood -= amountToEat;
@@ -78,7 +97,7 @@ bool Ant::isDyingHunger() const {
     return hoursSinceLastFeeding >= maxHoursWithoutFeeding;
 }
 
-void Ant::genericEatFood() {
+void Ant::tickFood() {
     bool _hasEatFood = hasEatFood(this->foodConsumedEachDay);
     if (_hasEatFood) {
         hoursSinceLastFeeding = 0;
@@ -88,4 +107,3 @@ void Ant::genericEatFood() {
         this->kill();
     }
 }
-

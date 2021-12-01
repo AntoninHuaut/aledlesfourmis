@@ -2,23 +2,25 @@
 #define ANT_WORKER_H
 
 #include "Ant.h"
-#include "Age.h"
+#include "AgeAdult.h"
 #include "../Config.h"
 
-class Worker : public Ant, public Age {
+class Worker : public Ant, public AgeAdult {
 
     double pheromoneAmount = 500;
     double foodCarriedAmount = 0;
 
-    void dropFood() {};
+    void dropFood(); // TODO
 
-    void visitColony() {};
+    void visitColony(); // TODO
+
+    void putPheromones(); // TODO
 
 public:
     explicit Worker(BoardCell *currentCell) :
             Ant(Config::get()->getDefaultHoursBeforeDeath(), 1, Config::get()->getDefaultFoodConsumingTick(),
                 currentCell, WorkerType),
-            Age(Config::get()->getWorkerHoursBeforeAdult()) {};
+            AgeAdult(Config::get()->getWorkerHoursBeforeAdult()) {};
 
     bool hasEatFood(double amountToEat) override;
 };

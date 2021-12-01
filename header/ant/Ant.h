@@ -21,34 +21,37 @@ class Ant {
     AntType antType;
 
     int hoursBeforeDeath;
+    int alive = true;
     int hoursSinceLastFeeding = 0;
     int maxHoursWithoutFeeding;
+
+    virtual void tickMove(Board *board) {};
 
     virtual bool hasEatFood(double amountToEat);
 
     bool isDyingHunger() const;
 
-    void genericEatFood();
-
-    virtual void putPheromones() {};
-
+    void tickFood();
 
 protected:
     list<BoardCell *> *cellTraveledSinceColony = new list<BoardCell *>;
 
     double foodConsumedEachDay;
 
-    virtual void kill() {};
+    void setAlive(bool newAlive) { alive = newAlive; }
 
     static double colonyFood;
 
 public:
+
     Ant(int hoursBeforeDeath, int maxDaysWithoutFeeding, double foodConsumedEachDay, BoardCell *currentCell,
         AntType antType);
 
     ~Ant();
 
-    virtual void tick(Board *board) {};
+    virtual void tick(Board *board);
+
+    virtual void kill();
 
     virtual bool attackAnt(Ant *target) { return false; }
 
@@ -64,11 +67,11 @@ public:
         return antType;
     }
 
+    bool isAlive() const { return alive; }
+
     list<BoardCell *> *getAvailableCellToMove(Board *board);
 
     void goToCell(BoardCell *newCell);
-
-
 };
 
 #endif

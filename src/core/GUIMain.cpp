@@ -12,7 +12,7 @@ void renderingThread(threadData data) {
         data.window->display();
     }
 
-    data.board->setFinishGame(true);
+    data.board->setWindowClosed(true);
 }
 
 void GUIMain::runUI() {

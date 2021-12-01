@@ -2,16 +2,16 @@
 #define ANT_SCOUT_H
 
 #include "Ant.h"
-#include "Age.h"
+#include "AgeAdult.h"
 #include "../Config.h"
 
-class Scout : public Ant, public Age {
+class Scout : public Ant, public AgeAdult {
 
 public:
     explicit Scout(BoardCell *currentCell) :
             Ant(Config::get()->getDefaultHoursBeforeDeath(), 1, Config::get()->getDefaultFoodConsumingTick(),
                 currentCell, ScoutType),
-            Age(Config::get()->getScootHoursBeforeAdult()) {};
+            AgeAdult(Config::get()->getScootHoursBeforeAdult()) {};
 
 };
 

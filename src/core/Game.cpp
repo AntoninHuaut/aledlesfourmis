@@ -11,14 +11,28 @@ void Game::tickGame() {
 
 void Game::tickAnts() {
     for (auto *ant: *board->getAntList()) {
-        // TODO arg
-        // increment age
-        // move ant
-        // consume food
         ant->tick(board);
     }
 }
 
 void Game::tickQueen() {
-    board->getAntQueen()->tick(board);
+    Queen *queen = board->getAntQueen();
+    if (queen == nullptr) return;
+
+    if (checkAndRemoveDeadAnt(queen)) {
+        board->setAntQueen(nullptr);
+        // TODO END GAME
+        return;
+    }
+    queen->tick(board);
+}
+
+bool Game::checkAndRemoveDeadAnt(Ant *ant) {
+    if (!ant->isAlive()) {
+        board->getAntList()->remove(ant);
+        delete ant;
+        return true;
+    }
+
+    return false;
 }

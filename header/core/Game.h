@@ -17,6 +17,8 @@ public:
     void tickAnts();
 
     void tickQueen();
+
+    bool checkAndRemoveDeadAnt(Ant *ant);
 };
 
 

@@ -3,6 +3,8 @@
 #include "../../header/map/Board.h"
 
 void Queen::tick(Board *board) {
+    Ant::tick(board);
+
     /* TODO TEST : to delete */
     auto *list = getAvailableCellToMove(board);
     if (list->empty()) return;

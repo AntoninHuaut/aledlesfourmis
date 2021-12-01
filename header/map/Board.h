@@ -22,7 +22,7 @@ class Board : public sf::Drawable, public sf::Transformable {
     sf::VertexArray m_vertices;
     sf::Texture m_tileset;
 
-    bool finishGame = false;
+    bool windowClosed = false;
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
@@ -32,14 +32,18 @@ public:
         this->antList = new list<Ant *>;
         this->cells = cells;
         this->antQueen = nullptr;
-        
+
         m_tileset.loadFromFile("./assets/tileset.png");
     };
 
-    bool isFinishGame() const { return finishGame; }
+    bool isWindowClosed() const { return windowClosed; }
 
-    void setFinishGame(bool newFinishGame) {
-        this->finishGame = newFinishGame;
+    void setWindowClosed(bool newWindowClosed) {
+        this->windowClosed = newWindowClosed;
+    }
+
+    bool isQueenAlive() {
+        return antQueen != nullptr;
     }
 
     BoardCell ***getCells() { return cells; }

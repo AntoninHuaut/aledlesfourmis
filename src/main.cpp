@@ -14,7 +14,7 @@ void gameTickingThread(Board *board) {
     float wantedTPS = Config::get()->getMaxTps();
     auto minDiffMicroSecond = static_cast<sf::Int64>((1.f / wantedTPS) * pow(10, 6));
 
-    while (!board->isFinishGame()) {
+    while (!board->isWindowClosed() && board->isQueenAlive()) {
         clock.restart();
         game->tickGame();
         sf::Time elapsed = clock.getElapsedTime();
