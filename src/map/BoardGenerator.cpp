@@ -194,7 +194,7 @@ void BoardGenerator::generateRock() {
             BoardCell *posCell = cells[posRockHeight][posRockLength];
 
             if (posCell == nullptr) {
-                cells[posRockHeight][posRockLength] = new RockCell(posRockHeight, posRockLength);
+                cells[posRockHeight][posRockLength] = new RockCell(posRockLength, posRockHeight;
 
                 additionalRockGenerated++;
                 totalRockGenerated++;
