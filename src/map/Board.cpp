@@ -17,13 +17,13 @@ bool Board::calcRender() {
     // create new vertex array
     sf::VertexArray tmpVertex(sf::Quads, verticeSize);
 
-    auto *cellsWithOtherLayer = new list<BoardCell *>;
+    list<BoardCell *> cellsWithOtherLayer;
 
     for (int height = 0; height < maxHeight; ++height) {
         for (int length = 0; length < maxLength; ++length) {
             // Cells with multiple layers
             if (cells[height][length]->numberOfLayers() >= 2) {
-                cellsWithOtherLayer->push_back(cells[height][length]);
+                cellsWithOtherLayer.push_back(cells[height][length]);
             }
 
             // get the current tile number
@@ -50,12 +50,8 @@ bool Board::calcRender() {
         }
     }
 
-
-    for (auto const &cell: *cellsWithOtherLayer) {
-
-        auto *layers = cell->getOtherLayerTileNumbers();
-
-        for (auto const &tileNumber: *layers) {
+    for (auto const &cell: cellsWithOtherLayer) {
+        for (auto const &tileNumber: cell->getOtherLayerTileNumbers()) {
 
             verticeSize += 4;
             tmpVertex.resize(verticeSize);
@@ -80,15 +76,9 @@ bool Board::calcRender() {
             quad[3].texCoords = sf::Vector2f(tu * tileSize.x, (tv + 1) * tileSize.y);
 
         }
-
-        delete layers;
-
     }
 
-    delete cellsWithOtherLayer;
-
     m_vertices = tmpVertex;
-
     return true;
 }
 

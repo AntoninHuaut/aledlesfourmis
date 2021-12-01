@@ -51,11 +51,11 @@ public:
 
     int getFloorTileNumber();
 
-    list<int> *getBottomLayerTileNumbers();
+    list<int> getBottomLayerTileNumbers();
 
-    list<int> *getTopLayerTileNumbers();
+    list<int> getTopLayerTileNumbers();
 
-    virtual list<int> *getOtherLayerTileNumbers();
+    virtual list<int> getOtherLayerTileNumbers();
 
     list<Ant *> *getAntOnCell() const {
         return antOnCell;

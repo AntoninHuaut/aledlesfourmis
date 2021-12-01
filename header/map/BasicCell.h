@@ -21,8 +21,8 @@ public:
 
     int numberOfLayers() override;
 
-    list<int> *getOtherLayerTileNumbers() override;
-    
+    list<int> getOtherLayerTileNumbers() override;
+
 };
 
 #endif
