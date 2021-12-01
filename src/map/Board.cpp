@@ -89,7 +89,6 @@ bool Board::calcRender() {
 }
 
 list<BoardCell *> *Board::getNearbyCells(BoardCell *cell) {
-
     auto *nearbyCells = new list<BoardCell *>;
 
     for (int i = -1; i <= 1; i++) {
@@ -98,10 +97,14 @@ list<BoardCell *> *Board::getNearbyCells(BoardCell *cell) {
 
             int tmpHeight = cell->getPosHeight() + i;
             int tmpLength = cell->getPosLength() + j;
-            if (tmpHeight < 0 || tmpLength < 0 || tmpHeight >= Config::get()->getHeight() || tmpLength >= Config::get()->getLength()) continue;
+            if (tmpHeight < 0 || tmpLength < 0 || tmpHeight >= Config::get()->getHeight() ||
+                tmpLength >= Config::get()->getLength()) {
+                continue;
+            }
 
-            if (this->cells[tmpHeight][tmpLength] != nullptr)
+            if (this->cells[tmpHeight][tmpLength] != nullptr) {
                 nearbyCells->push_back(this->cells[tmpHeight][tmpLength]);
+            }
         }
     }
 
@@ -110,6 +113,6 @@ list<BoardCell *> *Board::getNearbyCells(BoardCell *cell) {
 
 BoardCell *Board::getCenterCell() {
 
-    return cells[Config::get()->getLength()/2][Config::get()->getHeight()/2];
+    return cells[Config::get()->getLength() / 2][Config::get()->getHeight() / 2];
 
 }

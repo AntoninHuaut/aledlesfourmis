@@ -45,7 +45,6 @@ list<BoardCell *> *Ant::getAvailableCellToMove(Board *board) {
         return new list<BoardCell *>;
 
     auto *cells = new list<BoardCell *>;
-
     auto *nearbyCells = board->getNearbyCells(this->currentCell);
 
     for (auto const &cell: *nearbyCells) {
@@ -54,8 +53,7 @@ list<BoardCell *> *Ant::getAvailableCellToMove(Board *board) {
         }
     }
 
-    //free(nearbyCells);
-
+    delete nearbyCells;
     return cells;
 }
 
