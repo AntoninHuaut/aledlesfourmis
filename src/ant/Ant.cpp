@@ -65,7 +65,7 @@ void Ant::goToCell(BoardCell *newCell) {
     this->currentCell = newCell;
 }
 
-bool Ant::hasEatFood(double amountToEat) { // Default this->foodConsumedEachDay
+bool Ant::hasEatFood(double amountToEat) {
     if (Ant::colonyFood >= amountToEat) {
         Ant::colonyFood -= amountToEat;
         return true;
@@ -79,7 +79,7 @@ bool Ant::isDyingHunger() {
 }
 
 void Ant::genericEatFood() {
-    bool _hasEatFood = hasEatFood();
+    bool _hasEatFood = hasEatFood(this->foodConsumedEachDay);
     if (_hasEatFood) {
         hoursSinceLastFeeding = 0;
     }
