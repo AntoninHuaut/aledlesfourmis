@@ -31,12 +31,20 @@ void SlaveOwner::goToCenter(Board *board) {
         }
     }
 
+    if (bestCell == target) {
+        haveArrivedToCenter = true;
+    }
+
     this->goToCell(bestCell);
 
 }
 
 void SlaveOwner::tick(Board *board) {
-    goToCenter(board);
+    
+    if (!haveArrivedToCenter)
+        goToCenter(board);
+    else
+        goBackToLastCell();
 }
 
 bool SlaveOwner::hasEatFood(double amountToEat) {

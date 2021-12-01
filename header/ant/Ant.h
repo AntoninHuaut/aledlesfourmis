@@ -68,6 +68,8 @@ public:
 
     void goToCell(BoardCell *newCell);
 
+    bool goBackToLastCell();
+
 
 };
 

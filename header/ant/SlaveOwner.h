@@ -11,6 +11,7 @@ class Board;
 class SlaveOwner : public Ant {
 
     int larvaCarried = 0;
+    bool haveArrivedToCenter = false;
 
 public:
 
