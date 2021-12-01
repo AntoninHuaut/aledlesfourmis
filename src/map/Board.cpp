@@ -142,7 +142,11 @@ BasicCell *Board::findExpandableBasicCell() {
         auto *nearbyCells = getNearbyCells(colonyCell);
 
         for (BoardCell *nearbyCell: *nearbyCells) {
-            if (nearbyCell->getBoardCellType() != BasicCellType) continue;
+            if ((nearbyCell->getPosHeight() != colonyCell->getPosHeight() && // No generation in the diagonal
+                 nearbyCell->getPosLength() != colonyCell->getPosLength())
+                || nearbyCell->getBoardCellType() != BasicCellType) {
+                continue;
+            }
 
             expandCellFound = dynamic_cast<BasicCell *>(nearbyCell);
             break;
