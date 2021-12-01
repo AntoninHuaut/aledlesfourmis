@@ -15,11 +15,15 @@ int BasicCell::numberOfLayers() {
 }
 
 list<int> *BasicCell::getOtherLayerTileNumbers() {
-    list<int> *tiles = BoardCell::getOtherLayerTileNumbers();
+    list<int> *tiles = BoardCell::getBottomLayerTileNumbers();
 
     if (foodAmount > 0) {
-        tiles->push_front(FOOD_LAYER);
+        tiles->push_back(FOOD_LAYER);
     }
+
+    auto *topTiles = BoardCell::getTopLayerTileNumbers();
+
+    tiles->splice(tiles->end(), *topTiles);
 
     return tiles;
 }

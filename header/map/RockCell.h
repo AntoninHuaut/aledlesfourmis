@@ -4,6 +4,8 @@
 #include "BoardCell.h"
 #include "../Config.h"
 
+using namespace std;
+
 class RockCell : public BoardCell {
 
 public:

@@ -7,7 +7,8 @@ enum TileEnum {
     ROCK_FLOOR = 5,
     COLONY_FLOOR = 9,
     BLACK_ANT = 15,
-    FOOD_LAYER = 10
+    FOOD_LAYER = 10,
+    CLOUD_LAYER = 14
 };
 
 #endif

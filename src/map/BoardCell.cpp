@@ -29,19 +29,45 @@ int BoardCell::getFloorTileNumber() {
 }
 
 int BoardCell::numberOfLayers() {
+    int layers = 1;
+
     if (!this->antOnCell->empty()) {
-        return 2;
+        layers ++;
     }
 
-    return 1;
+    if(!this->visited){
+        layers ++;
+    }
+
+    return layers;
 }
 
-list<int> *BoardCell::getOtherLayerTileNumbers() {
+list<int> *BoardCell::getBottomLayerTileNumbers() {
     auto *tiles = new list<int>;
 
     if (!antOnCell->empty()) {
         tiles->push_back(antOnCell->back()->getAntTileNumber());
     }
+
+    return tiles;
+}
+
+list<int> *BoardCell::getTopLayerTileNumbers() {
+    auto *tiles = new list<int>;
+
+    if (!visited) {
+        tiles->push_back(CLOUD_LAYER);
+    }
+
+    return tiles;
+}
+
+list<int> *BoardCell::getOtherLayerTileNumbers() {
+
+    auto *tiles = getBottomLayerTileNumbers();
+    auto *top = getTopLayerTileNumbers();
+
+    tiles->splice(tiles->end(),*top);
 
     return tiles;
 }
