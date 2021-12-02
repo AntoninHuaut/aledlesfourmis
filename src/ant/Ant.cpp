@@ -60,6 +60,8 @@ list<BoardCell *> Ant::getAvailableCellToMove(Board *board) {
 }
 
 void Ant::goToCell(BoardCell *newCell, bool haveToVisit) {
+    if (newCell->getBoardCellType() == RockCellType) return;
+
     this->currentCell->removeAntOnCell(this);
     this->addCellTraveled(this->currentCell);
     this->lastCell = this->currentCell;

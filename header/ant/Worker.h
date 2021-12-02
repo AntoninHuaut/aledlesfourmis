@@ -23,6 +23,9 @@ public:
             AgeAdult(Config::get()->getWorkerHoursBeforeAdult()) {};
 
     bool eatFood(float amountToEat) override;
+
+    void tickMove(Board *board) override;
+
 };
 
 

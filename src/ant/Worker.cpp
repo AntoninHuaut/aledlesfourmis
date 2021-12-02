@@ -12,3 +12,7 @@ bool Worker::eatFood(float amountToEat) {
     }
     return true;
 }
+
+void Worker::tickMove(Board *board) {
+
+}

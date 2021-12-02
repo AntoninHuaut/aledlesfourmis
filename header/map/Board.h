@@ -23,6 +23,12 @@ class Board : public sf::Drawable, public sf::Transformable {
     Queen *antQueen;
 
     sf::VertexArray m_vertices;
+    sf::VertexArray floor_vertex;
+    sf::VertexArray floor_decoration_vertex;
+    sf::VertexArray ant_vertex;
+    sf::VertexArray cloud_vertex;
+
+
     sf::Texture m_tileset;
 
     bool windowClosed = false;

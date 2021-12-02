@@ -16,13 +16,25 @@ void Scout::tickMove(Board *board) {
     BoardCell *nextCell;
 
     if (!unknownCells.empty()) {
-        auto l_front = unknownCells.begin();
-        std::advance(l_front, CustomRandom::randInt(0, static_cast<int>(unknownCells.size()) - 1));
-        nextCell = *l_front;
+        int randCell = CustomRandom::randInt(0, static_cast<int>(unknownCells.size()) - 1);
+        int i = 0;
+        for (auto *cell: unknownCells) {
+            nextCell = cell;
+            if (i == randCell) {
+                break;
+            }
+            i++;
+        }
     } else {
-        auto l_front = cells.begin();
-        std::advance(l_front, CustomRandom::randInt(0, static_cast<int>(cells.size()) - 1));
-        nextCell = *l_front;
+        int randCell = CustomRandom::randInt(0, static_cast<int>(cells.size()) - 1);
+        int i = 0;
+        for (auto *cell: unknownCells) {
+            nextCell = cell;
+            if (i == randCell) {
+                break;
+            }
+            i++;
+        }
     }
 
     goToCell(nextCell, true);
