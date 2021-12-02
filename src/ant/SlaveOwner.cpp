@@ -34,11 +34,11 @@ void SlaveOwner::goToCenter(Board *board) {
 }
 
 void SlaveOwner::tickMove(Board *board) {
-
-    if (!haveArrivedToCenter)
+    if (!haveArrivedToCenter) {
         goToCenter(board);
-    else
+    } else {
         goBackToLastCell();
+    }
 }
 
 bool SlaveOwner::hasEatFood(double amountToEat) {
