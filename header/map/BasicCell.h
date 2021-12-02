@@ -21,6 +21,8 @@ public:
 
     int numberOfLayers() override;
 
+    list<int> getBoo
+
     list<int> getOtherLayerTileNumbers() override;
 
 };

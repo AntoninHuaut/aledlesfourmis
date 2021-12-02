@@ -13,15 +13,16 @@ void SlaveOwner::goToCenter(Board *board) {
     BoardCell *target = board->getCenterCell();
 
     int min = cellsDistance(possibleCells.front(), target);
+    int minNumberOfVisite = numberOfTimeOnCell(possibleCells.front());
+
     BoardCell *bestCell = possibleCells.front();
 
     for (auto *cell: possibleCells) {
         int newDist = cellsDistance(cell, target);
 
-        if (newDist <= min &&
-            find(this->cellTraveledSinceColony->begin(), this->cellTraveledSinceColony->end(), cell) ==
-            this->cellTraveledSinceColony->end()) {
+        if (newDist <= min && numberOfTimeOnCell(cell) <= minNumberOfVisite) {
             min = newDist;
+            minNumberOfVisite = numberOfTimeOnCell(cell);
             bestCell = cell;
         }
     }

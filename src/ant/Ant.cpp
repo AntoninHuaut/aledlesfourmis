@@ -130,3 +130,15 @@ void Ant::tickFood(Board *board) {
         this->kill();
     }
 }
+
+int Ant::numberOfTimeOnCell(BoardCell *cell) {
+    int timeOnCell = 0;
+
+    for (auto const &i: *cellTraveledSinceColony) {
+        if (cell == i) {
+            timeOnCell++;
+        }
+    }
+
+    return timeOnCell;
+}

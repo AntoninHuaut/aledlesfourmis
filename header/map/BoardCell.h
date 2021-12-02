@@ -51,7 +51,7 @@ public:
 
     int getFloorTileNumber();
 
-    list<int> getBottomLayerTileNumbers();
+    virtual list<int> getBottomLayerTileNumbers();
 
     list<int> getTopLayerTileNumbers();
 

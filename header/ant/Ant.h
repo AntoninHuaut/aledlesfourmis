@@ -77,6 +77,8 @@ public:
 
     void goToCell(BoardCell *newCell, bool haveToVisit);
 
+    int numberOfTimeOnCell(BoardCell *cell);
+
 
     bool goBackToLastCell();
 };
