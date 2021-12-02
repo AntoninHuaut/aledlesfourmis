@@ -28,6 +28,11 @@ class BoardCell {
 
     void pheromoneSpreading() {};
 
+protected:
+    void setVisited(bool isVisited) {
+        this->visited = isVisited;
+    }
+
 public:
     explicit BoardCell(int posLength, int posHeight, int maxAntOnCell, BoardCellType boardCellType);
 
@@ -61,17 +66,9 @@ public:
         return antOnCell;
     }
 
-    virtual void addAntOnCell(Ant *antToAdd) {
-        this->antOnCell->push_back(antToAdd);
-    }
+    virtual void addAntOnCell(Ant *antToAdd);
 
-    virtual void removeAntOnCell(Ant *antToRemove) {
-        this->antOnCell->remove(antToRemove);
-    }
-
-    void setVisited(bool isVisited) {
-        this->visited = isVisited;
-    }
+    virtual void removeAntOnCell(Ant *antToRemove);
 
     bool isVisited() const {
         return this->visited;

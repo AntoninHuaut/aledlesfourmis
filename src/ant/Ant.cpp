@@ -67,11 +67,6 @@ void Ant::goToCell(BoardCell *newCell, bool haveToVisit) {
     this->lastCell = this->currentCell;
 
     newCell->addAntOnCell(this);
-
-    if (haveToVisit) {
-        newCell->setVisited(true);
-    }
-
     this->currentCell = newCell;
 }
 

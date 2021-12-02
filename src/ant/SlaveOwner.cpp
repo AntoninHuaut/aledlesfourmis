@@ -31,7 +31,7 @@ void SlaveOwner::goToCenter(Board *board) {
         haveArrivedToCenter = true;
     }
 
-    this->goToCell(bestCell, false);
+    this->goToCell(bestCell);
 }
 
 void SlaveOwner::tickMove(Board *board) {

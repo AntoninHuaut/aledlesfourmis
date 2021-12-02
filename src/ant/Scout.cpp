@@ -37,5 +37,5 @@ void Scout::tickMove(Board *board) {
         }
     }
 
-    goToCell(nextCell, true);
+    goToCell(nextCell);
 }

@@ -6,7 +6,7 @@
   "board": {
     "height": 201,
     "length": 211,
-    "maxTps": 500.0,
+    "maxTps": 128.0,
     "maxFps": 60
   },
   "generation": {

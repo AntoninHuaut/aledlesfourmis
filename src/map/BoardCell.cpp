@@ -70,3 +70,16 @@ list<int> BoardCell::getOtherLayerTileNumbers() {
 
     return tiles;
 }
+
+void BoardCell::addAntOnCell(Ant *antToAdd) {
+    this->antOnCell->push_back(antToAdd);
+
+    if (antToAdd->getAntType() != SlaveOwnerType) {
+        this->visited = true;
+    }
+
+}
+
+void BoardCell::removeAntOnCell(Ant *antToRemove) {
+    this->antOnCell->remove(antToRemove);
+}
