@@ -4,9 +4,9 @@
     "marginOutOfBorder": 0.0
   },
   "board": {
-    "height": 201,
-    "length": 211,
-    "maxTps": 20.0,
+    "height": 11,
+    "length": 11,
+    "maxTps": 2.0,
     "maxFps": 60
   },
   "generation": {
