@@ -12,6 +12,9 @@ public:
     RockCell(int posHeight, int posLength) :
             BoardCell(posHeight, posLength, Config::get()->getRockMaxAntOnCell(), RockCellType) {};
 
+    void addAntOnCell(Ant *antToAdd) override;
+
+    void removeAntOnCell(Ant *antToRemove) override;
 };
 
 

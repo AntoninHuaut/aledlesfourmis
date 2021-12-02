@@ -61,11 +61,11 @@ public:
         return antOnCell;
     }
 
-    void addAntOnCell(Ant *antToAdd) {
+    virtual void addAntOnCell(Ant *antToAdd) {
         this->antOnCell->push_back(antToAdd);
     }
 
-    void removeAntOnCell(Ant *antToRemove) {
+    virtual void removeAntOnCell(Ant *antToRemove) {
         this->antOnCell->remove(antToRemove);
     }
 
