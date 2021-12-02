@@ -165,8 +165,13 @@ void BoardGenerator::generateRock() {
         // If there are some rocks nearby, skip generation of rock on the current cell
         if (hasRockNeighbor(centerRockHeight, centerRockLength)) continue;
 
+        list<RockCell *> ignoreRockCells;
+
         // Creating a new rock
-        cells[centerRockHeight][centerRockLength] = new RockCell(centerRockLength, centerRockHeight);
+        auto *mainRockCell = new RockCell(centerRockLength, centerRockHeight);
+        cells[centerRockHeight][centerRockLength] = mainRockCell;
+        ignoreRockCells.push_back(mainRockCell);
+
         totalRockGenerated++;
 
         // Generating how many rock will be near the rock
@@ -182,6 +187,7 @@ void BoardGenerator::generateRock() {
         // Generating neighbor rocks
         int additionalRockGenerated = 0;
         int nbTry = 0;
+
         while (additionalRockGenerated < additionalRockNear && nbTry++ <= 100) {
             int heightDelta = CustomRandom::randInt(-1, 1);
             int lengthDelta = CustomRandom::randInt(-1, 1);
@@ -191,10 +197,26 @@ void BoardGenerator::generateRock() {
 
             if (!isValidCell(posRockHeight, posRockLength)) continue;
 
-            BoardCell *posCell = cells[posRockHeight][posRockLength];
+            auto nearbyCells = board->getNearbyCells(posRockHeight, posRockLength);
+            bool canGenerateChildHere = true;
 
+            for (auto *nearCell: nearbyCells) {
+                if (nearCell->getBoardCellType() != RockCellType) continue;
+
+                // If nearCell not in the ignoreRockCells list
+                if (std::find(ignoreRockCells.begin(), ignoreRockCells.end(), nearCell) == ignoreRockCells.end()) {
+                    canGenerateChildHere = false;
+                    break;
+                }
+            }
+
+            if (!canGenerateChildHere) continue;
+
+            BoardCell *posCell = cells[posRockHeight][posRockLength];
             if (posCell == nullptr) {
-                cells[posRockHeight][posRockLength] = new RockCell(posRockLength, posRockHeight);
+                auto *childRockCell = new RockCell(posRockLength, posRockHeight);
+                cells[posRockHeight][posRockLength] = childRockCell;
+                ignoreRockCells.push_back(childRockCell);
 
                 additionalRockGenerated++;
                 totalRockGenerated++;

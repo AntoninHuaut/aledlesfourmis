@@ -54,6 +54,8 @@ public:
 
     list<BoardCell *> getNearbyCells(BoardCell *cell);
 
+    list<BoardCell *> getNearbyCells(int height, int length);
+
     bool calcRender();
 
     list<ColonyCell *> *getColoniesCells() const {
