@@ -42,6 +42,7 @@ Config::Config() {
     scootHoursBeforeAdult = data["ant"]["hoursBeforeAdult"]["worker"].asInt();
     workerHoursBeforeAdult = data["ant"]["hoursBeforeAdult"]["scout"].asInt();
 
+    defaultFoodColony = data["ant"]["defaultFoodColony"].asFloat();
     newAntEveryDay = data["ant"]["newAntEveryDay"].asInt();
     workerMaxFoodAmountCanCarried = data["ant"]["workerMaxFoodAmountCanCarried"].asInt();
     soldierHoursBeforeVisitColony = data["ant"]["soldierHoursBeforeVisitColony"].asInt();
@@ -124,6 +125,10 @@ int Config::getScootHoursBeforeAdult() const {
 
 int Config::getWorkerHoursBeforeAdult() const {
     return workerHoursBeforeAdult;
+}
+
+float Config::getDefaultFoodColony() const {
+    return defaultFoodColony;
 }
 
 int Config::getNewAntEveryDay() const {

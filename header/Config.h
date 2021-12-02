@@ -35,6 +35,7 @@ class Config {
     int scootHoursBeforeAdult;
     int workerHoursBeforeAdult;
 
+    float defaultFoodColony;
     int newAntEveryDay;
     int workerMaxFoodAmountCanCarried;
     int soldierHoursBeforeVisitColony;
@@ -92,6 +93,8 @@ public:
     int getScootHoursBeforeAdult() const;
 
     int getWorkerHoursBeforeAdult() const;
+
+    float getDefaultFoodColony() const;
 
     int getNewAntEveryDay() const;
 

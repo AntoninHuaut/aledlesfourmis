@@ -6,7 +6,7 @@
   "board": {
     "height": 201,
     "length": 211,
-    "maxTps": 121.0,
+    "maxTps": 500.0,
     "maxFps": 60
   },
   "generation": {
@@ -33,6 +33,7 @@
       "worker": 360,
       "scout": 48
     },
+    "defaultFoodColony": 0.5,
     "newAntEveryDay": 2,
     "workerMaxFoodAmountCanCarried": 1,
     "soldierHoursBeforeVisitColony": 2400,

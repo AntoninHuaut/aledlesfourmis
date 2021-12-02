@@ -1,6 +1,6 @@
 #include "../../header/ant/Worker.h"
 
-bool Worker::hasEatFood(double amountToEat) {
+bool Worker::eatFood(float amountToEat) {
     double foodAtStart = this->foodCarriedAmount;
     double foodAfterEating = max(0.0, foodAtStart - amountToEat);
     double foodEaten = foodAtStart - foodAfterEating;
@@ -8,7 +8,7 @@ bool Worker::hasEatFood(double amountToEat) {
     double foodRemainToEat = amountToEat - foodEaten;
 
     if (foodRemainToEat > 0) {
-        return Ant::hasEatFood(foodRemainToEat);
+        return Ant::eatFood(foodRemainToEat);
     }
     return true;
 }

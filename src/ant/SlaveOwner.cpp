@@ -41,6 +41,7 @@ void SlaveOwner::tickMove(Board *board) {
     }
 }
 
-bool SlaveOwner::hasEatFood(double amountToEat) {
+bool SlaveOwner::eatFood(float amountToEat) {
     // TODO on verra plus tard
+    return true;
 }

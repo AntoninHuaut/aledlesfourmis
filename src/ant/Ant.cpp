@@ -2,10 +2,10 @@
 #include "../../header/map/BoardCell.h"
 #include "../../header/map/Board.h"
 
-double Ant::colonyFood = 0;
+float Ant::colonyFood = Config::get()->getDefaultFoodColony();
 
 Ant::Ant(int hoursBeforeDeath, int maxDaysWithoutFeeding,
-         double foodConsumedEachDay, BoardCell *currentCell, AntType antType) {
+         float foodConsumedEachDay, BoardCell *currentCell, AntType antType) {
     this->hoursBeforeDeath = hoursBeforeDeath;
     this->maxHoursWithoutFeeding = maxDaysWithoutFeeding * 24;
     this->foodConsumedEachDay = foodConsumedEachDay;
@@ -74,7 +74,6 @@ void Ant::goToCell(BoardCell *newCell, bool haveToVisit) {
 }
 
 bool Ant::goBackToLastCell() {
-
     if (cellTraveledSinceColony->empty()) return false;
 
     if (cellTraveledSinceColony->back()->haveSpace()) {
@@ -101,10 +100,10 @@ void Ant::tick(Board *board) {
     tickMove(board);
 
     // Ticking food
-    tickFood();
+    tickFood(board);
 }
 
-bool Ant::hasEatFood(double amountToEat) {
+bool Ant::eatFood(float amountToEat) {
     if (Ant::colonyFood >= amountToEat) {
         Ant::colonyFood -= amountToEat;
         return true;
@@ -117,9 +116,13 @@ bool Ant::isDyingHunger() const {
     return hoursSinceLastFeeding >= maxHoursWithoutFeeding;
 }
 
-void Ant::tickFood() {
-    bool _hasEatFood = hasEatFood(this->foodConsumedEachDay);
-    if (_hasEatFood) {
+void Ant::tickFood(Board *board) {
+    hoursSinceLastFeeding++;
+
+    if (board->getCurrentTick() % 24 != 0) return; // Only once a day
+
+    bool hasEatFood = eatFood(this->foodConsumedEachDay);
+    if (hasEatFood) {
         hoursSinceLastFeeding = 0;
     }
 

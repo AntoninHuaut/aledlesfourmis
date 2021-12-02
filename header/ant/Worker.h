@@ -22,7 +22,7 @@ public:
                 currentCell, WorkerType),
             AgeAdult(Config::get()->getWorkerHoursBeforeAdult()) {};
 
-    bool hasEatFood(double amountToEat) override;
+    bool eatFood(float amountToEat) override;
 };
 
 

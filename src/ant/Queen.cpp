@@ -21,7 +21,7 @@ void Queen::tickChild(Board *board) {
     }
 
     // Generating two ants
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < Config::get()->getNewAntEveryDay(); i++) {
         generateAnt(board);
     }
 

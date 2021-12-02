@@ -23,7 +23,7 @@ public:
 
     void tickMove(Board *board) override;
 
-    bool hasEatFood(double amountToEat) override;
+    bool eatFood(float amountToEat) override;
 
 };
 

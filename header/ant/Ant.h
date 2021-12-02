@@ -31,22 +31,22 @@ class Ant {
 
     bool isDyingHunger() const;
 
-    void tickFood();
+    void tickFood(Board *board);
 
 protected:
     list<BoardCell *> *cellTraveledSinceColony = new list<BoardCell *>;
 
-    double foodConsumedEachDay;
+    float foodConsumedEachDay;
 
     void setAlive(bool newAlive) { alive = newAlive; }
 
-    virtual bool hasEatFood(double amountToEat);
+    virtual bool eatFood(float amountToEat);
 
-    static double colonyFood;
+    static float colonyFood;
 
 public:
 
-    Ant(int hoursBeforeDeath, int maxDaysWithoutFeeding, double foodConsumedEachDay, BoardCell *currentCell,
+    Ant(int hoursBeforeDeath, int maxDaysWithoutFeeding, float foodConsumedEachDay, BoardCell *currentCell,
         AntType antType);
 
     ~Ant();
