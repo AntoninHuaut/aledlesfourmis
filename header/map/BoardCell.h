@@ -22,13 +22,15 @@ class BoardCell {
     BoardCellType boardCellType;
 
     double pheromoneAmount = 0;
-    bool visited = false;
     int maxAntOnCell;
-    list<Ant *> *antOnCell = new list<Ant *>;
 
     void pheromoneSpreading() {};
 
 protected:
+    list<Ant *> *antOnCell = new list<Ant *>;
+
+    bool visited = false;
+
     void setVisited(bool isVisited) {
         this->visited = isVisited;
     }
@@ -56,11 +58,7 @@ public:
 
     int getFloorTileNumber();
 
-    virtual list<int> getBottomLayerTileNumbers();
-
-    list<int> getTopLayerTileNumbers();
-
-    virtual list<int> getOtherLayerTileNumbers();
+    virtual list<int> getLayersTileNumbers();
 
     list<Ant *> *getAntOnCell() const {
         return antOnCell;

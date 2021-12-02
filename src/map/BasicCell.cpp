@@ -14,12 +14,22 @@ int BasicCell::numberOfLayers() {
     return layers;
 }
 
-list<int> BasicCell::getBottomLayerTileNumbers() {
-    list<int> tiles = BoardCell::getBottomLayerTileNumbers();
+list<int> BasicCell::getLayersTileNumbers() {
+    list<int> tiles;
+
+    if (!antOnCell->empty()) {
+        tiles.push_back(antOnCell->back()->getAntTileNumber());
+    }
 
     if (foodAmount > 0) {
-        tiles.push_front(FOOD_LAYER);
+        tiles.push_back(FOOD_LAYER);
     }
+
+    if (!this->visited) {
+        tiles.push_back(CLOUD_LAYER);
+    }
+
+    return tiles;
 
     return tiles;
 }

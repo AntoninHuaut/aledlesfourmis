@@ -14,7 +14,6 @@ public:
 
     static int randInt(int minInclusive, int maxInclusive);
 
-    //static BoardCell *randCellInList(list<BoardCell *> cells);
 
 };
 

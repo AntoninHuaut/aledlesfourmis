@@ -42,31 +42,17 @@ int BoardCell::numberOfLayers() {
     return layers;
 }
 
-list<int> BoardCell::getBottomLayerTileNumbers() {
+
+list<int> BoardCell::getLayersTileNumbers() {
     list<int> tiles;
 
     if (!antOnCell->empty()) {
         tiles.push_back(antOnCell->back()->getAntTileNumber());
     }
 
-    return tiles;
-}
-
-list<int> BoardCell::getTopLayerTileNumbers() {
-    list<int> tiles;
-
     if (!this->visited) {
         tiles.push_back(CLOUD_LAYER);
     }
-
-    return tiles;
-}
-
-list<int> BoardCell::getOtherLayerTileNumbers() {
-    auto tiles = getBottomLayerTileNumbers();
-    auto top = getTopLayerTileNumbers();
-
-    tiles.splice(tiles.end(), top);
 
     return tiles;
 }

@@ -32,27 +32,52 @@ Board::~Board() {
 void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     states.transform *= getTransform();
     states.texture = &m_tileset;
-    target.draw(m_vertices, states);
+    target.draw(floor_vertex, states);
+    target.draw(layer_vertex, states);
 }
+
 
 bool Board::calcRender() {
     int maxLength = Config::get()->getLength();
     int maxHeight = Config::get()->getHeight();
     sf::Vector2u tileSize = sf::Vector2u(Config::get()->getTileSize(), Config::get()->getTileSize());
 
-    int verticeSize = maxLength * maxHeight * 4;
+    int floorVerticeSize = maxLength * maxHeight * 4;
+    int layerVertriceSize = 0;
 
     // create new vertex array
-    sf::VertexArray tmpVertex(sf::Quads, verticeSize);
+    sf::VertexArray tmpFloorVertex(sf::Quads, floorVerticeSize);
+    sf::VertexArray tmpLayerVertex(sf::Quads, layerVertriceSize);
 
-    list<BoardCell *> cellsWithOtherLayer;
+
 
     for (int height = 0; height < maxHeight; ++height) {
         for (int length = 0; length < maxLength; ++length) {
             // Cells with multiple layers
             BoardCell *cell = cells[height][length];
-            if (cell->numberOfLayers() >= 2) {
-                cellsWithOtherLayer.push_back(cell);
+
+
+            list<int> cellLayers = cell->getLayersTileNumbers();
+            for (auto const &tileNumber: cellLayers){
+                layerVertriceSize += 4;
+                tmpLayerVertex.resize(layerVertriceSize);
+
+                sf::Vertex *layerQuad = &tmpLayerVertex[layerVertriceSize - 4];
+
+                int tu = tileNumber % (m_tileset.getSize().x / tileSize.x);
+                int tv = tileNumber / (m_tileset.getSize().x / tileSize.x);
+
+                // define its 4 corners
+                layerQuad[0].position = sf::Vector2f(length * tileSize.x, height * tileSize.y);
+                layerQuad[1].position = sf::Vector2f((length + 1) * tileSize.x, height * tileSize.y);
+                layerQuad[2].position = sf::Vector2f((length + 1) * tileSize.x, (height + 1) * tileSize.y);
+                layerQuad[3].position = sf::Vector2f(length * tileSize.x, (height + 1) * tileSize.y);
+
+                // define its 4 texture coordinates
+                layerQuad[0].texCoords = sf::Vector2f(tu * tileSize.x, tv * tileSize.y);
+                layerQuad[1].texCoords = sf::Vector2f((tu + 1) * tileSize.x, tv * tileSize.y);
+                layerQuad[2].texCoords = sf::Vector2f((tu + 1) * tileSize.x, (tv + 1) * tileSize.y);
+                layerQuad[3].texCoords = sf::Vector2f(tu * tileSize.x, (tv + 1) * tileSize.y);
             }
 
             // get the current tile number
@@ -63,7 +88,7 @@ bool Board::calcRender() {
             int tv = tileNumber / (m_tileset.getSize().x / tileSize.x);
 
             // get a pointer to the current tile's quad
-            sf::Vertex *quad = &tmpVertex[(length + (height * maxLength)) * 4];
+            sf::Vertex *quad = &tmpFloorVertex[(length + (height * maxLength)) * 4];
 
             // define its 4 corners
             quad[0].position = sf::Vector2f(length * tileSize.x, height * tileSize.y);
@@ -79,35 +104,8 @@ bool Board::calcRender() {
         }
     }
 
-    for (auto const &cell: cellsWithOtherLayer) {
-        for (auto const &tileNumber: cell->getOtherLayerTileNumbers()) {
-
-            verticeSize += 4;
-            tmpVertex.resize(verticeSize);
-            sf::Vertex *quad = &tmpVertex[verticeSize - 4];
-
-            int tu = tileNumber % (m_tileset.getSize().x / tileSize.x);
-            int tv = tileNumber / (m_tileset.getSize().x / tileSize.x);
-
-            int height = cell->getPosHeight();
-            int length = cell->getPosLength();
-
-            // define its 4 corners
-            quad[0].position = sf::Vector2f(length * tileSize.x, height * tileSize.y);
-            quad[1].position = sf::Vector2f((length + 1) * tileSize.x, height * tileSize.y);
-            quad[2].position = sf::Vector2f((length + 1) * tileSize.x, (height + 1) * tileSize.y);
-            quad[3].position = sf::Vector2f(length * tileSize.x, (height + 1) * tileSize.y);
-
-            // define its 4 texture coordinates
-            quad[0].texCoords = sf::Vector2f(tu * tileSize.x, tv * tileSize.y);
-            quad[1].texCoords = sf::Vector2f((tu + 1) * tileSize.x, tv * tileSize.y);
-            quad[2].texCoords = sf::Vector2f((tu + 1) * tileSize.x, (tv + 1) * tileSize.y);
-            quad[3].texCoords = sf::Vector2f(tu * tileSize.x, (tv + 1) * tileSize.y);
-
-        }
-    }
-
-    m_vertices = tmpVertex;
+    floor_vertex = tmpFloorVertex;
+    layer_vertex = tmpLayerVertex;
     return true;
 }
 
