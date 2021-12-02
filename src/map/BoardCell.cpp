@@ -1,7 +1,7 @@
 #include "../../header/map/BoardCell.h"
 #include "../../header/ant/Ant.h"
 
-BoardCell::BoardCell(int posLength, int posHeight, int maxAntOnCell, BoardCellType boardCellType) {
+BoardCell::BoardCell(int posHeight, int posLength, int maxAntOnCell, BoardCellType boardCellType) {
     this->maxAntOnCell = maxAntOnCell;
     this->posLength = posLength;
     this->posHeight = posHeight;

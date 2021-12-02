@@ -155,7 +155,7 @@ void Board::expandColonies() {
 
     expCell->~BasicCell();
 
-    auto *newColonyCell = new(expCell) ColonyCell(length, height);
+    auto *newColonyCell = new(expCell) ColonyCell(height, length);
 
     for (Ant *ant: antOnCell) {
         newColonyCell->addAntOnCell(ant);

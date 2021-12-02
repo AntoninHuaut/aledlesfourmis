@@ -9,8 +9,8 @@ using namespace std;
 class RockCell : public BoardCell {
 
 public:
-    RockCell(int posLength, int posHeight) :
-            BoardCell(posLength, posHeight, Config::get()->getRockMaxAntOnCell(), RockCellType) {};
+    RockCell(int posHeight, int posLength) :
+            BoardCell(posHeight, posLength, Config::get()->getRockMaxAntOnCell(), RockCellType) {};
 
 };
 
