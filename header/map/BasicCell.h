@@ -23,8 +23,6 @@ public:
 
     list<int> getBottomLayerTileNumbers() override;
     
-    list<int> getOtherLayerTileNumbers() override;
-
 };
 
 #endif
