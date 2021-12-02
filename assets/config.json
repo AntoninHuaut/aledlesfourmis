@@ -33,7 +33,7 @@
       "worker": 360,
       "scout": 48
     },
-    "defaultFoodColony": 0.5,
+    "defaultFoodColony": 2,
     "newAntEveryDay": 2,
     "workerMaxFoodAmountCanCarried": 1,
     "soldierHoursBeforeVisitColony": 2400,
