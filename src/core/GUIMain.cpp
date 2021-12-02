@@ -76,6 +76,8 @@ void GUIMain::onMouseButtonPressed(sf::Event event) {
 }
 
 void GUIMain::smoothOnKeyPressed() {
+    if (!window->hasFocus()) return;
+
     float padding = 0.01f * zoom;
     float speedMultiplier = 2.5f;
     sf::Vector2f deltaPos = {0, 0};
