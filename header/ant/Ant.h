@@ -75,7 +75,7 @@ public:
 
     list<BoardCell *> getAvailableCellToMove(Board *board);
 
-    void goToCell(BoardCell *newCell, bool haveToVisit);
+    void goToCell(BoardCell *newCell);
 
     int numberOfTimeOnCell(BoardCell *cell);
 

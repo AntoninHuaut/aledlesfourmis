@@ -39,7 +39,7 @@ void gameTickingThread(Board *board) {
 }
 
 int main() {
-    srand(time(nullptr)); // NOLINT(cert-msc51-cpp)
+//    srand(time(nullptr)); // NOLINT(cert-msc51-cpp)
     Config::get(); // Force configuration to be loaded
 
     auto *board = BoardGenerator::generateBoard();
