@@ -34,7 +34,7 @@ void Worker::pickFood() {
 }
 
 void Worker::dropFood() {
-    if (foodCarriedAmount >= 0) return;
+    if (foodCarriedAmount <= 0) return;
 
     if (getCurrentCell()->getBoardCellType() == BasicCellType) {
         auto *basicCell = dynamic_cast<BasicCell *>(getCurrentCell());
