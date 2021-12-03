@@ -38,8 +38,8 @@ Config::Config() {
     defaultHoursBeforeDeath = data["ant"]["hoursBeforeDeath"]["default"].asInt();
     queenHoursBeforeDeath = data["ant"]["hoursBeforeDeath"]["queen"].asInt();
 
-    scootHoursBeforeAdult = data["ant"]["hoursBeforeAdult"]["worker"].asInt();
-    workerHoursBeforeAdult = data["ant"]["hoursBeforeAdult"]["scout"].asInt();
+    scootHoursBeforeAdult = data["ant"]["hoursBeforeAdult"]["scout"].asInt();
+    workerHoursBeforeAdult = data["ant"]["hoursBeforeAdult"]["worker"].asInt();
 
     defaultFoodColony = data["ant"]["defaultFoodColony"].asFloat();
     newAntEveryDay = data["ant"]["newAntEveryDay"].asInt();
