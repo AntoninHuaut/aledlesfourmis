@@ -47,7 +47,10 @@ void Worker::dropFood() {
 }
 
 void Worker::visitColony() {
-    // TODO
+    if (getCurrentCell()->getBoardCellType() == ColonyCellType) {
+        dropFood();
+    }
+    // TODO refill pheromoneAmount to ?
 }
 
 void Worker::putPheromones() {
