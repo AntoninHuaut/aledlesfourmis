@@ -10,6 +10,11 @@ public:
 
     bool isAdult() const { return this->hoursBeforeAdult <= 0; };
 
+    void incrementAge() {
+        if (hoursBeforeAdult > 0) {
+            hoursBeforeAdult--;
+        }
+    }
 };
 
 #endif

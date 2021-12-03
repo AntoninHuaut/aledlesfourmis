@@ -1,4 +1,5 @@
 #include "../../header/ant/Ant.h"
+#include "../../header/ant/AgeAdult.h"
 #include "../../header/map/BoardCell.h"
 #include "../../header/map/Board.h"
 
@@ -87,10 +88,16 @@ bool Ant::goBackToLastCell() {
 }
 
 void Ant::tick(Board *board) {
-    // Ticking Age
-//    if (hoursBeforeAdult > 0) {
-//        hoursBeforeAdult--;
-//    }
+    // Ticking Adult age
+    if (auto *antAge = dynamic_cast<AgeAdult *>(this)) {
+        antAge->incrementAge();
+
+        if (!antAge->isAdult()) {
+            return; // Stop ticking, child do nothing
+        }
+    }
+
+    // Ticking Global age
     if (--hoursBeforeDeath <= 0) {
         kill();
         return;
