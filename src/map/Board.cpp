@@ -185,3 +185,27 @@ BasicCell *Board::findExpandableBasicCell() {
 
     return nullptr;
 }
+
+list<BoardCell *> Board::getNearbyRocks(BoardCell *cell) {
+    list<BoardCell *> nearbyRocks;
+
+    for (int i = -1; i <= 1; i++) {
+        for (int j = -1; j <= 1; j++) {
+            if (i == 0 && j == 0) continue;
+
+            int tmpHeight = cell->getPosHeight() + i;
+            int tmpLength = cell->getPosLength() + j;
+            if (tmpHeight < 0 || tmpLength < 0 || tmpHeight >= Config::get()->getHeight() ||
+                tmpLength >= Config::get()->getLength()) {
+                continue;
+            }
+
+            if (this->cells[tmpHeight][tmpLength] != nullptr &&
+                this->cells[tmpHeight][tmpLength]->getBoardCellType() == RockCellType) {
+                nearbyRocks.push_back(this->cells[tmpHeight][tmpLength]);
+            }
+        }
+    }
+
+    return nearbyRocks;
+}

@@ -11,6 +11,8 @@ class Board;
 
 class Ant;
 
+class Board;
+
 enum BoardCellType {
     BasicCellType, RockCellType, ColonyCellType
 };
@@ -71,6 +73,8 @@ public:
     virtual void addAntOnCell(Ant *antToAdd);
 
     virtual void removeAntOnCell(Ant *antToRemove);
+
+    virtual void onNearCellVisited() {};
 
     bool isVisited() const {
         return this->visited;

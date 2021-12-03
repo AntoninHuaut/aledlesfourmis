@@ -59,6 +59,8 @@ public:
 
     list<BoardCell *> getNearbyCells(int height, int length);
 
+    list<BoardCell *> getNearbyRocks(BoardCell *cell);
+
     bool calcRender();
 
     list<ColonyCell *> *getColoniesCells() const {

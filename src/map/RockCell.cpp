@@ -7,3 +7,9 @@ void RockCell::addAntOnCell(Ant *antToAdd) {
 void RockCell::removeAntOnCell(Ant *antToRemove) {
     cerr << "RockCell::removeAntOnCell FORBIDDEN" << endl;
 }
+
+void RockCell::onNearCellVisited() {
+
+    visited = true;
+
+}

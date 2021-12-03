@@ -15,6 +15,9 @@ public:
     void addAntOnCell(Ant *antToAdd) override;
 
     void removeAntOnCell(Ant *antToRemove) override;
+
+    void onNearCellVisited() override;
+    
 };
 
 

@@ -1,6 +1,7 @@
 #include "../../header/map/BoardCell.h"
 #include "../../header/map/Board.h"
 #include "../../header/ant/Ant.h"
+#include "../../header/map/Board.h"
 
 BoardCell::BoardCell(Board *board, int posHeight, int posLength, int maxAntOnCell, BoardCellType boardCellType) {
     this->board = board;
@@ -62,8 +63,13 @@ list<int> BoardCell::getLayersTileNumbers() {
 void BoardCell::addAntOnCell(Ant *antToAdd) {
     this->antOnCell->push_back(antToAdd);
 
-    if (antToAdd->getAntType() != SlaveOwnerType) {
+    if (!this->visited && antToAdd->getAntType() != SlaveOwnerType) {
         this->visited = true;
+
+        list<BoardCell *> nearbyCells = board->getNearbyCells(this);
+        for (auto *cell: nearbyCells) {
+            cell->onNearCellVisited();
+        }
     }
 
 }
