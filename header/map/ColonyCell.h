@@ -12,6 +12,8 @@ public:
         this->setVisited(true);
     };
 
+    list<int> getLayersTileNumbers() override;
+
 };
 
 #endif

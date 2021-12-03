@@ -61,7 +61,9 @@ public:
 
     list<BoardCell *> getNearbyRocks(BoardCell *cell);
 
-    bool calcRender();
+    bool calcLayer();
+
+    bool calcFloor();
 
     list<ColonyCell *> *getColoniesCells() const {
         return coloniesCells;

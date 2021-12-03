@@ -4,10 +4,14 @@ void renderingThread(threadData data) {
     data.window->setActive(true);
     data.window->setVerticalSyncEnabled(true);
 
+    data.mutex->lock();
+    data.board->calcFloor();
+    data.mutex->unlock();
+
     // Render loop
     while (data.window->isOpen()) {
         data.mutex->lock();
-        data.board->calcRender();
+        data.board->calcLayer();
         data.mutex->unlock();
 
         data.window->clear();
