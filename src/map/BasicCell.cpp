@@ -1,9 +1,5 @@
 #include "../../header/map/BasicCell.h"
 
-void BasicCell::takeFood(Ant *ant) {
-
-}
-
 int BasicCell::numberOfLayers() {
     int layers = BoardCell::numberOfLayers();
 

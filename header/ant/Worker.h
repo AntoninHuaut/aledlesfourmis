@@ -19,6 +19,7 @@ class Worker : public Ant, public AgeAdult {
     void putPheromones();
 
 public:
+
     explicit Worker(BoardCell *currentCell) :
             Ant(Config::get()->getDefaultHoursBeforeDeath(), 1, Config::get()->getDefaultFoodConsumingTick(),
                 currentCell, WorkerType),
