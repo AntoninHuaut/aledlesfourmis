@@ -7,6 +7,8 @@
 
 using namespace std;
 
+class Board;
+
 class Ant;
 
 enum BoardCellType {
@@ -24,6 +26,8 @@ class BoardCell {
     double pheromoneAmount = 0;
     int maxAntOnCell;
 
+    Board *board;
+
     void pheromoneSpreading() {};
 
 protected:
@@ -36,7 +40,7 @@ protected:
     }
 
 public:
-    explicit BoardCell(int posLength, int posHeight, int maxAntOnCell, BoardCellType boardCellType);
+    explicit BoardCell(Board *board, int posLength, int posHeight, int maxAntOnCell, BoardCellType boardCellType);
 
     ~BoardCell();
 

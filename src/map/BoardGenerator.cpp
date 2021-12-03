@@ -168,7 +168,7 @@ void BoardGenerator::generateRock() {
         list<RockCell *> ignoreRockCells;
 
         // Creating a new rock
-        auto *mainRockCell = new RockCell(centerRockHeight, centerRockLength);
+        auto *mainRockCell = new RockCell(board, centerRockHeight, centerRockLength);
         cells[centerRockHeight][centerRockLength] = mainRockCell;
         ignoreRockCells.push_back(mainRockCell);
 
@@ -214,7 +214,7 @@ void BoardGenerator::generateRock() {
 
             BoardCell *posCell = cells[posRockHeight][posRockLength];
             if (posCell == nullptr) {
-                auto *childRockCell = new RockCell(posRockHeight, posRockLength);
+                auto *childRockCell = new RockCell(board, posRockHeight, posRockLength);
                 cells[posRockHeight][posRockLength] = childRockCell;
                 ignoreRockCells.push_back(childRockCell);
 
@@ -230,7 +230,7 @@ void BoardGenerator::generateBasicCell() {
         for (int length = 0; length < Config::get()->getLength(); length++) {
             auto ***cells = getBoard()->getCells();
             if (cells[height][length] == nullptr) {
-                cells[height][length] = new BasicCell(height, length);
+                cells[height][length] = new BasicCell(board, height, length);
             }
         }
     }
@@ -249,7 +249,7 @@ void BoardGenerator::generateColony() {
         cells[centerHeight][centerLength] = nullptr;
     }
 
-    auto *colonyCell = new ColonyCell(centerHeight, centerLength);
+    auto *colonyCell = new ColonyCell(board, centerHeight, centerLength);
     cells[centerHeight][centerLength] = colonyCell;
     board->addColoniesCell(colonyCell);
     board->setAntQueen(new Queen(colonyCell));
@@ -270,7 +270,7 @@ void BoardGenerator::removeRockNearColony(int centerHeight, int centerLength) {
 
             if (neighborCell != nullptr && neighborCell->getBoardCellType() == RockCellType) {
                 delete neighborCell;
-                cells[tmpHeight][tmpLength] = new BasicCell(tmpHeight, tmpLength);
+                cells[tmpHeight][tmpLength] = new BasicCell(board, tmpHeight, tmpLength);
             }
         }
     }

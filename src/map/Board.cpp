@@ -50,7 +50,6 @@ bool Board::calcRender() {
     sf::VertexArray tmpLayerVertex(sf::Quads, layerVertriceSize);
 
 
-
     for (int height = 0; height < maxHeight; ++height) {
         for (int length = 0; length < maxLength; ++length) {
             // Cells with multiple layers
@@ -58,7 +57,7 @@ bool Board::calcRender() {
 
 
             list<int> cellLayers = cell->getLayersTileNumbers();
-            for (auto const &tileNumber: cellLayers){
+            for (auto const &tileNumber: cellLayers) {
                 layerVertriceSize += 4;
                 tmpLayerVertex.resize(layerVertriceSize);
 
@@ -153,7 +152,7 @@ void Board::expandColonies() {
 
     expCell->~BasicCell();
 
-    auto *newColonyCell = new(expCell) ColonyCell(height, length);
+    auto *newColonyCell = new(expCell) ColonyCell(this, height, length);
 
     for (Ant *ant: antOnCell) {
         newColonyCell->addAntOnCell(ant);

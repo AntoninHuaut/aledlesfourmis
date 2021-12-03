@@ -7,8 +7,8 @@
 class ColonyCell : public BoardCell {
 
 public:
-    ColonyCell(int posHeight, int posLength) :
-            BoardCell(posHeight, posLength, Config::get()->getColonyMaxAntOnCell(), ColonyCellType) {
+    ColonyCell(Board *board, int posHeight, int posLength) :
+            BoardCell(board, posHeight, posLength, Config::get()->getColonyMaxAntOnCell(), ColonyCellType) {
         this->setVisited(true);
     };
 

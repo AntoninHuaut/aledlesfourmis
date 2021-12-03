@@ -9,8 +9,8 @@ using namespace std;
 class RockCell : public BoardCell {
 
 public:
-    RockCell(int posHeight, int posLength) :
-            BoardCell(posHeight, posLength, Config::get()->getRockMaxAntOnCell(), RockCellType) {};
+    RockCell(Board *board, int posHeight, int posLength) :
+            BoardCell(board, posHeight, posLength, Config::get()->getRockMaxAntOnCell(), RockCellType) {};
 
     void addAntOnCell(Ant *antToAdd) override;
 

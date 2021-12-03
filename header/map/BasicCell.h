@@ -10,8 +10,8 @@ class BasicCell : public BoardCell {
     double foodAmount = 0;
 
 public:
-    BasicCell(int posHeight, int posLength) :
-            BoardCell(posHeight, posLength, Config::get()->getBasicCellMaxAntOnCell(), BasicCellType) {};
+    BasicCell(Board *board, int posHeight, int posLength) :
+            BoardCell(board, posHeight, posLength, Config::get()->getBasicCellMaxAntOnCell(), BasicCellType) {};
 
     void takeFood(Ant *ant);
 
@@ -22,7 +22,7 @@ public:
     int numberOfLayers() override;
 
     list<int> getLayersTileNumbers() override;
-    
+
 };
 
 #endif
