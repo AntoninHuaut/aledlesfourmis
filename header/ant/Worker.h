@@ -21,8 +21,8 @@ class Worker : public Ant, public AgeAdult {
 public:
 
     explicit Worker(BoardCell *currentCell) :
-            Ant(Config::get()->getDefaultHoursBeforeDeath(), 1, Config::get()->getDefaultFoodConsumingTick(),
-                currentCell, WorkerType),
+            Ant(Config::get()->getDefaultHoursBeforeDeath(), Config::get()->getDefaultHoursBeforeHunger(),
+                Config::get()->getDefaultFoodConsumingTick(), currentCell, WorkerType),
             AgeAdult(Config::get()->getWorkerHoursBeforeAdult()) {};
 
     bool eatFood(float amountToEat) override;

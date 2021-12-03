@@ -41,12 +41,15 @@ Config::Config() {
     scootHoursBeforeAdult = data["ant"]["hoursBeforeAdult"]["scout"].asInt();
     workerHoursBeforeAdult = data["ant"]["hoursBeforeAdult"]["worker"].asInt();
 
+    defaultHoursBeforeHunger = data["ant"]["hoursBeforeHunger"]["default"].asInt();
+    slaveOwnerHoursBeforeHunger = data["ant"]["hoursBeforeHunger"]["slaveOwner"].asInt();
+
     defaultFoodColony = data["ant"]["defaultFoodColony"].asFloat();
     newAntEveryDay = data["ant"]["newAntEveryDay"].asInt();
     workerMaxFoodAmountCanCarried = data["ant"]["workerMaxFoodAmountCanCarried"].asFloat();
     soldierHoursBeforeVisitColony = data["ant"]["soldierHoursBeforeVisitColony"].asInt();
-    slaveOwnerHoursBeforeHunger = data["ant"]["slaveOwnerHoursBeforeHunger"].asInt();
-
+    slaveOwnerMaxLarvaCanCarried = data["ant"]["slaveOwnerMaxLarvaCanCarried"].asInt();
+    
     std::cout << " OK" << std::endl;
 }
 
@@ -126,6 +129,14 @@ int Config::getWorkerHoursBeforeAdult() const {
     return workerHoursBeforeAdult;
 }
 
+int Config::getDefaultHoursBeforeHunger() const {
+    return defaultHoursBeforeHunger;
+}
+
+int Config::getSlaveOwnerHoursBeforeHunger() const {
+    return slaveOwnerHoursBeforeHunger;
+}
+
 float Config::getDefaultFoodColony() const {
     return defaultFoodColony;
 }
@@ -142,10 +153,10 @@ int Config::getSoldierHoursBeforeVisitColony() const {
     return soldierHoursBeforeVisitColony;
 }
 
-int Config::getSlaveOwnerHoursBeforeHunger() const {
-    return slaveOwnerHoursBeforeHunger;
-}
-
 float Config::getMaxTps() const {
     return maxTps;
+}
+
+int Config::getSlaveOwnerMaxLarvaCanCarried() const {
+    return slaveOwnerMaxLarvaCanCarried;
 }

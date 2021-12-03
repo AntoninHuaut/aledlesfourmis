@@ -46,7 +46,7 @@ protected:
 
 public:
 
-    Ant(int hoursBeforeDeath, int maxDaysWithoutFeeding, float foodConsumedEachDay, BoardCell *currentCell,
+    Ant(int hoursBeforeDeath, int maxHoursWithoutFeeding, float foodConsumedEachDay, BoardCell *currentCell,
         AntType antType);
 
     ~Ant();
@@ -78,7 +78,6 @@ public:
     void goToCell(BoardCell *newCell);
 
     int numberOfTimeOnCell(BoardCell *cell);
-
 
     bool goBackToLastCell();
 };

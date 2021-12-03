@@ -18,8 +18,8 @@ class Queen : public Ant {
 public:
 
     explicit Queen(BoardCell *currentCell) :
-            Ant(Config::get()->getQueenHoursBeforeDeath(), 1, Config::get()->getQueenFoodConsumingTick(),
-                currentCell, QueenType) {};
+            Ant(Config::get()->getQueenHoursBeforeDeath(), Config::get()->getDefaultHoursBeforeHunger(),
+                Config::get()->getQueenFoodConsumingTick(), currentCell, QueenType) {};
 
     void setAssaulted(bool newAssaulted) {
         assaulted = newAssaulted;

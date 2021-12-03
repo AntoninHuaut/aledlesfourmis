@@ -16,10 +16,12 @@ class SlaveOwner : public Ant {
 public:
 
     explicit SlaveOwner(BoardCell *currentCell) :
-            Ant(Config::get()->getDefaultHoursBeforeDeath(), 10, Config::get()->getDefaultFoodConsumingTick(),
-                currentCell, SlaveOwnerType) {};
+            Ant(Config::get()->getDefaultHoursBeforeDeath(), Config::get()->getSlaveOwnerHoursBeforeHunger(),
+                Config::get()->getDefaultFoodConsumingTick(), currentCell, SlaveOwnerType) {};
 
     void goToCenter(Board *board);
+
+    void attackQueen(Board *board);
 
     void tickMove(Board *board) override;
 

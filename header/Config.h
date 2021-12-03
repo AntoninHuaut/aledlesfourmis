@@ -34,11 +34,14 @@ class Config {
     int scootHoursBeforeAdult;
     int workerHoursBeforeAdult;
 
+    int defaultHoursBeforeHunger;
+    int slaveOwnerHoursBeforeHunger;
+
     float defaultFoodColony;
     int newAntEveryDay;
     float workerMaxFoodAmountCanCarried;
     int soldierHoursBeforeVisitColony;
-    int slaveOwnerHoursBeforeHunger;
+    int slaveOwnerMaxLarvaCanCarried;
 
 protected:
     Config();
@@ -91,6 +94,10 @@ public:
 
     int getWorkerHoursBeforeAdult() const;
 
+    int getDefaultHoursBeforeHunger() const;
+
+    int getSlaveOwnerHoursBeforeHunger() const;
+
     float getDefaultFoodColony() const;
 
     int getNewAntEveryDay() const;
@@ -99,7 +106,7 @@ public:
 
     int getSoldierHoursBeforeVisitColony() const;
 
-    int getSlaveOwnerHoursBeforeHunger() const;
+    int getSlaveOwnerMaxLarvaCanCarried() const;
 
 };
 

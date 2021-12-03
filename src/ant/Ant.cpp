@@ -5,10 +5,10 @@
 
 float Ant::colonyFood = Config::get()->getDefaultFoodColony(); // NOLINT(cert-err58-cpp)
 
-Ant::Ant(int hoursBeforeDeath, int maxDaysWithoutFeeding,
+Ant::Ant(int hoursBeforeDeath, int maxHoursWithoutFeeding,
          float foodConsumedEachDay, BoardCell *currentCell, AntType antType) {
     this->hoursBeforeDeath = hoursBeforeDeath;
-    this->maxHoursWithoutFeeding = maxDaysWithoutFeeding * 24;
+    this->maxHoursWithoutFeeding = maxHoursWithoutFeeding;
     this->foodConsumedEachDay = foodConsumedEachDay;
     this->currentCell = currentCell;
     this->antType = antType;

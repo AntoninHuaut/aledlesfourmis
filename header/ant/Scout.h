@@ -9,8 +9,8 @@ class Scout : public Ant, public AgeAdult {
 
 public:
     explicit Scout(BoardCell *currentCell) :
-            Ant(Config::get()->getDefaultHoursBeforeDeath(), 1, Config::get()->getDefaultFoodConsumingTick(),
-                currentCell, ScoutType),
+            Ant(Config::get()->getDefaultHoursBeforeDeath(), Config::get()->getDefaultHoursBeforeHunger(),
+                Config::get()->getDefaultFoodConsumingTick(), currentCell, ScoutType),
             AgeAdult(Config::get()->getScootHoursBeforeAdult()) {};
 
     void tickMove(Board *board) override;
