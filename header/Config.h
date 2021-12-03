@@ -15,7 +15,6 @@ class Config {
     int height;
     int length;
     float maxTps;
-    int maxFps;
 
     float rockPercent;
     float foodPercent;
@@ -65,8 +64,6 @@ public:
     int getLength() const;
 
     float getMaxTps() const;
-
-    int getMaxFps() const;
 
     float getRockPercent() const;
 

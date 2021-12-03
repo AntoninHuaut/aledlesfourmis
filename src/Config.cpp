@@ -22,7 +22,6 @@ Config::Config() {
     height = data["board"]["height"].asInt();
     length = data["board"]["length"].asInt();
     maxTps = data["board"]["maxTps"].asFloat();
-    maxFps = data["board"]["maxFps"].asInt();
 
     rockPercent = data["generation"]["rockPercent"].asFloat();
     foodPercent = data["generation"]["foodPercent"].asFloat();
@@ -149,8 +148,4 @@ int Config::getSlaveOwnerHoursBeforeHunger() const {
 
 float Config::getMaxTps() const {
     return maxTps;
-}
-
-int Config::getMaxFps() const {
-    return maxFps;
 }
