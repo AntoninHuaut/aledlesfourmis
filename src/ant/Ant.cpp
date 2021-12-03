@@ -3,7 +3,7 @@
 #include "../../header/map/BoardCell.h"
 #include "../../header/map/Board.h"
 
-float Ant::colonyFood = Config::get()->getDefaultFoodColony();
+float Ant::colonyFood = Config::get()->getDefaultFoodColony(); // NOLINT(cert-err58-cpp)
 
 Ant::Ant(int hoursBeforeDeath, int maxDaysWithoutFeeding,
          float foodConsumedEachDay, BoardCell *currentCell, AntType antType) {
@@ -49,7 +49,7 @@ list<BoardCell *> Ant::getAvailableCellToMove(Board *board) {
     if (currentCell == nullptr) return {};
 
     list<BoardCell *> cells;
-    auto nearbyCells = board->getNearbyCells(this->currentCell);
+    auto nearbyCells = board->getNearbyCells(this->currentCell->getPosHeight(), this->currentCell->getPosLength());
 
     for (auto const &cell: nearbyCells) {
         if (cell->getBoardCellType() != RockCellType && cell->haveSpace()) {

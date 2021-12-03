@@ -30,7 +30,5 @@ list<int> BasicCell::getLayersTileNumbers() {
     }
 
     return tiles;
-
-    return tiles;
 }
 

@@ -1,5 +1,4 @@
 #include "../../header/map/BoardGenerator.h"
-#include "../../header/ant/SlaveOwner.h"
 
 Board *BoardGenerator::generateBoard() {
     auto *boardGenerator = BoardGenerator::createBoard();

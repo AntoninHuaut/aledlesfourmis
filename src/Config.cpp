@@ -25,8 +25,8 @@ Config::Config() {
 
     rockPercent = data["generation"]["rockPercent"].asFloat();
     foodPercent = data["generation"]["foodPercent"].asFloat();
-    smallFoodUnitValue = data["generation"]["smallFoodUnit"].asInt();
-    bigFoodUnitValue = data["generation"]["bigFoodUnit"].asInt();
+    smallFoodUnitValue = data["generation"]["smallFoodUnit"].asFloat();
+    bigFoodUnitValue = data["generation"]["bigFoodUnit"].asFloat();
 
     rockMaxAntOnCell = data["antOnCell"]["rock"].asInt();
     basicCellMaxAntOnCell = data["antOnCell"]["basic"].asInt();
@@ -82,11 +82,11 @@ float Config::getFoodPercent() const {
     return foodPercent;
 }
 
-int Config::getSmallFoodUnitValue() const {
+float Config::getSmallFoodUnitValue() const {
     return smallFoodUnitValue;
 }
 
-int Config::getBigFoodUnitValue() const {
+float Config::getBigFoodUnitValue() const {
     return bigFoodUnitValue;
 }
 

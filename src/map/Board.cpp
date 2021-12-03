@@ -7,7 +7,7 @@ Board::Board(BoardCell ***cells) {
     this->cells = cells;
     this->antQueen = nullptr;
 
-    m_tileset.loadFromFile("./assets/tileset.png");
+    m_tileSet.loadFromFile("./assets/tileset.png");
 }
 
 Board::~Board() {
@@ -29,9 +29,9 @@ Board::~Board() {
     delete coloniesCells;
 }
 
-void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+void Board::draw(RenderTarget &target, RenderStates states) const {
     states.transform *= getTransform();
-    states.texture = &m_tileset;
+    states.texture = &m_tileSet;
     target.draw(floor_vertex, states);
     target.draw(layer_vertex, states);
 }
@@ -40,38 +40,38 @@ void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 bool Board::calcLayer() {
     int maxLength = Config::get()->getLength();
     int maxHeight = Config::get()->getHeight();
-    sf::Vector2u tileSize = sf::Vector2u(Config::get()->getTileSize(), Config::get()->getTileSize());
+    auto tileSize = Vector2i(Config::get()->getTileSize(), Config::get()->getTileSize());
 
-    int layerVertriceSize = 0;
+    int layerVerticeSize = 0;
 
     // create new vertex array
-    sf::VertexArray tmpLayerVertex(sf::Quads, layerVertriceSize);
+    VertexArray tmpLayerVertex(Quads, layerVerticeSize);
 
     for (int height = 0; height < maxHeight; ++height) {
         for (int length = 0; length < maxLength; ++length) {
             BoardCell *cell = cells[height][length];
 
             list<int> cellLayers = cell->getLayersTileNumbers();
-            for (auto const &tileNumber: cellLayers) {
-                layerVertriceSize += 4;
-                tmpLayerVertex.resize(layerVertriceSize);
+            for (auto tileNumber: cellLayers) {
+                layerVerticeSize += 4;
+                tmpLayerVertex.resize(layerVerticeSize);
 
-                sf::Vertex *layerQuad = &tmpLayerVertex[layerVertriceSize - 4];
+                Vertex *layerQuad = &tmpLayerVertex[layerVerticeSize - 4];
 
-                int tu = tileNumber % (m_tileset.getSize().x / tileSize.x);
-                int tv = tileNumber / (m_tileset.getSize().x / tileSize.x);
+                int tu = (int) (tileNumber % (m_tileSet.getSize().x / tileSize.x));
+                int tv = (int) (tileNumber / (m_tileSet.getSize().x / tileSize.x));
 
                 // define its 4 corners
-                layerQuad[0].position = sf::Vector2f(length * tileSize.x, height * tileSize.y);
-                layerQuad[1].position = sf::Vector2f((length + 1) * tileSize.x, height * tileSize.y);
-                layerQuad[2].position = sf::Vector2f((length + 1) * tileSize.x, (height + 1) * tileSize.y);
-                layerQuad[3].position = sf::Vector2f(length * tileSize.x, (height + 1) * tileSize.y);
+                layerQuad[0].position = Vector2f(Vector2i(length * tileSize.x, height * tileSize.y));
+                layerQuad[1].position = Vector2f(Vector2i((length + 1) * tileSize.x, height * tileSize.y));
+                layerQuad[2].position = Vector2f(Vector2i((length + 1) * tileSize.x, (height + 1) * tileSize.y));
+                layerQuad[3].position = Vector2f(Vector2i(length * tileSize.x, (height + 1) * tileSize.y));
 
                 // define its 4 texture coordinates
-                layerQuad[0].texCoords = sf::Vector2f(tu * tileSize.x, tv * tileSize.y);
-                layerQuad[1].texCoords = sf::Vector2f((tu + 1) * tileSize.x, tv * tileSize.y);
-                layerQuad[2].texCoords = sf::Vector2f((tu + 1) * tileSize.x, (tv + 1) * tileSize.y);
-                layerQuad[3].texCoords = sf::Vector2f(tu * tileSize.x, (tv + 1) * tileSize.y);
+                layerQuad[0].texCoords = Vector2f(Vector2i(tu * tileSize.x, tv * tileSize.y));
+                layerQuad[1].texCoords = Vector2f(Vector2i((tu + 1) * tileSize.x, tv * tileSize.y));
+                layerQuad[2].texCoords = Vector2f(Vector2i((tu + 1) * tileSize.x, (tv + 1) * tileSize.y));
+                layerQuad[3].texCoords = Vector2f(Vector2i(tu * tileSize.x, (tv + 1) * tileSize.y));
             }
 
         }
@@ -79,10 +79,6 @@ bool Board::calcLayer() {
 
     layer_vertex = tmpLayerVertex;
     return true;
-}
-
-list<BoardCell *> Board::getNearbyCells(BoardCell *cell) {
-    return getNearbyCells(cell->getPosHeight(), cell->getPosLength());
 }
 
 list<BoardCell *> Board::getNearbyCells(int height, int length) {
@@ -138,7 +134,7 @@ BasicCell *Board::findExpandableBasicCell() {
     BasicCell *expandCellFound = nullptr;
 
     for (ColonyCell *colonyCell: *getColoniesCells()) {
-        auto nearbyCells = getNearbyCells(colonyCell);
+        auto nearbyCells = getNearbyCells(colonyCell->getPosHeight(), colonyCell->getPosLength());
 
         for (BoardCell *nearbyCell: nearbyCells) {
             if ((nearbyCell->getPosHeight() != colonyCell->getPosHeight() && // No generation in the diagonal
@@ -159,39 +155,15 @@ BasicCell *Board::findExpandableBasicCell() {
     return nullptr;
 }
 
-list<BoardCell *> Board::getNearbyRocks(BoardCell *cell) {
-    list<BoardCell *> nearbyRocks;
-
-    for (int i = -1; i <= 1; i++) {
-        for (int j = -1; j <= 1; j++) {
-            if (i == 0 && j == 0) continue;
-
-            int tmpHeight = cell->getPosHeight() + i;
-            int tmpLength = cell->getPosLength() + j;
-            if (tmpHeight < 0 || tmpLength < 0 || tmpHeight >= Config::get()->getHeight() ||
-                tmpLength >= Config::get()->getLength()) {
-                continue;
-            }
-
-            if (this->cells[tmpHeight][tmpLength] != nullptr &&
-                this->cells[tmpHeight][tmpLength]->getBoardCellType() == RockCellType) {
-                nearbyRocks.push_back(this->cells[tmpHeight][tmpLength]);
-            }
-        }
-    }
-
-    return nearbyRocks;
-}
-
 bool Board::calcFloor() {
     int maxLength = Config::get()->getLength();
     int maxHeight = Config::get()->getHeight();
-    sf::Vector2u tileSize = sf::Vector2u(Config::get()->getTileSize(), Config::get()->getTileSize());
+    auto tileSize = Vector2i(Config::get()->getTileSize(), Config::get()->getTileSize());
 
     int floorVerticeSize = maxLength * maxHeight * 4;
 
     // create new vertex array
-    sf::VertexArray tmpFloorVertex(sf::Quads, floorVerticeSize);
+    VertexArray tmpFloorVertex(Quads, floorVerticeSize);
 
     for (int height = 0; height < maxHeight; ++height) {
         for (int length = 0; length < maxLength; ++length) {
@@ -202,23 +174,23 @@ bool Board::calcFloor() {
             int tileNumber = cell->getFloorTileNumber();
 
             // find its position in the tileset texture
-            int tu = tileNumber % (m_tileset.getSize().x / tileSize.x);
-            int tv = tileNumber / (m_tileset.getSize().x / tileSize.x);
+            int tu = (int) (tileNumber % (m_tileSet.getSize().x / tileSize.x));
+            int tv = (int) (tileNumber / (m_tileSet.getSize().x / tileSize.x));
 
             // get a pointer to the current tile's quad
-            sf::Vertex *quad = &tmpFloorVertex[(length + (height * maxLength)) * 4];
+            Vertex *quad = &tmpFloorVertex[(length + (height * maxLength)) * 4];
 
             // define its 4 corners
-            quad[0].position = sf::Vector2f(length * tileSize.x, height * tileSize.y);
-            quad[1].position = sf::Vector2f((length + 1) * tileSize.x, height * tileSize.y);
-            quad[2].position = sf::Vector2f((length + 1) * tileSize.x, (height + 1) * tileSize.y);
-            quad[3].position = sf::Vector2f(length * tileSize.x, (height + 1) * tileSize.y);
+            quad[0].position = Vector2f(Vector2i(length * tileSize.x, height * tileSize.y));
+            quad[1].position = Vector2f(Vector2i((length + 1) * tileSize.x, height * tileSize.y));
+            quad[2].position = Vector2f(Vector2i((length + 1) * tileSize.x, (height + 1) * tileSize.y));
+            quad[3].position = Vector2f(Vector2i(length * tileSize.x, (height + 1) * tileSize.y));
 
             // define its 4 texture coordinates
-            quad[0].texCoords = sf::Vector2f(tu * tileSize.x, tv * tileSize.y);
-            quad[1].texCoords = sf::Vector2f((tu + 1) * tileSize.x, tv * tileSize.y);
-            quad[2].texCoords = sf::Vector2f((tu + 1) * tileSize.x, (tv + 1) * tileSize.y);
-            quad[3].texCoords = sf::Vector2f(tu * tileSize.x, (tv + 1) * tileSize.y);
+            quad[0].texCoords = Vector2f(Vector2i(tu * tileSize.x, tv * tileSize.y));
+            quad[1].texCoords = Vector2f(Vector2i((tu + 1) * tileSize.x, tv * tileSize.y));
+            quad[2].texCoords = Vector2f(Vector2i((tu + 1) * tileSize.x, (tv + 1) * tileSize.y));
+            quad[3].texCoords = Vector2f(Vector2i(tu * tileSize.x, (tv + 1) * tileSize.y));
         }
     }
 

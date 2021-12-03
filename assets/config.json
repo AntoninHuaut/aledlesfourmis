@@ -11,8 +11,8 @@
   "generation": {
     "rockPercent": 0.3,
     "foodPercent": 0.0002,
-    "smallFoodUnit": 10,
-    "bigFoodUnit": 20000
+    "smallFoodUnit": 10.0,
+    "bigFoodUnit": 20000.0
   },
   "antOnCell": {
     "rock": 0,

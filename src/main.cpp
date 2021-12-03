@@ -1,4 +1,3 @@
-#include <iostream>
 #include "../header/map/BoardCell.h"
 #include "../header/map/BasicCell.h"
 #include "../header/map/BoardGenerator.h"
@@ -14,12 +13,10 @@ struct gameThreadData {
 
 void gameTickingThread(gameThreadData data) {
     sf::Clock clock_TPS;
-    sf::Clock clock_FPS;
 
     Game *game = new Game(data.board);
 
     float wanted_TPS = Config::get()->getMaxTps();
-
     auto minDiffMicroSecond_TPS = static_cast<sf::Int64>((1.f / wanted_TPS) * pow(10, 6));
 
     while (!data.board->isWindowClosed() && data.board->isQueenAlive()) {

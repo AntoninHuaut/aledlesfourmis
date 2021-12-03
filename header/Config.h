@@ -18,8 +18,8 @@ class Config {
 
     float rockPercent;
     float foodPercent;
-    int smallFoodUnitValue;
-    int bigFoodUnitValue;
+    float smallFoodUnitValue;
+    float bigFoodUnitValue;
 
     int rockMaxAntOnCell;
     int basicCellMaxAntOnCell;
@@ -69,9 +69,9 @@ public:
 
     float getFoodPercent() const;
 
-    int getSmallFoodUnitValue() const;
+    float getSmallFoodUnitValue() const;
 
-    int getBigFoodUnitValue() const;
+    float getBigFoodUnitValue() const;
 
     int getRockMaxAntOnCell() const;
 

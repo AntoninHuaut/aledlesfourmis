@@ -9,7 +9,7 @@ BoardCell::BoardCell(Board *board, int posHeight, int posLength, int maxAntOnCel
     this->boardCellType = boardCellType;
 
     this->randomCellDecoration = CustomRandom::randInt(0, 3);
-};
+}
 
 BoardCell::~BoardCell() {
     delete antOnCell;
@@ -64,7 +64,7 @@ void BoardCell::addAntOnCell(Ant *antToAdd) {
     if (!this->visited && antToAdd->getAntType() != SlaveOwnerType) {
         this->visited = true;
 
-        list<BoardCell *> nearbyCells = board->getNearbyCells(this);
+        list<BoardCell *> nearbyCells = board->getNearbyCells(this->getPosHeight(), this->getPosLength());
         for (auto *cell: nearbyCells) {
             cell->onNearCellVisited();
         }

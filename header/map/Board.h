@@ -10,6 +10,7 @@
 #include "../core/TileEnum.h"
 
 using namespace std;
+using namespace sf;
 
 class Queen;
 
@@ -25,8 +26,7 @@ class Board : public sf::Drawable, public sf::Transformable {
     sf::VertexArray floor_vertex;
     sf::VertexArray layer_vertex;
 
-
-    sf::Texture m_tileset;
+    sf::Texture m_tileSet;
 
     bool windowClosed = false;
 
@@ -37,7 +37,7 @@ class Board : public sf::Drawable, public sf::Transformable {
 public:
     explicit Board(BoardCell ***cells);
 
-    ~Board();
+    ~Board() override;
 
     int getCurrentTick() const { return currentTick; }
 
@@ -55,11 +55,7 @@ public:
 
     BoardCell ***getCells() { return cells; }
 
-    list<BoardCell *> getNearbyCells(BoardCell *cell);
-
     list<BoardCell *> getNearbyCells(int height, int length);
-
-    list<BoardCell *> getNearbyRocks(BoardCell *cell);
 
     bool calcLayer();
 

@@ -9,7 +9,5 @@ void RockCell::removeAntOnCell(Ant *antToRemove) {
 }
 
 void RockCell::onNearCellVisited() {
-
     visited = true;
-
 }
