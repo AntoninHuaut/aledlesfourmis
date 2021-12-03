@@ -24,7 +24,6 @@ class Ant {
 
     int hoursBeforeDeath;
     int alive = true;
-    int hoursSinceLastFeeding = 0;
     int maxHoursWithoutFeeding;
 
     virtual void tickMove(Board *board) {};
@@ -44,6 +43,8 @@ protected:
 
     static float colonyFood;
 
+    int hoursSinceLastFeeding = 0;
+    
 public:
 
     Ant(int hoursBeforeDeath, int maxHoursWithoutFeeding, float foodConsumedEachDay, BoardCell *currentCell,

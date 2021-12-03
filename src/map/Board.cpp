@@ -81,6 +81,72 @@ bool Board::calcLayer() {
     return true;
 }
 
+bool Board::calcFloor() {
+    int maxLength = Config::get()->getLength();
+    int maxHeight = Config::get()->getHeight();
+    auto tileSize = Vector2i(Config::get()->getTileSize(), Config::get()->getTileSize());
+
+    int floorVerticeSize = maxLength * maxHeight * 4;
+
+    // create new vertex array
+    VertexArray tmpFloorVertex(Quads, floorVerticeSize);
+
+    for (int height = 0; height < maxHeight; ++height) {
+        for (int length = 0; length < maxLength; ++length) {
+            // Cells with multiple layers
+            BoardCell *cell = cells[height][length];
+
+            // get the current tile number
+            int tileNumber = cell->getFloorTileNumber();
+
+            // find its position in the tileset texture
+            int tu = (int) (tileNumber % (m_tileSet.getSize().x / tileSize.x));
+            int tv = (int) (tileNumber / (m_tileSet.getSize().x / tileSize.x));
+
+            // get a pointer to the current tile's quad
+            Vertex *quad = &tmpFloorVertex[(length + (height * maxLength)) * 4];
+
+            // define its 4 corners
+            quad[0].position = Vector2f(Vector2i(length * tileSize.x, height * tileSize.y));
+            quad[1].position = Vector2f(Vector2i((length + 1) * tileSize.x, height * tileSize.y));
+            quad[2].position = Vector2f(Vector2i((length + 1) * tileSize.x, (height + 1) * tileSize.y));
+            quad[3].position = Vector2f(Vector2i(length * tileSize.x, (height + 1) * tileSize.y));
+
+            // define its 4 texture coordinates
+            quad[0].texCoords = Vector2f(Vector2i(tu * tileSize.x, tv * tileSize.y));
+            quad[1].texCoords = Vector2f(Vector2i((tu + 1) * tileSize.x, tv * tileSize.y));
+            quad[2].texCoords = Vector2f(Vector2i((tu + 1) * tileSize.x, (tv + 1) * tileSize.y));
+            quad[3].texCoords = Vector2f(Vector2i(tu * tileSize.x, (tv + 1) * tileSize.y));
+        }
+    }
+
+    floor_vertex = tmpFloorVertex;
+    return true;
+}
+
+
+int Board::catchLarva(int nbToCatch) {
+    if (nbToCatch <= 0) return 0;
+
+    int nbKilled = 0;
+    for (auto *ant: *getAntList()) {
+        if (!ant->isAlive()) continue;
+
+        if (auto *antAge = dynamic_cast<AgeAdult *>(ant)) {
+            if (!antAge->isAdult()) {
+                nbKilled++;
+                ant->kill();
+            }
+
+            if (nbKilled >= nbToCatch) {
+                break;
+            }
+        }
+    }
+
+    return nbKilled;
+}
+
 list<BoardCell *> Board::getNearbyCells(int height, int length) {
     list<BoardCell *> nearbyCells;
 
@@ -153,47 +219,4 @@ BasicCell *Board::findExpandableBasicCell() {
     }
 
     return nullptr;
-}
-
-bool Board::calcFloor() {
-    int maxLength = Config::get()->getLength();
-    int maxHeight = Config::get()->getHeight();
-    auto tileSize = Vector2i(Config::get()->getTileSize(), Config::get()->getTileSize());
-
-    int floorVerticeSize = maxLength * maxHeight * 4;
-
-    // create new vertex array
-    VertexArray tmpFloorVertex(Quads, floorVerticeSize);
-
-    for (int height = 0; height < maxHeight; ++height) {
-        for (int length = 0; length < maxLength; ++length) {
-            // Cells with multiple layers
-            BoardCell *cell = cells[height][length];
-
-            // get the current tile number
-            int tileNumber = cell->getFloorTileNumber();
-
-            // find its position in the tileset texture
-            int tu = (int) (tileNumber % (m_tileSet.getSize().x / tileSize.x));
-            int tv = (int) (tileNumber / (m_tileSet.getSize().x / tileSize.x));
-
-            // get a pointer to the current tile's quad
-            Vertex *quad = &tmpFloorVertex[(length + (height * maxLength)) * 4];
-
-            // define its 4 corners
-            quad[0].position = Vector2f(Vector2i(length * tileSize.x, height * tileSize.y));
-            quad[1].position = Vector2f(Vector2i((length + 1) * tileSize.x, height * tileSize.y));
-            quad[2].position = Vector2f(Vector2i((length + 1) * tileSize.x, (height + 1) * tileSize.y));
-            quad[3].position = Vector2f(Vector2i(length * tileSize.x, (height + 1) * tileSize.y));
-
-            // define its 4 texture coordinates
-            quad[0].texCoords = Vector2f(Vector2i(tu * tileSize.x, tv * tileSize.y));
-            quad[1].texCoords = Vector2f(Vector2i((tu + 1) * tileSize.x, tv * tileSize.y));
-            quad[2].texCoords = Vector2f(Vector2i((tu + 1) * tileSize.x, (tv + 1) * tileSize.y));
-            quad[3].texCoords = Vector2f(Vector2i(tu * tileSize.x, (tv + 1) * tileSize.y));
-        }
-    }
-
-    floor_vertex = tmpFloorVertex;
-    return true;
 }

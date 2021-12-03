@@ -61,6 +61,8 @@ public:
 
     bool calcFloor();
 
+    int catchLarva(int nbToCatch);
+
     list<ColonyCell *> *getColoniesCells() const {
         return coloniesCells;
     }
@@ -72,7 +74,7 @@ public:
     list<Ant *> *getAntList() const {
         return antList;
     }
-
+    
     void addAntList(Ant *ant) {
         antList->push_back(ant);
     }
