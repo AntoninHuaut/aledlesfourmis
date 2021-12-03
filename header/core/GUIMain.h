@@ -9,6 +9,7 @@
 
 struct threadData {
     sf::RenderWindow *window;
+    sf::Mutex *mutex;
     Board *board;
 } typedef threadData;
 
@@ -23,7 +24,7 @@ class GUIMain {
     float zoom = 1;
     float currentZoom = zoom;
 
-    void runUI();
+    void runUI(sf::Mutex *mutex);
 
     void smoothOnKeyPressed();
 
@@ -49,12 +50,11 @@ class GUIMain {
 
 public:
 
-    explicit GUIMain(Board *board) {
+    explicit GUIMain(sf::Mutex *mutex, Board *board) {
         this->board = board;
         this->window = new sf::RenderWindow(sf::VideoMode(1200, 900), "Ant Simulation");
 
-        runUI();
-
+        runUI(mutex);
     }
 };
 

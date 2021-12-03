@@ -88,6 +88,9 @@ bool Ant::goBackToLastCell() {
 
 void Ant::tick(Board *board) {
     // Ticking Age
+//    if (hoursBeforeAdult > 0) {
+//        hoursBeforeAdult--;
+//    }
     if (--hoursBeforeDeath <= 0) {
         kill();
         return;

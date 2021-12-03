@@ -6,7 +6,10 @@ void renderingThread(threadData data) {
 
     // Render loop
     while (data.window->isOpen()) {
+        data.mutex->lock();
         data.board->calcRender();
+        data.mutex->unlock();
+
         data.window->clear();
         data.window->draw(*(data.board));
         data.window->display();
@@ -15,7 +18,7 @@ void renderingThread(threadData data) {
     data.board->setWindowClosed(true);
 }
 
-void GUIMain::runUI() {
+void GUIMain::runUI(sf::Mutex *mutex) {
     // Disabling OpenGL
     window->setActive(false);
 
@@ -23,6 +26,7 @@ void GUIMain::runUI() {
     threadData data;
     data.board = board;
     data.window = window;
+    data.mutex = mutex;
 
     sf::Thread thread(&renderingThread, data);
     thread.launch();
