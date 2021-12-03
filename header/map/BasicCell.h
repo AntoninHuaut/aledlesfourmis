@@ -7,17 +7,17 @@
 
 class BasicCell : public BoardCell {
 
-    double foodAmount = 0;
+    float foodAmount = 0;
 
 public:
-    BasicCell(Board *board, int posHeight, int posLength) :
-            BoardCell(board, posHeight, posLength, Config::get()->getBasicCellMaxAntOnCell(), BasicCellType) {};
+    BasicCell(Board *board, int height, int length) :
+            BoardCell(board, height, length, Config::get()->getBasicCellMaxAntOnCell(), BasicCellType) {};
 
     void takeFood(Ant *ant);
 
-    void setFoodAmount(double newFoodAmount) { this->foodAmount = newFoodAmount; };
+    void setFoodAmount(float newFoodAmount) { this->foodAmount = newFoodAmount; };
 
-    double getFoodAmount() const { return this->foodAmount; };
+    float getFoodAmount() const { return this->foodAmount; };
 
     int numberOfLayers() override;
 

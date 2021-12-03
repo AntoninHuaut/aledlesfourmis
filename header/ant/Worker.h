@@ -8,15 +8,15 @@
 class Worker : public Ant, public AgeAdult {
 
     double pheromoneAmount = 500;
-    double foodCarriedAmount = 0;
+    float foodCarriedAmount = 0;
 
-    void dropFood(); // TODO
+    void dropFood();
 
-    void pickFood(); // TODO
+    void pickFood();
 
-    void visitColony(); // TODO
+    void visitColony();
 
-    void putPheromones(); // TODO
+    void putPheromones();
 
 public:
     explicit Worker(BoardCell *currentCell) :

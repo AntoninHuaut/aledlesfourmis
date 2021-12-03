@@ -43,7 +43,7 @@ Config::Config() {
 
     defaultFoodColony = data["ant"]["defaultFoodColony"].asFloat();
     newAntEveryDay = data["ant"]["newAntEveryDay"].asInt();
-    workerMaxFoodAmountCanCarried = data["ant"]["workerMaxFoodAmountCanCarried"].asInt();
+    workerMaxFoodAmountCanCarried = data["ant"]["workerMaxFoodAmountCanCarried"].asFloat();
     soldierHoursBeforeVisitColony = data["ant"]["soldierHoursBeforeVisitColony"].asInt();
     slaveOwnerHoursBeforeHunger = data["ant"]["slaveOwnerHoursBeforeHunger"].asInt();
 
@@ -134,7 +134,7 @@ int Config::getNewAntEveryDay() const {
     return newAntEveryDay;
 }
 
-int Config::getWorkerMaxFoodAmountCanCarried() const {
+float Config::getWorkerMaxFoodAmountCanCarried() const {
     return workerMaxFoodAmountCanCarried;
 }
 

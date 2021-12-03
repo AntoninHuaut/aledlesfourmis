@@ -34,7 +34,7 @@
     },
     "defaultFoodColony": 20000,
     "newAntEveryDay": 2,
-    "workerMaxFoodAmountCanCarried": 1,
+    "workerMaxFoodAmountCanCarried": 1.0,
     "soldierHoursBeforeVisitColony": 2400,
     "slaveOwnerHoursBeforeHunger": 240
   }

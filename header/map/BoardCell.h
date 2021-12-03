@@ -42,7 +42,7 @@ protected:
     }
 
 public:
-    explicit BoardCell(Board *board, int posLength, int posHeight, int maxAntOnCell, BoardCellType boardCellType);
+    explicit BoardCell(Board *board, int height, int length, int maxAntOnCell, BoardCellType boardCellType);
 
     ~BoardCell();
 

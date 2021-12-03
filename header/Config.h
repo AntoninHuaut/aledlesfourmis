@@ -36,7 +36,7 @@ class Config {
 
     float defaultFoodColony;
     int newAntEveryDay;
-    int workerMaxFoodAmountCanCarried;
+    float workerMaxFoodAmountCanCarried;
     int soldierHoursBeforeVisitColony;
     int slaveOwnerHoursBeforeHunger;
 
@@ -95,7 +95,7 @@ public:
 
     int getNewAntEveryDay() const;
 
-    int getWorkerMaxFoodAmountCanCarried() const;
+    float getWorkerMaxFoodAmountCanCarried() const;
 
     int getSoldierHoursBeforeVisitColony() const;
 

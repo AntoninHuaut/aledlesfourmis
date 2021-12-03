@@ -1,13 +1,11 @@
 #include "../../header/map/BoardCell.h"
 #include "../../header/map/Board.h"
-#include "../../header/ant/Ant.h"
-#include "../../header/map/Board.h"
 
 BoardCell::BoardCell(Board *board, int posHeight, int posLength, int maxAntOnCell, BoardCellType boardCellType) {
     this->board = board;
-    this->maxAntOnCell = maxAntOnCell;
-    this->posLength = posLength;
     this->posHeight = posHeight;
+    this->posLength = posLength;
+    this->maxAntOnCell = maxAntOnCell;
     this->boardCellType = boardCellType;
 
     this->randomCellDecoration = CustomRandom::randInt(0, 3);
