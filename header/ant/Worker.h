@@ -12,6 +12,8 @@ class Worker : public Ant, public AgeAdult {
 
     void dropFood(); // TODO
 
+    void pickFood(); // TODO
+
     void visitColony(); // TODO
 
     void putPheromones(); // TODO
