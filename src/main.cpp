@@ -36,7 +36,7 @@ void gameTickingThread(gameThreadData data) {
 }
 
 int main() {
-//    srand(time(nullptr)); // NOLINT(cert-msc51-cpp)
+    srand(time(nullptr)); // NOLINT(cert-msc51-cpp)
     Config::get(); // Force configuration to be loaded
     sf::Mutex mutex;
 
