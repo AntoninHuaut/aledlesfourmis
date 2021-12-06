@@ -77,6 +77,10 @@ public:
         }
     }
 
+    bool haveMinPheromone(float amount) {
+        return pheromoneAmount >= amount;
+    }
+
     float getPheromone() const { return pheromoneAmount; }
 
     virtual void addAntOnCell(Ant *antToAdd);

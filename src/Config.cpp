@@ -32,29 +32,31 @@ Config::Config() {
     basicCellMaxAntOnCell = data["antOnCell"]["basic"].asInt();
     colonyMaxAntOnCell = data["antOnCell"]["colony"].asInt();
 
-    defaultFoodConsumingTick = data["ant"]["foodConsumption"]["default"].asFloat();
-    queenFoodConsumingTick = data["ant"]["foodConsumption"]["queen"].asFloat();
+    defaultFoodConsumingTick = data["game"]["foodConsumption"]["default"].asFloat();
+    queenFoodConsumingTick = data["game"]["foodConsumption"]["queen"].asFloat();
 
-    defaultHoursBeforeDeath = data["ant"]["hoursBeforeDeath"]["default"].asInt();
-    queenHoursBeforeDeath = data["ant"]["hoursBeforeDeath"]["queen"].asInt();
+    defaultHoursBeforeDeath = data["game"]["hoursBeforeDeath"]["default"].asInt();
+    queenHoursBeforeDeath = data["game"]["hoursBeforeDeath"]["queen"].asInt();
 
-    scootHoursBeforeAdult = data["ant"]["hoursBeforeAdult"]["scout"].asInt();
-    workerHoursBeforeAdult = data["ant"]["hoursBeforeAdult"]["worker"].asInt();
+    scootHoursBeforeAdult = data["game"]["hoursBeforeAdult"]["scout"].asInt();
+    workerHoursBeforeAdult = data["game"]["hoursBeforeAdult"]["worker"].asInt();
 
-    defaultHoursBeforeHunger = data["ant"]["hoursBeforeHunger"]["default"].asInt();
-    slaveOwnerHoursBeforeHunger = data["ant"]["hoursBeforeHunger"]["slaveOwner"].asInt();
+    defaultHoursBeforeHunger = data["game"]["hoursBeforeHunger"]["default"].asInt();
+    slaveOwnerHoursBeforeHunger = data["game"]["hoursBeforeHunger"]["slaveOwner"].asInt();
 
-    slaveOwnerMaxLarvaCanCarried = data["ant"]["slaveOwner"]["maxLarvaCanCarried"].asInt();
-    slaveOwnerMaxTickRandom = data["ant"]["slaveOwner"]["maxTickRandom"].asInt();
-    slaveOwnerMinTickRandom = data["ant"]["slaveOwner"]["minTickRandom"].asInt();
+    slaveOwnerMaxLarvaCanCarried = data["game"]["slaveOwner"]["maxLarvaCanCarried"].asInt();
+    slaveOwnerMaxTickRandom = data["game"]["slaveOwner"]["maxTickRandom"].asInt();
+    slaveOwnerMinTickRandom = data["game"]["slaveOwner"]["minTickRandom"].asInt();
 
-    maxAntPheromoneAmount = data["ant"]["pheromone"]["antAmount"].asFloat();
-    maxAntPheromoneDropPercent = data["ant"]["pheromone"]["dropPercent"].asFloat();
+    maxAntPheromoneAmount = data["game"]["pheromone"]["antAmount"].asFloat();
+    maxAntPheromoneDropPercent = data["game"]["pheromone"]["dropPercent"].asFloat();
+    pheromoneEvaporationPercent = data["game"]["pheromone"]["pheromoneEvaporationPercent"].asFloat();
+    pheromoneSpreadPercent = data["game"]["pheromone"]["spreadPercent"].asFloat();
 
-    defaultFoodColony = data["ant"]["defaultFoodColony"].asFloat();
-    newAntEveryDay = data["ant"]["newAntEveryDay"].asInt();
-    workerMaxFoodAmountCanCarried = data["ant"]["workerMaxFoodAmountCanCarried"].asFloat();
-    soldierHoursBeforeVisitColony = data["ant"]["soldierHoursBeforeVisitColony"].asInt();
+    defaultFoodColony = data["game"]["defaultFoodColony"].asFloat();
+    newAntEveryDay = data["game"]["newAntEveryDay"].asInt();
+    workerMaxFoodAmountCanCarried = data["game"]["workerMaxFoodAmountCanCarried"].asFloat();
+    soldierHoursBeforeVisitColony = data["game"]["soldierHoursBeforeVisitColony"].asInt();
 
     std::cout << " OK" << std::endl;
 }
@@ -181,4 +183,12 @@ float Config::getMaxAntPheromoneAmount() const {
 
 float Config::getMaxAntPheromoneDropPercent() const {
     return maxAntPheromoneDropPercent;
+}
+
+float Config::getPheromoneEvaporationPercent() const {
+    return pheromoneEvaporationPercent;
+}
+
+float Config::getPheromoneSpreadPercent() const {
+    return pheromoneSpreadPercent;
 }

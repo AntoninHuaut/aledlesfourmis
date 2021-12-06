@@ -69,7 +69,7 @@ public:
 
     bool calcFloor();
 
-    int catchLarva(int nbToCatch);
+    int catchLarva(int nbToCatch) const;
 
     list<ColonyCell *> *getColoniesCells() const {
         return coloniesCells;

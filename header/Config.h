@@ -43,6 +43,10 @@ class Config {
 
     float maxAntPheromoneAmount;
     float maxAntPheromoneDropPercent;
+    float pheromoneEvaporationPercent;
+    float pheromoneSpreadPercent;
+
+
     float defaultFoodColony;
     int newAntEveryDay;
     float workerMaxFoodAmountCanCarried;
@@ -112,6 +116,10 @@ public:
     float getMaxAntPheromoneAmount() const;
 
     float getMaxAntPheromoneDropPercent() const;
+
+    float getPheromoneEvaporationPercent() const;
+
+    float getPheromoneSpreadPercent() const;
 
     float getDefaultFoodColony() const;
 

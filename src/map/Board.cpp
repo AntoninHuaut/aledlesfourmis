@@ -127,7 +127,7 @@ bool Board::calcFloor() {
 }
 
 
-int Board::catchLarva(int nbToCatch) {
+int Board::catchLarva(int nbToCatch) const {
     if (nbToCatch <= 0) return 0;
 
     int nbKilled = 0;
@@ -230,6 +230,37 @@ void Board::tick() {
     if (remainingTickBeforeSlaveOwnerSpawn <= 0) {
         setRemainingTickBeforeSlaveOwnerSpawn();
         createSlaveOwner();
+    }
+
+    for (int height = 0; height < Config::get()->getHeight(); height++) {
+        for (int length = 0; length < Config::get()->getLength(); length++) {
+            auto *cell = cells[height][length];
+            if (cell->getPheromone() <= 0) return;
+
+            float pheromoneEvaporated = cell->getPheromone() * Config::get()->getPheromoneEvaporationPercent();
+            cell->removePheromone(pheromoneEvaporated);
+
+            float pheromoneSpread = cell->getPheromone() * Config::get()->getPheromoneSpreadPercent();
+
+            for (int padHeight = -1; padHeight <= 1 && cell->haveMinPheromone(pheromoneSpread); padHeight++) {
+                for (int padLength = -1; padLength <= 1 && cell->haveMinPheromone(pheromoneSpread); padLength++) {
+                    if (padHeight == 0 && padLength == 0) continue;
+
+                    int newHeight = height + padHeight;
+                    int newLength = length + padLength;
+
+                    if (!BoardGenerator::isValidCell(newHeight, newLength)) continue;
+
+                    auto *neighbor = cells[height][length];
+                    if (neighbor->getBoardCellType() != BasicCellType) continue;
+
+                    if (cell->haveMinPheromone(pheromoneSpread)) {
+                        cell->removePheromone(pheromoneSpread);
+                        neighbor->addPheromone(pheromoneSpread);
+                    }
+                }
+            }
+        }
     }
 }
 

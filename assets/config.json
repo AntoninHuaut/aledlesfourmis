@@ -19,7 +19,7 @@
     "basic": 12,
     "colony": 100
   },
-  "ant": {
+  "game": {
     "foodConsumption": {
       "default": 0.001,
       "queen": 0.01
@@ -43,7 +43,9 @@
     },
     "pheromone": {
       "antAmount": 500.0,
-      "dropPercent": 0.05
+      "dropPercent": 0.05,
+      "evaporationPercent": 0.005,
+      "spreadPercent": 0.002
     },
     "defaultFoodColony": 20000,
     "newAntEveryDay": 2,
