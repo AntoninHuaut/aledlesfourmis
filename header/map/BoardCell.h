@@ -70,6 +70,15 @@ public:
         pheromoneAmount += amount;
     }
 
+    void removePheromone(float amount) {
+        pheromoneAmount -= amount;
+        if (pheromoneAmount < 0) {
+            pheromoneAmount = 0;
+        }
+    }
+
+    float getPheromone() const { return pheromoneAmount; }
+
     virtual void addAntOnCell(Ant *antToAdd);
 
     virtual void removeAntOnCell(Ant *antToRemove);
