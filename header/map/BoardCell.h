@@ -25,12 +25,10 @@ class BoardCell {
     int posHeight;
     BoardCellType boardCellType;
 
-    double pheromoneAmount = 0;
+    float pheromoneAmount = 0;
     int maxAntOnCell;
 
     Board *board;
-
-    void pheromoneSpreading() {};
 
 protected:
     list<Ant *> *antOnCell = new list<Ant *>;
@@ -47,7 +45,7 @@ public:
     ~BoardCell();
 
     virtual void tick() {};
-    
+
     int getPosLength() const { return posLength; }
 
     int getPosHeight() const { return posHeight; }
@@ -66,6 +64,10 @@ public:
 
     list<Ant *> *getAntOnCell() const {
         return antOnCell;
+    }
+
+    void addPheromone(float amount) {
+        pheromoneAmount += amount;
     }
 
     virtual void addAntOnCell(Ant *antToAdd);

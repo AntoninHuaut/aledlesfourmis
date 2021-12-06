@@ -51,9 +51,15 @@ void Worker::visitColony() {
         dropFood();
     }
 
-    pheromoneAmount = Config::get()->getMaxPheromoneAmount();
+    pheromoneAmount = Config::get()->getMaxAntPheromoneAmount();
 }
 
 void Worker::putPheromones() {
-    // TODO
+    auto *currentCell = getCurrentCell();
+    if (pheromoneAmount <= 0) return;
+    if (currentCell->getBoardCellType() != BasicCellType) return;
+
+    float pheromonePercent = pheromoneAmount * Config::get()->getMaxAntPheromoneDropPercent();
+    pheromoneAmount -= pheromonePercent;
+    currentCell->addPheromone(pheromonePercent);
 }

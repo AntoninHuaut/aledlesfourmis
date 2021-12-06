@@ -24,7 +24,7 @@ public:
             Ant(Config::get()->getDefaultHoursBeforeDeath(), Config::get()->getDefaultHoursBeforeHunger(),
                 Config::get()->getDefaultFoodConsumingTick(), currentCell, WorkerType),
             AgeAdult(Config::get()->getWorkerHoursBeforeAdult()) {
-        this->pheromoneAmount = Config::get()->getMaxPheromoneAmount();
+        this->pheromoneAmount = Config::get()->getMaxAntPheromoneAmount();
         this->foodCarriedAmount = 0;
     };
 
