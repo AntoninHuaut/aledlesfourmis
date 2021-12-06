@@ -16,7 +16,6 @@ void Soldier::moveSoldier(Board *board) {
     }
 
     // Else, move random if the soldier don't have to go to the colony
-    cout << Config::get()->getSoldierHoursBeforeVisitColony() << endl;
     if (tickSinceColonyVisited < Config::get()->getSoldierHoursBeforeVisitColony()) {
         auto randomCell = cells.begin();
         std::advance(randomCell, CustomRandom::randInt(0, static_cast<int>(cells.size()) - 1));
@@ -43,7 +42,6 @@ void Soldier::tickMove(Board *board) {
         attackOneSlaveOwnerNearCell(board, getCurrentCell());
     }
 
-    cout << tickSinceColonyVisited << endl;
     tickSinceColonyVisited++;
 }
 
