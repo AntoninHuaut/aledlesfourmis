@@ -47,7 +47,7 @@
       "evaporationPercent": 0.005,
       "spreadPercent": 0.002
     },
-    "defaultFoodColony": 20000,
+    "defaultFoodColony": 2,
     "newAntEveryDay": 2,
     "workerMaxFoodAmountCanCarried": 1.0,
     "soldierHoursBeforeVisitColony": 2400,
