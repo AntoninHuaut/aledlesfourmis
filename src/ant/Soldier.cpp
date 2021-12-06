@@ -62,6 +62,4 @@ void Soldier::attackOneSlaveOwnerNearCell(Board *board, BoardCell *cell) {
             }
         }
     }
-
-    return false;
 }
