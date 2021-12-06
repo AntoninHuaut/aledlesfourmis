@@ -17,7 +17,7 @@ bool Worker::eatFood(float amountToEat) {
 
 void Worker::tickMove(Board *board) {
     if (goingHome) {
-        goBackToLastCell();
+        goToCenter(board);
 
         if (foodCarriedAmount > 0) {
             putPheromones();
