@@ -6,12 +6,12 @@
   "board": {
     "height": 201,
     "length": 211,
-    "maxTps": 150.0
+    "maxTps": 200.0
   },
   "generation": {
     "rockPercent": 0.3,
-    "foodPercent": 0.0002,
-    "smallFoodUnit": 10.0,
+    "foodPercent": 0.005,
+    "smallFoodUnit": 1000.0,
     "bigFoodUnit": 20000.0
   },
   "antOnCell": {

@@ -3,12 +3,24 @@
 list<int> BasicCell::getLayersTileNumbers() {
     list<int> tiles;
 
-    if (!antOnCell->empty()) {
-        tiles.push_back(antOnCell->back()->getAntTileNumber());
+    if(getPheromone() > 0){
+        int maxPhero = 100;
+        int step = maxPhero / 5;
+
+        int toAdd = static_cast<int>(getPheromone() / step);
+        if(toAdd > 5) toAdd = 5;
+
+        tiles.push_back(FIRST_PHEROMONE_LEVEL + (toAdd-1));
     }
 
-    if (foodAmount > 0) {
+    if (foodAmount > 1000) {
+        tiles.push_back(BIG_FOOD_LAYER);
+    } else if (foodAmount > 0){
         tiles.push_back(FOOD_LAYER);
+    }
+
+    if (!antOnCell->empty()) {
+        tiles.push_back(antOnCell->back()->getAntTileNumber());
     }
 
     if (!this->visited) {

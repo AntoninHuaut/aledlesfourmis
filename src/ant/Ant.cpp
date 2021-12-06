@@ -26,7 +26,29 @@ void Ant::kill() {
 }
 
 int Ant::getAntTileNumber() {
-    int tile = BLACK_ANT;
+    int tile;
+
+    switch (this->antType) {
+        case WorkerType:
+            tile = WORKER_ANT;
+            break;
+
+        case SoldierType:
+            tile = SOLDIER_ANT;
+            break;
+
+        case ScoutType:
+            tile = SCOOT_ANT;
+            break;
+
+        case SlaveOwnerType:
+            tile = SLAVEOWNER_ANT;
+            break;
+
+        default:
+            tile = SCOOT_ANT;
+            break;
+    }
 
     if (this->lastCell != nullptr) {
 
