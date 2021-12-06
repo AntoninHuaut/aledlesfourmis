@@ -18,7 +18,7 @@ Ant::Ant(int hoursBeforeDeath, int maxHoursWithoutFeeding,
 
 Ant::~Ant() {
     this->currentCell->removeAntOnCell(this);
-    delete cellTraveledSinceColony;
+    delete cellTraveledSinceStart;
 }
 
 void Ant::kill() {
@@ -72,15 +72,15 @@ void Ant::goToCell(BoardCell *newCell) {
 }
 
 bool Ant::goBackToLastCell() {
-    if (cellTraveledSinceColony->empty()) return false;
+    if (cellTraveledSinceStart->empty()) return false;
 
-    if (cellTraveledSinceColony->back()->haveSpace()) {
+    if (cellTraveledSinceStart->back()->haveSpace()) {
         this->lastCell = this->currentCell;
         this->currentCell->removeAntOnCell(this);
-        cellTraveledSinceColony->back()->addAntOnCell(this);
-        this->currentCell = cellTraveledSinceColony->back();
+        cellTraveledSinceStart->back()->addAntOnCell(this);
+        this->currentCell = cellTraveledSinceStart->back();
 
-        cellTraveledSinceColony->pop_back();
+        cellTraveledSinceStart->pop_back();
         return true;
     }
 
@@ -141,11 +141,41 @@ void Ant::tickFood(Board *board) {
 int Ant::numberOfTimeOnCell(BoardCell *cell) {
     int timeOnCell = 0;
 
-    for (auto const &i: *cellTraveledSinceColony) {
+    for (auto const &i: *cellTraveledSinceStart) {
         if (cell == i) {
             timeOnCell++;
         }
     }
 
     return timeOnCell;
+}
+
+void Ant::goToCenter(Board *board) {
+    auto possibleCells = this->getAvailableCellToMove(board);
+
+    if (possibleCells.empty()) return;
+
+    BoardCell *target = board->getCenterCell();
+
+    int min = possibleCells.front()->cellsDistance(target);
+    int minNumberOfVisit = numberOfTimeOnCell(possibleCells.front());
+
+    BoardCell *bestCell = possibleCells.front();
+
+    for (auto *cell: possibleCells) {
+        int newDist = cell->cellsDistance(target);
+
+        if (newDist <= min && numberOfTimeOnCell(cell) <= minNumberOfVisit) {
+            min = newDist;
+            minNumberOfVisit = numberOfTimeOnCell(cell);
+            bestCell = cell;
+        }
+    }
+
+//    if (bestCell == target) {
+    if (bestCell->getBoardCellType() == ColonyCellType) {
+        haveArrivedToColony = true;
+    }
+
+    this->goToCell(bestCell);
 }

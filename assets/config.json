@@ -6,7 +6,7 @@
   "board": {
     "height": 201,
     "length": 211,
-    "maxTps": 30.0
+    "maxTps": 150.0
   },
   "generation": {
     "rockPercent": 0.3,
@@ -51,6 +51,7 @@
     "newAntEveryDay": 2,
     "workerMaxFoodAmountCanCarried": 1.0,
     "soldierHoursBeforeVisitColony": 2400,
+    "soldierPercentToKillSlaveOwner": 0.5,
     "slaveOwnerMaxLarvaCanCarried": 2
   }
 }

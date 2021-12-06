@@ -77,7 +77,7 @@ public:
         }
     }
 
-    bool haveMinPheromone(float amount) {
+    bool haveMinPheromone(float amount) const {
         return pheromoneAmount >= amount;
     }
 
@@ -88,6 +88,8 @@ public:
     virtual void removeAntOnCell(Ant *antToRemove);
 
     virtual void onNearCellVisited() {};
+
+    int cellsDistance(BoardCell *cell2);
 
     bool isVisited() const {
         return this->visited;

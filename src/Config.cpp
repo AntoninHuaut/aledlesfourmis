@@ -57,6 +57,7 @@ Config::Config() {
     newAntEveryDay = data["game"]["newAntEveryDay"].asInt();
     workerMaxFoodAmountCanCarried = data["game"]["workerMaxFoodAmountCanCarried"].asFloat();
     soldierHoursBeforeVisitColony = data["game"]["soldierHoursBeforeVisitColony"].asInt();
+    soldierPercentToKillSlaveOwner = data["game"]["soldierPercentToKillSlaveOwner"].asFloat();
 
     std::cout << " OK" << std::endl;
 }
@@ -191,4 +192,8 @@ float Config::getPheromoneEvaporationPercent() const {
 
 float Config::getPheromoneSpreadPercent() const {
     return pheromoneSpreadPercent;
+}
+
+float Config::getSoldierPercentToKillSlaveOwner() const {
+    return soldierPercentToKillSlaveOwner;
 }
