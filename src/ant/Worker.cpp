@@ -16,7 +16,29 @@ bool Worker::eatFood(float amountToEat) {
 }
 
 void Worker::tickMove(Board *board) {
-    // TODO
+
+    if (goingHome) {
+
+        goBackToLastCell();
+
+        if (foodCarriedAmount > 0) {
+            putPheromones();
+        }
+
+        if (getCurrentCell()->getBoardCellType() == ColonyCellType) {
+            visitColony();
+            cellTraveledSinceColony->clear();
+            goingHome = false;
+        }
+
+
+    } else {
+
+        goCollectFood(board);
+        //try pick food if have on the cell
+        pickFood();
+
+    }
 }
 
 void Worker::pickFood() {
@@ -30,6 +52,7 @@ void Worker::pickFood() {
     if (maxToTake > 0) {
         basicCell->setFoodAmount(basicCell->getFoodAmount() - maxToTake);
         foodCarriedAmount += maxToTake;
+        goingHome = true;
     }
 }
 
@@ -62,4 +85,120 @@ void Worker::putPheromones() {
     float pheromonePercent = pheromoneAmount * Config::get()->getMaxAntPheromoneDropPercent();
     pheromoneAmount -= pheromonePercent;
     currentCell->addPheromone(pheromonePercent);
+}
+
+void Worker::goCollectFood(Board *board) {
+
+    auto possibleCells = this->getAvailableVisitedCellToMove(board);
+
+    if (possibleCells.empty()) return;
+
+    //Search if food nearby first
+    BoardCell *nearByFood = nullptr;
+    for (auto cell: possibleCells) {
+        if (cell->getBoardCellType() == BasicCellType) {
+            if (dynamic_cast<BasicCell *>(cell)->getFoodAmount() > 0) {
+                nearByFood = cell;
+            }
+        }
+    }
+
+    if (nearByFood == nullptr) {
+        BoardCell *cell = getNextCellToFood(board);
+        if (cell != nullptr) {
+            goToCell(cell);
+        }
+    } else {
+        goToCell(nearByFood);
+    }
+
+}
+
+
+BoardCell *Worker::getNextCellToFood(Board *board) {
+    auto availableCells = getAvailableVisitedCellToMove(board);
+    if (availableCells.empty()) return nullptr;
+
+    if (cellTraveledSinceColony->empty()) {
+        return getCellWithMaxPheromoneOrRandom(availableCells);
+
+    } else {
+        auto directionalCells = getDirectionalCells(board);
+
+        if (!directionalCells.empty()) {
+            return getCellWithMaxPheromoneOrRandom(directionalCells);
+        } else {
+            //Case possible sans la derniere case visite
+            availableCells.remove(cellTraveledSinceColony->back());
+            return getCellWithMaxPheromoneOrRandom(availableCells);
+        }
+    }
+}
+
+list<BoardCell *> Worker::getDirectionalCells(Board *board) {
+    list<BoardCell *> directionalCells;
+
+    if (cellTraveledSinceColony->empty()) return directionalCells;
+
+    int lengthDiff = cellTraveledSinceColony->back()->getPosLength() - this->getCurrentCell()->getPosLength();
+    int heightDiff = cellTraveledSinceColony->back()->getPosHeight() - this->getCurrentCell()->getPosHeight();
+
+    if (lengthDiff == 0 && heightDiff == 0) return directionalCells;
+
+    auto availableCells = getAvailableVisitedCellToMove(board);
+
+    if (lengthDiff == 0) {
+        for (auto const &cell: availableCells) {
+            int currentHeightDiff = cell->getPosHeight() - this->getCurrentCell()->getPosHeight();
+            if (currentHeightDiff == -heightDiff) {
+                directionalCells.push_back(cell);
+            }
+        }
+    } else if (heightDiff == 0) {
+        for (auto const &cell: availableCells) {
+            int currentLengthDiff = cell->getPosLength() - this->getCurrentCell()->getPosLength();
+            if (currentLengthDiff == -lengthDiff) {
+                directionalCells.push_back(cell);
+            }
+        }
+    } else {
+        for (auto const &cell: availableCells) {
+            int currentHeightDiff = cell->getPosHeight() - this->getCurrentCell()->getPosHeight();
+            int currentLengthDiff = cell->getPosLength() - this->getCurrentCell()->getPosLength();
+
+            if (currentLengthDiff != lengthDiff && currentHeightDiff != heightDiff) {
+                if (currentHeightDiff != 0 && currentLengthDiff != 0) {
+                    directionalCells.push_back(cell);
+                }
+            }
+        }
+    }
+    return directionalCells;
+}
+
+BoardCell *Worker::getCellWithMaxPheromoneOrRandom(list<BoardCell *> cells) {
+
+    if (cells.empty()) return nullptr;
+
+    BoardCell *cellWithMaxPheromone = cells.front();
+    int randCellIndex = CustomRandom::randInt(0, static_cast<int>(cells.size() - 1));
+    BoardCell *randCell = nullptr;
+
+    int i = 0;
+    for (auto cell: cells) {
+        if (i == randCellIndex) {
+            randCell = cell;
+        }
+
+        if (cellWithMaxPheromone->getPheromone() < cell->getPheromone()) {
+            cellWithMaxPheromone = cell;
+        }
+        i++;
+    }
+
+    if (cellWithMaxPheromone->getPheromone() > 0) {
+        return cellWithMaxPheromone;
+    } else {
+        return randCell;
+    }
 }
