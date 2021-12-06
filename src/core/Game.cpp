@@ -10,6 +10,12 @@ void Game::tickGame() {
 
 void Game::tickAnts() {
     list<Ant *> antDeleteList{};
+
+    int soldier = 0;
+    int slaveOwner = 0;
+    int worker = 0;
+    int scout = 0;
+
     for (auto *ant: *board->getAntList()) {
         if (ant == nullptr) continue; // Should never happen
         if (!ant->isAlive()) {
@@ -17,8 +23,28 @@ void Game::tickAnts() {
             continue;
         }
 
+        switch (ant->getAntType()) {
+            case ScoutType:
+                soldier++;
+                break;
+            case SoldierType:
+                scout++;
+                break;
+            case WorkerType:
+                worker++;
+                break;
+            case SlaveOwnerType:
+                slaveOwner++;
+                break;
+            default:
+                break;
+        }
+
         ant->tick(board);
     }
+
+    cout << "Tick: " << board->getCurrentTick() << "   Soldier: " << soldier << "   SlaveOwner: " << slaveOwner
+         << "   Worker: " << worker << "   Scout: " << scout << endl;
 
     for (auto *antToDelete: antDeleteList) {
         board->getAntList()->remove(antToDelete);
