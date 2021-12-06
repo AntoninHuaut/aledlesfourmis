@@ -27,7 +27,7 @@ void Worker::tickMove(Board *board) {
 
         if (getCurrentCell()->getBoardCellType() == ColonyCellType) {
             visitColony();
-            cellTraveledSinceColony->clear();
+            cellTraveledSinceStart->clear();
             goingHome = false;
         }
 
@@ -119,7 +119,7 @@ BoardCell *Worker::getNextCellToFood(Board *board) {
     auto availableCells = getAvailableVisitedCellToMove(board);
     if (availableCells.empty()) return nullptr;
 
-    if (cellTraveledSinceColony->empty()) {
+    if (cellTraveledSinceStart->empty()) {
         return getCellWithMaxPheromoneOrRandom(availableCells);
 
     } else {
@@ -129,7 +129,7 @@ BoardCell *Worker::getNextCellToFood(Board *board) {
             return getCellWithMaxPheromoneOrRandom(directionalCells);
         } else {
             //Case possible sans la derniere case visite
-            availableCells.remove(cellTraveledSinceColony->back());
+            availableCells.remove(cellTraveledSinceStart->back());
             return getCellWithMaxPheromoneOrRandom(availableCells);
         }
     }
@@ -138,10 +138,10 @@ BoardCell *Worker::getNextCellToFood(Board *board) {
 list<BoardCell *> Worker::getDirectionalCells(Board *board) {
     list<BoardCell *> directionalCells;
 
-    if (cellTraveledSinceColony->empty()) return directionalCells;
+    if (cellTraveledSinceStart->empty()) return directionalCells;
 
-    int lengthDiff = cellTraveledSinceColony->back()->getPosLength() - this->getCurrentCell()->getPosLength();
-    int heightDiff = cellTraveledSinceColony->back()->getPosHeight() - this->getCurrentCell()->getPosHeight();
+    int lengthDiff = cellTraveledSinceStart->back()->getPosLength() - this->getCurrentCell()->getPosLength();
+    int heightDiff = cellTraveledSinceStart->back()->getPosHeight() - this->getCurrentCell()->getPosHeight();
 
     if (lengthDiff == 0 && heightDiff == 0) return directionalCells;
 
