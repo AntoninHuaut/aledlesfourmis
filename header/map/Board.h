@@ -19,6 +19,7 @@ class Board : public sf::Drawable, public sf::Transformable {
     BoardCell ***cells;
     list<ColonyCell *> *coloniesCells;
     int currentTick = 0;
+    int remainingTickBeforeSlaveOwnerSpawn;
 
     list<Ant *> *antList;
     Queen *antQueen;
@@ -41,9 +42,16 @@ public:
 
     int getCurrentTick() const { return currentTick; }
 
-    void incrementCurrentTick() { currentTick++; }
+    void tick();
 
     bool isWindowClosed() const { return windowClosed; }
+
+    void setRemainingTickBeforeSlaveOwnerSpawn() {
+        remainingTickBeforeSlaveOwnerSpawn = CustomRandom::randInt(Config::get()->getSlaveOwnerMinTickRandom(),
+                                                                   Config::get()->getSlaveOwnerMaxTickRandom()) * 24;
+    }
+
+    void createSlaveOwner();
 
     void setWindowClosed(bool newWindowClosed) {
         this->windowClosed = newWindowClosed;
@@ -74,8 +82,8 @@ public:
     list<Ant *> *getAntList() const {
         return antList;
     }
-    
-    void addAntList(Ant *ant) {
+
+    void addAntToList(Ant *ant) {
         antList->push_back(ant);
     }
 

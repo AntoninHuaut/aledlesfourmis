@@ -1,5 +1,6 @@
 #include "../../header/map/Board.h"
 #include "../../header/map/BoardGenerator.h"
+#include "../../header/ant/SlaveOwner.h"
 
 Board::Board(BoardCell ***cells) {
     this->coloniesCells = new list<ColonyCell *>;
@@ -7,6 +8,7 @@ Board::Board(BoardCell ***cells) {
     this->cells = cells;
     this->antQueen = nullptr;
 
+    setRemainingTickBeforeSlaveOwnerSpawn();
     m_tileSet.loadFromFile("./assets/tileset.png");
 }
 
@@ -219,4 +221,48 @@ BasicCell *Board::findExpandableBasicCell() {
     }
 
     return nullptr;
+}
+
+void Board::tick() {
+    currentTick++;
+
+    remainingTickBeforeSlaveOwnerSpawn--;
+    if (remainingTickBeforeSlaveOwnerSpawn <= 0) {
+        createSlaveOwner();
+        setRemainingTickBeforeSlaveOwnerSpawn();
+    }
+}
+
+void Board::createSlaveOwner() {
+    int posOne = CustomRandom::randInt(1, 4); // 1 = NO, 2 = SO, 3 = NE, 4 = SE
+
+    int searchPosHeight = (posOne % 2) == 1 == 1 ? 0 : Config::get()->getHeight() - 1;
+    int searchPosLength = posOne <= 2 ? 0 : Config::get()->getLength() - 1;
+
+    int pad = 1;
+
+    while (pad < ((Config::get()->getLength() + Config::get()->getHeight()) / 4)) {
+        for (int padHeight = -pad; padHeight <= pad; padHeight++) {
+            for (int padLength = -pad; padLength <= pad; padLength++) {
+                if (padHeight == 0 && padLength == 0) continue;
+
+                int posHeight = searchPosHeight + padHeight;
+                int posLength = searchPosLength + padLength;
+
+                if (!BoardGenerator::isValidCell(posHeight, posLength)) continue;
+
+                auto *cell = cells[posHeight][posLength];
+                if (cell->getBoardCellType() != BasicCellType) continue;
+
+                auto *basicCell = dynamic_cast<BasicCell *>(cell);
+                auto *slaveOwner = new SlaveOwner(basicCell);
+                basicCell->addAntOnCell(slaveOwner);
+                addAntToList(slaveOwner);
+
+                return;
+            }
+        }
+
+        pad++;
+    }
 }

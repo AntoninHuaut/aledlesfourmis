@@ -44,12 +44,15 @@ Config::Config() {
     defaultHoursBeforeHunger = data["ant"]["hoursBeforeHunger"]["default"].asInt();
     slaveOwnerHoursBeforeHunger = data["ant"]["hoursBeforeHunger"]["slaveOwner"].asInt();
 
+    slaveOwnerMaxLarvaCanCarried = data["ant"]["slaveOwner"]["maxLarvaCanCarried"].asInt();
+    slaveOwnerMaxTickRandom = data["ant"]["slaveOwner"]["maxTickRandom"].asInt();
+    slaveOwnerMinTickRandom = data["ant"]["slaveOwner"]["minTickRandom"].asInt();
+
     defaultFoodColony = data["ant"]["defaultFoodColony"].asFloat();
     newAntEveryDay = data["ant"]["newAntEveryDay"].asInt();
     workerMaxFoodAmountCanCarried = data["ant"]["workerMaxFoodAmountCanCarried"].asFloat();
     soldierHoursBeforeVisitColony = data["ant"]["soldierHoursBeforeVisitColony"].asInt();
-    slaveOwnerMaxLarvaCanCarried = data["ant"]["slaveOwnerMaxLarvaCanCarried"].asInt();
-    
+
     std::cout << " OK" << std::endl;
 }
 
@@ -141,6 +144,18 @@ float Config::getDefaultFoodColony() const {
     return defaultFoodColony;
 }
 
+int Config::getSlaveOwnerMaxLarvaCanCarried() const {
+    return slaveOwnerMaxLarvaCanCarried;
+}
+
+int Config::getSlaveOwnerMinTickRandom() const {
+    return slaveOwnerMinTickRandom;
+}
+
+int Config::getSlaveOwnerMaxTickRandom() const {
+    return slaveOwnerMaxTickRandom;
+}
+
 int Config::getNewAntEveryDay() const {
     return newAntEveryDay;
 }
@@ -155,8 +170,4 @@ int Config::getSoldierHoursBeforeVisitColony() const {
 
 float Config::getMaxTps() const {
     return maxTps;
-}
-
-int Config::getSlaveOwnerMaxLarvaCanCarried() const {
-    return slaveOwnerMaxLarvaCanCarried;
 }

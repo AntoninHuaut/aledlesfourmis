@@ -5,7 +5,7 @@ void Game::tickGame() {
     tickQueen();
     tickAnts();
 
-    board->incrementCurrentTick();
+    board->tick();
 }
 
 void Game::tickAnts() {
