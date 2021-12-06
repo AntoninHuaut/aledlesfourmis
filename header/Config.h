@@ -51,6 +51,7 @@ class Config {
     int newAntEveryDay;
     float workerMaxFoodAmountCanCarried;
     int soldierHoursBeforeVisitColony;
+    float soldierPercentToKillSlaveOwner;
 
 protected:
     Config();
@@ -128,6 +129,8 @@ public:
     float getWorkerMaxFoodAmountCanCarried() const;
 
     int getSoldierHoursBeforeVisitColony() const;
+
+    float getSoldierPercentToKillSlaveOwner() const;
 
 };
 

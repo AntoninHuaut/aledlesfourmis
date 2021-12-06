@@ -33,7 +33,7 @@ class Ant {
     void tickFood(Board *board);
 
 protected:
-    list<BoardCell *> *cellTraveledSinceColony = new list<BoardCell *>;
+    list<BoardCell *> *cellTraveledSinceStart = new list<BoardCell *>;
 
     float foodConsumedEachDay;
 
@@ -44,6 +44,13 @@ protected:
     static float colonyFood;
 
     int hoursSinceLastFeeding = 0;
+
+    bool haveArrivedToColony = false;
+
+    int numberOfTimeOnCell(BoardCell *cell);
+
+    void goToCenter(Board *board);
+
 
 public:
 
@@ -56,14 +63,12 @@ public:
 
     virtual void kill();
 
-    virtual bool attackAnt(Ant *target) { return false; }
-
     BoardCell *getCurrentCell() { return this->currentCell; }
 
     void setCurrentCell(BoardCell *newCurrentCell) { currentCell = newCurrentCell; }
 
     void addCellTraveled(BoardCell *cell) {
-        this->cellTraveledSinceColony->push_back(cell);
+        this->cellTraveledSinceStart->push_back(cell);
     }
 
     int getAntTileNumber();
@@ -79,8 +84,6 @@ public:
     list<BoardCell *> getAvailableVisitedCellToMove(Board *board);
 
     void goToCell(BoardCell *newCell);
-
-    int numberOfTimeOnCell(BoardCell *cell);
 
     bool goBackToLastCell();
 };

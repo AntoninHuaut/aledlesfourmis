@@ -26,7 +26,7 @@ public:
     }
 
     bool isAssaulted() const { return assaulted; }
-
+    
     void tick(Board *board) override;
 };
 

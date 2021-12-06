@@ -60,3 +60,7 @@ void BoardCell::addAntOnCell(Ant *antToAdd) {
 void BoardCell::removeAntOnCell(Ant *antToRemove) {
     this->antOnCell->remove(antToRemove);
 }
+
+int BoardCell::cellsDistance(BoardCell *cell2) {
+    return abs(getPosLength() - cell2->getPosLength()) + abs(getPosHeight() - cell2->getPosHeight());
+}

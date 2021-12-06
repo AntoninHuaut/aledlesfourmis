@@ -11,16 +11,13 @@ class Board;
 class SlaveOwner : public Ant {
 
     int larvaCarried = 0;
-    bool haveArrivedToCenter = false;
 
 public:
 
     explicit SlaveOwner(BoardCell *currentCell) :
             Ant(Config::get()->getDefaultHoursBeforeDeath(), Config::get()->getSlaveOwnerHoursBeforeHunger(),
                 Config::get()->getDefaultFoodConsumingTick(), currentCell, SlaveOwnerType) {};
-
-    void goToCenter(Board *board);
-
+    
     void attackQueen(Board *board);
 
     void tickMove(Board *board) override;
