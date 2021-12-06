@@ -34,18 +34,13 @@ void Soldier::moveSoldier(Board *board) {
 }
 
 void Soldier::tickMove(Board *board) {
-//    bool hasTryOrKillSlaveOwner = attackOneSlaveOwnerNearCell(board, getCurrentCell());
-//
-//    moveSoldier(board);
-//
-//    if (!hasTryOrKillSlaveOwner) {
-//        attackOneSlaveOwnerNearCell(board, getCurrentCell());
-//    }
-//
-//    tickSinceColonyVisited++;
+    moveSoldier(board);
+    attackOneSlaveOwnerNearCell(board, getCurrentCell());
+
+    tickSinceColonyVisited++;
 }
 
-bool Soldier::attackOneSlaveOwnerNearCell(Board *board, BoardCell *cell) {
+void Soldier::attackOneSlaveOwnerNearCell(Board *board, BoardCell *cell) {
     for (int padHeight = -1; padHeight <= 1; padHeight += 1) {
         for (int padLength = -1; padLength <= 1; padLength += 1) {
             int posHeight = cell->getPosHeight() + padHeight;
@@ -62,7 +57,7 @@ bool Soldier::attackOneSlaveOwnerNearCell(Board *board, BoardCell *cell) {
                         ant->kill();
                         // TODO récupérer larves
                     }
-                    return true;
+                    return;
                 }
             }
         }

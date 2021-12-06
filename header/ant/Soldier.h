@@ -7,7 +7,7 @@
 class Soldier : public Ant {
 
     int tickSinceColonyVisited = 0;
-    
+
 public:
     explicit Soldier(BoardCell *currentCell) :
             Ant(Config::get()->getDefaultHoursBeforeDeath(), Config::get()->getDefaultHoursBeforeHunger(),
@@ -17,7 +17,7 @@ public:
 
     void tickMove(Board *board) override;
 
-    static bool attackOneSlaveOwnerNearCell(Board *board, BoardCell *cell);
+    static void attackOneSlaveOwnerNearCell(Board *board, BoardCell *cell);
 };
 
 
