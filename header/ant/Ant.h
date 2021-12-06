@@ -51,6 +51,7 @@ protected:
 
     void goToCenter(Board *board);
 
+
 public:
 
     Ant(int hoursBeforeDeath, int maxHoursWithoutFeeding, float foodConsumedEachDay, BoardCell *currentCell,
@@ -79,6 +80,8 @@ public:
     bool isAlive() const { return alive; }
 
     list<BoardCell *> getAvailableCellToMove(Board *board);
+
+    list<BoardCell *> getAvailableVisitedCellToMove(Board *board);
 
     void goToCell(BoardCell *newCell);
 

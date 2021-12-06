@@ -7,6 +7,8 @@
 
 class Worker : public Ant, public AgeAdult {
 
+    bool goingHome = false;
+
     float pheromoneAmount;
     float foodCarriedAmount;
 
@@ -17,6 +19,14 @@ class Worker : public Ant, public AgeAdult {
     void visitColony();
 
     void putPheromones();
+
+    void goCollectFood(Board *board);
+
+    BoardCell *getNextCellToFood(Board *board);
+
+    list<BoardCell *> getDirectionalCells(Board *board);
+
+    BoardCell *getCellWithMaxPheromoneOrRandom(list<BoardCell *> cells);
 
 public:
 

@@ -60,6 +60,21 @@ list<BoardCell *> Ant::getAvailableCellToMove(Board *board) {
     return cells;
 }
 
+list<BoardCell *> Ant::getAvailableVisitedCellToMove(Board *board) {
+    if (currentCell == nullptr) return {};
+
+    list<BoardCell *> cells;
+    auto nearbyCells = board->getNearbyCells(this->currentCell->getPosHeight(), this->currentCell->getPosLength());
+
+    for (auto const &cell: nearbyCells) {
+        if (cell->getBoardCellType() != RockCellType && cell->haveSpace() && cell->isVisited()) {
+            cells.push_back(cell);
+        }
+    }
+
+    return cells;
+}
+
 void Ant::goToCell(BoardCell *newCell) {
     if (newCell->getBoardCellType() == RockCellType) return;
 
