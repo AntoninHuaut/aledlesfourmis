@@ -34,15 +34,15 @@ void Soldier::moveSoldier(Board *board) {
 }
 
 void Soldier::tickMove(Board *board) {
-    bool hasTryOrKillSlaveOwner = attackOneSlaveOwnerNearCell(board, getCurrentCell());
-
-    moveSoldier(board);
-
-    if (!hasTryOrKillSlaveOwner) {
-        attackOneSlaveOwnerNearCell(board, getCurrentCell());
-    }
-
-    tickSinceColonyVisited++;
+//    bool hasTryOrKillSlaveOwner = attackOneSlaveOwnerNearCell(board, getCurrentCell());
+//
+//    moveSoldier(board);
+//
+//    if (!hasTryOrKillSlaveOwner) {
+//        attackOneSlaveOwnerNearCell(board, getCurrentCell());
+//    }
+//
+//    tickSinceColonyVisited++;
 }
 
 bool Soldier::attackOneSlaveOwnerNearCell(Board *board, BoardCell *cell) {
