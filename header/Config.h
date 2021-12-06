@@ -41,6 +41,7 @@ class Config {
     int slaveOwnerMinTickRandom;
     int slaveOwnerMaxTickRandom;
 
+    float maxPheromoneAmount;
     float defaultFoodColony;
     int newAntEveryDay;
     float workerMaxFoodAmountCanCarried;
@@ -106,6 +107,8 @@ public:
     int getSlaveOwnerMinTickRandom() const;
 
     int getSlaveOwnerMaxTickRandom() const;
+
+    float getMaxPheromoneAmount() const;
 
     float getDefaultFoodColony() const;
 

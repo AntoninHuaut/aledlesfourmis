@@ -48,6 +48,7 @@ Config::Config() {
     slaveOwnerMaxTickRandom = data["ant"]["slaveOwner"]["maxTickRandom"].asInt();
     slaveOwnerMinTickRandom = data["ant"]["slaveOwner"]["minTickRandom"].asInt();
 
+    maxPheromoneAmount = data["ant"]["maxPheromoneAmount"].asFloat();
     defaultFoodColony = data["ant"]["defaultFoodColony"].asFloat();
     newAntEveryDay = data["ant"]["newAntEveryDay"].asInt();
     workerMaxFoodAmountCanCarried = data["ant"]["workerMaxFoodAmountCanCarried"].asFloat();
@@ -170,4 +171,8 @@ int Config::getSoldierHoursBeforeVisitColony() const {
 
 float Config::getMaxTps() const {
     return maxTps;
+}
+
+float Config::getMaxPheromoneAmount() const {
+    return maxPheromoneAmount;
 }

@@ -50,7 +50,8 @@ void Worker::visitColony() {
     if (getCurrentCell()->getBoardCellType() == ColonyCellType) {
         dropFood();
     }
-    // TODO refill pheromoneAmount to ?
+
+    pheromoneAmount = Config::get()->getMaxPheromoneAmount();
 }
 
 void Worker::putPheromones() {

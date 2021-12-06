@@ -7,8 +7,8 @@
 
 class Worker : public Ant, public AgeAdult {
 
-    double pheromoneAmount = 500;
-    float foodCarriedAmount = 0;
+    float pheromoneAmount;
+    float foodCarriedAmount;
 
     void dropFood();
 
@@ -23,7 +23,10 @@ public:
     explicit Worker(BoardCell *currentCell) :
             Ant(Config::get()->getDefaultHoursBeforeDeath(), Config::get()->getDefaultHoursBeforeHunger(),
                 Config::get()->getDefaultFoodConsumingTick(), currentCell, WorkerType),
-            AgeAdult(Config::get()->getWorkerHoursBeforeAdult()) {};
+            AgeAdult(Config::get()->getWorkerHoursBeforeAdult()) {
+        this->pheromoneAmount = Config::get()->getMaxPheromoneAmount();
+        this->foodCarriedAmount = 0;
+    };
 
     bool eatFood(float amountToEat) override;
 

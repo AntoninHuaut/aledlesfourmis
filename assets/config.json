@@ -41,6 +41,7 @@
       "maxTickRandom": 10,
       "minTickRandom": 5
     },
+    "maxPheromoneAmount": 500.0,
     "defaultFoodColony": 20000,
     "newAntEveryDay": 2,
     "workerMaxFoodAmountCanCarried": 1.0,
