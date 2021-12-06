@@ -1,12 +1,14 @@
 {
   "gui": {
     "tileSize": 32,
-    "marginOutOfBorder": 0.0
+    "marginOutOfBorder": 0.0,
+    "maxFps": 30,
+    "minRefreshEveryXTps": 8
   },
   "board": {
     "height": 201,
     "length": 211,
-    "maxTps": 200.0
+    "maxTps": 1500.0
   },
   "generation": {
     "rockPercent": 0.3,

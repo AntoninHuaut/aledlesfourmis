@@ -11,6 +11,8 @@ class Config {
 
     int tileSize;
     float marginOutOfBorder;
+    float maxFps;
+    int minRefreshEveryXTps;
 
     int height;
     int length;
@@ -77,6 +79,10 @@ public:
     int getLength() const;
 
     float getMaxTps() const;
+
+    float getMaxFps() const;
+
+    int getMinRefreshEveryXTps() const;
 
     float getRockPercent() const;
 

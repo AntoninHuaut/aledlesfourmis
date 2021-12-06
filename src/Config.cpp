@@ -18,6 +18,8 @@ Config::Config() {
 
     tileSize = data["gui"]["tileSize"].asInt();
     marginOutOfBorder = data["gui"]["marginOutOfBorder"].asFloat();
+    maxFps = data["gui"]["maxFps"].asFloat();
+    minRefreshEveryXTps = data["gui"]["minRefreshEveryXTps"].asInt();
 
     height = data["board"]["height"].asInt();
     length = data["board"]["length"].asInt();
@@ -178,6 +180,10 @@ float Config::getMaxTps() const {
     return maxTps;
 }
 
+float Config::getMaxFps() const {
+    return maxFps;
+}
+
 float Config::getMaxAntPheromoneAmount() const {
     return maxAntPheromoneAmount;
 }
@@ -196,4 +202,8 @@ float Config::getPheromoneSpreadPercent() const {
 
 float Config::getSoldierPercentToKillSlaveOwner() const {
     return soldierPercentToKillSlaveOwner;
+}
+
+int Config::getMinRefreshEveryXTps() const {
+    return minRefreshEveryXTps;
 }
