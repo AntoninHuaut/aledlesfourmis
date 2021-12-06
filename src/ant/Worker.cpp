@@ -16,9 +16,7 @@ bool Worker::eatFood(float amountToEat) {
 }
 
 void Worker::tickMove(Board *board) {
-
     if (goingHome) {
-
         goBackToLastCell();
 
         if (foodCarriedAmount > 0) {
@@ -30,14 +28,10 @@ void Worker::tickMove(Board *board) {
             cellTraveledSinceStart->clear();
             goingHome = false;
         }
-
-
     } else {
-
         goCollectFood(board);
         //try pick food if have on the cell
         pickFood();
-
     }
 }
 
