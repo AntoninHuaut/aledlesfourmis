@@ -3,7 +3,7 @@
 #include "../../header/map/BoardGenerator.h"
 
 void Soldier::moveSoldier(Board *board) {
-    auto cells = getAvailableCellToMove(board);
+    auto cells = getAvailableVisitedCellToMove(board);
 
     // Priority: track SlaveOwner
     for (auto *checkCell: cells) {
