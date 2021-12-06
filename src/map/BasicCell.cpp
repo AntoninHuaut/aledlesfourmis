@@ -1,15 +1,5 @@
 #include "../../header/map/BasicCell.h"
 
-int BasicCell::numberOfLayers() {
-    int layers = BoardCell::numberOfLayers();
-
-    if (foodAmount > 0) {
-        layers++;
-    }
-
-    return layers;
-}
-
 list<int> BasicCell::getLayersTileNumbers() {
     list<int> tiles;
 

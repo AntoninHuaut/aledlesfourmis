@@ -12,12 +12,10 @@ class BasicCell : public BoardCell {
 public:
     BasicCell(Board *board, int height, int length) :
             BoardCell(board, height, length, Config::get()->getBasicCellMaxAntOnCell(), BasicCellType) {};
-    
+
     void setFoodAmount(float newFoodAmount) { this->foodAmount = newFoodAmount; };
 
     float getFoodAmount() const { return this->foodAmount; };
-
-    int numberOfLayers() override;
 
     list<int> getLayersTileNumbers() override;
 

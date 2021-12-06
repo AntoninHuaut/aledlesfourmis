@@ -228,8 +228,8 @@ void Board::tick() {
 
     remainingTickBeforeSlaveOwnerSpawn--;
     if (remainingTickBeforeSlaveOwnerSpawn <= 0) {
-        createSlaveOwner();
         setRemainingTickBeforeSlaveOwnerSpawn();
+        createSlaveOwner();
     }
 }
 

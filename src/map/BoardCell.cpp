@@ -29,21 +29,6 @@ int BoardCell::getFloorTileNumber() {
     }
 }
 
-int BoardCell::numberOfLayers() {
-    int layers = 1;
-
-    if (!this->antOnCell->empty()) {
-        layers++;
-    }
-
-    if (!this->visited) {
-        layers++;
-    }
-
-    return layers;
-}
-
-
 list<int> BoardCell::getLayersTileNumbers() {
     list<int> tiles;
 

@@ -27,6 +27,7 @@ public:
 
     bool eatFood(float amountToEat) override;
 
+    void tick(Board *board) override;
 };
 
 

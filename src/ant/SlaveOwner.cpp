@@ -14,16 +14,16 @@ void SlaveOwner::goToCenter(Board *board) {
     BoardCell *target = board->getCenterCell();
 
     int min = cellsDistance(possibleCells.front(), target);
-    int minNumberOfVisite = numberOfTimeOnCell(possibleCells.front());
+    int minNumberOfVisit = numberOfTimeOnCell(possibleCells.front());
 
     BoardCell *bestCell = possibleCells.front();
 
     for (auto *cell: possibleCells) {
         int newDist = cellsDistance(cell, target);
 
-        if (newDist <= min && numberOfTimeOnCell(cell) <= minNumberOfVisite) {
+        if (newDist <= min && numberOfTimeOnCell(cell) <= minNumberOfVisit) {
             min = newDist;
-            minNumberOfVisite = numberOfTimeOnCell(cell);
+            minNumberOfVisit = numberOfTimeOnCell(cell);
             bestCell = cell;
         }
     }
@@ -41,7 +41,9 @@ void SlaveOwner::attackQueen(Board *board) {
     if (queen->getCurrentCell() != getCurrentCell()) return;
 
     if (hoursSinceLastFeeding > 1) {
-        eatFood(this->foodConsumedEachDay);
+        if (eatFood(this->foodConsumedEachDay)) {
+            hoursSinceLastFeeding = 0;
+        }
     }
 
     if (larvaCarried >= Config::get()->getSlaveOwnerMaxLarvaCanCarried()) return;
@@ -62,6 +64,14 @@ void SlaveOwner::tickMove(Board *board) {
         attackQueen(board);
     } else {
         goBackToLastCell();
+    }
+}
+
+void SlaveOwner::tick(Board *board) {
+    Ant::tick(board);
+
+    if (cellTraveledSinceColony->empty()) {
+        kill();
     }
 }
 

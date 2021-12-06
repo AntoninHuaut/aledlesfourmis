@@ -47,9 +47,7 @@ public:
     ~BoardCell();
 
     virtual void tick() {};
-
-    virtual int numberOfLayers();
-
+    
     int getPosLength() const { return posLength; }
 
     int getPosHeight() const { return posHeight; }
