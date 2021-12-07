@@ -56,7 +56,7 @@ void Soldier::attackOneSlaveOwnerNearCell(Board *board, BoardCell *cell) {
 
                     float randomLuck = ((float) CustomRandom::randInt(0, 100) / 100.f);
                     if (randomLuck <= Config::get()->getSoldierPercentToKillSlaveOwner()) {
-                        board->getAntQueen()->createChildAndExpand(slaveOwner->getLarvaCarried());
+                        board->getAntQueen()->createChildAndExpand(board, slaveOwner->getLarvaCarried());
                         slaveOwner->kill();
                     }
                     return;
