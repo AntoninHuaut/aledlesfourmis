@@ -20,7 +20,6 @@ void gameTickingThread(gameThreadData data) {
     auto minDiffMicroSecond_TPS = static_cast<sf::Int64>((1.f / wanted_TPS) * pow(10, 6));
 
     int minRefreshEveryXTps = 0;
-    int debug = 0;
 
     while (!data.board->isWindowClosed() && data.board->isQueenAlive()) {
         clock_TPS.restart();
@@ -34,14 +33,10 @@ void gameTickingThread(gameThreadData data) {
 
         if (sleepTime_TPS > 0) {
             sf::sleep(sf::microseconds(sleepTime_TPS));
+            minRefreshEveryXTps = 0;
         } else if (++minRefreshEveryXTps >= Config::get()->getMinRefreshEveryXTps()) { // TODO fix tmp
             minRefreshEveryXTps = 0;
             sf::sleep(sf::microseconds(1));
-        }
-
-        if (++debug > 500) {
-            debug = 0;
-            cout << data.board->getCurrentTick() << endl;
         }
     }
 }
