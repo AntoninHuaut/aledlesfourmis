@@ -16,7 +16,6 @@ bool Worker::eatFood(float amountToEat) {
 }
 
 void Worker::tickMove(Board *board) {
-    return;
     if (goingHome) {
 
         goToCenter(board);

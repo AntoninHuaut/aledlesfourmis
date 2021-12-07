@@ -43,8 +43,8 @@ void Game::tickAnts() {
         ant->tick(board);
     }
 
-    cout << "Tick: " << board->getCurrentTick() << "   Soldier: " << soldier << "   SlaveOwner: " << slaveOwner
-         << "   Worker: " << worker << "   Scout: " << scout << endl;
+//    cout << "Tick: " << board->getCurrentTick() << "   Soldier: " << soldier << "   SlaveOwner: " << slaveOwner
+//         << "   Worker: " << worker << "   Scout: " << scout << endl;
 
     for (auto *antToDelete: antDeleteList) {
         board->getAntList()->remove(antToDelete);

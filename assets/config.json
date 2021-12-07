@@ -12,7 +12,7 @@
   },
   "generation": {
     "rockPercent": 0.3,
-    "foodPercent": 0.005,
+    "foodPercent": 0.0002,
     "smallFoodUnit": 1000.0,
     "bigFoodUnit": 20000.0
   },
@@ -50,7 +50,7 @@
       "evaporationPercent": 0.005,
       "spreadPercent": 0.002
     },
-    "defaultFoodColony": 2,
+    "defaultFoodColony": 20,
     "newAntEveryDay": 2,
     "workerMaxFoodAmountCanCarried": 1.0,
     "soldierHoursBeforeVisitColony": 2400,
