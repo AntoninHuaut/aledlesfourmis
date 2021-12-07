@@ -220,7 +220,7 @@ void Board::tick() {
     for (int height = 0; height < Config::get()->getHeight(); height++) {
         for (int length = 0; length < Config::get()->getLength(); length++) {
             auto *cell = cells[height][length];
-            if (cell->getPheromone() <= 0) return;
+            if (cell->getPheromone() <= 0) continue;
 
             float pheromoneEvaporated = cell->getPheromone() * Config::get()->getPheromoneEvaporationPercent();
             cell->removePheromone(pheromoneEvaporated);

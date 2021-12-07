@@ -100,7 +100,7 @@ void Worker::goCollectFood(Board *board) {
     }
 
     if (nearByFood == nullptr) {
-        BoardCell *cell = getNextCellToFood(board);
+        BoardCell *cell = getNextCellToFood(board, possibleCells);
         if (cell != nullptr) {
             goToCell(cell);
         }
@@ -111,8 +111,7 @@ void Worker::goCollectFood(Board *board) {
 }
 
 
-BoardCell *Worker::getNextCellToFood(Board *board) {
-    auto availableCells = getAvailableVisitedCellToMove(board);
+BoardCell *Worker::getNextCellToFood(Board *board, const list<BoardCell *> &availableCells) {
     if (availableCells.empty()) return nullptr;
 
     if (direction.x == 0 && direction.y == 0) {
@@ -123,30 +122,27 @@ BoardCell *Worker::getNextCellToFood(Board *board) {
         }
         return cell;
     } else {
-        auto directionalCells = getDirectionalCells(board);
+        auto directionalCells = getDirectionalCells(board, availableCells);
 
         if (!directionalCells.empty()) {
+
             return getCellWithMaxPheromoneOrRandom(directionalCells);
+
         } else {
 
             goingHome = true;
             return nullptr;
-            //Case possible sans la derniere case visite
-            //availableCells.remove(cellTraveledSinceStart->back());
-            //return getCellWithMaxPheromoneOrRandom(availableCells);
         }
     }
 }
 
-list<BoardCell *> Worker::getDirectionalCells(Board *board) {
+list<BoardCell *> Worker::getDirectionalCells(Board *board, const list<BoardCell *> &availableCells) {
     list<BoardCell *> directionalCells;
 
     if (direction.x == 0 && direction.y == 0) return directionalCells;
 
     int lengthDiff = direction.x;
     int heightDiff = direction.y;
-
-    auto availableCells = getAvailableVisitedCellToMove(board);
 
     if (lengthDiff == 0) {
         for (auto const &cell: availableCells) {

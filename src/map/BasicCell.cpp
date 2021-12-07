@@ -8,7 +8,7 @@ list<int> BasicCell::getLayersTileNumbers() {
         float step = maxPheromone / 5;
 
         int toAdd = static_cast<int>(getPheromone() / step);
-        if (toAdd > 5) toAdd = 5;
+        if (toAdd > 4) toAdd = 4;
 
         tiles.push_back(FIRST_PHEROMONE_LEVEL + toAdd);
     }

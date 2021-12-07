@@ -14,7 +14,7 @@
   "generation": {
     "rockPercent": 0.3,
     "foodPercent": 0.0002,
-    "smallFoodUnit": 10.0,
+    "smallFoodUnit": 100.0,
     "bigFoodUnit": 20000.0
   },
   "antOnCell": {
@@ -48,10 +48,10 @@
       "antAmount": 500.0,
       "maxOnCell": 1000,
       "dropPercent": 0.05,
-      "evaporationPercent": 0.005,
+      "evaporationPercent": 0.15,
       "spreadPercent": 0.002
     },
-    "defaultFoodColony": 20,
+    "defaultFoodColony": 2000,
     "newAntEveryDay": 2,
     "workerMaxFoodAmountCanCarried": 1.0,
     "soldierHoursBeforeVisitColony": 2400,
