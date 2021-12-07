@@ -16,7 +16,9 @@ bool Worker::eatFood(float amountToEat) {
 }
 
 void Worker::tickMove(Board *board) {
+    return;
     if (goingHome) {
+
         goToCenter(board);
 
         if (foodCarriedAmount > 0) {
@@ -42,7 +44,7 @@ void Worker::pickFood() {
     auto *basicCell = dynamic_cast<BasicCell *>(getCurrentCell());
     if (basicCell->getFoodAmount() <= 0) return; // No food on the cell
 
-    float maxToTake = basicCell->getFoodAmount() - foodCarriedAmount;
+    float maxToTake = Config::get()->getWorkerMaxFoodAmountCanCarried() - foodCarriedAmount;
     if (maxToTake > 0) {
         basicCell->setFoodAmount(basicCell->getFoodAmount() - maxToTake);
         foodCarriedAmount += maxToTake;

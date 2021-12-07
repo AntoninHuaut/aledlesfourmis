@@ -3,7 +3,7 @@
     "tileSize": 32,
     "marginOutOfBorder": 0.0,
     "maxFps": 30,
-    "minRefreshEveryXTps": 8
+    "minRefreshEveryXTps": 4
   },
   "board": {
     "height": 201,
