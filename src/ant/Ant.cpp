@@ -218,3 +218,7 @@ void Ant::goToCenter(Board *board) {
 
     this->goToCell(bestCell);
 }
+
+float Ant::getColonyFood() {
+    return Ant::colonyFood;
+}

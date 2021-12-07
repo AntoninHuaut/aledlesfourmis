@@ -39,6 +39,8 @@ void gameTickingThread(gameThreadData data) {
             sf::sleep(sf::microseconds(1));
         }
     }
+
+    game->logGNUPlot();
 }
 
 int main() {

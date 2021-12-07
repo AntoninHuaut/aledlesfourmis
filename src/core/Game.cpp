@@ -17,6 +17,8 @@ void Game::tickGame() {
     start.restart();
     board->tick();
     if (showDebug) cout << "Ticking board in " << start.getElapsedTime().asMicroseconds() << " us" << endl << endl;
+
+    saveCurrentTick();
 }
 
 void Game::tickAnts() {
@@ -34,28 +36,8 @@ void Game::tickAnts() {
             continue;
         }
 
-        switch (ant->getAntType()) {
-            case ScoutType:
-                soldier++;
-                break;
-            case SoldierType:
-                scout++;
-                break;
-            case WorkerType:
-                worker++;
-                break;
-            case SlaveOwnerType:
-                slaveOwner++;
-                break;
-            default:
-                break;
-        }
-
         ant->tick(board);
     }
-
-//    cout << "Tick: " << board->getCurrentTick() << "   Soldier: " << soldier << "   SlaveOwner: " << slaveOwner
-//         << "   Worker: " << worker << "   Scout: " << scout << endl;
 
     for (auto *antToDelete: antDeleteList) {
         board->getAntList()->remove(antToDelete);
@@ -76,4 +58,59 @@ void Game::tickQueen() {
     }
 
     queen->tick(board);
+}
+
+void Game::saveCurrentTick() {
+    string tick = "\n";
+
+    int soldier = 0;
+    int slaveOwner = 0;
+    int worker = 0;
+    int scout = 0;
+    int queen = 0;
+
+    for (auto *ant: *board->getAntList()) {
+        switch (ant->getAntType()) {
+            case ScoutType:
+                scout++;
+                break;
+            case SoldierType:
+                soldier++;
+                break;
+            case WorkerType:
+                worker++;
+                break;
+            case SlaveOwnerType:
+                slaveOwner++;
+                break;
+            case QueenType:
+                queen++;
+                break;
+        }
+    }
+
+    int intValues[] = {board->getCurrentTick(), soldier + slaveOwner + worker + scout + queen,
+                       soldier, slaveOwner, worker, scout, queen};
+    for (int value: intValues) {
+        tick.append(to_string(value));
+        tick.append(" ");
+    }
+
+    float floatValues[] = {Ant::getColonyFood()};
+    for (float value: floatValues) {
+        tick.append(to_string(value));
+        tick.append(" ");
+    }
+
+    bufferGNUPlot.append(tick);
+}
+
+void Game::logGNUPlot() {
+    ofstream outfile;
+
+    outfile.open(gnuPlotFile, ios_base::app);
+    outfile << bufferGNUPlot;
+    outfile.close();
+
+    bufferGNUPlot.clear();
 }

@@ -86,6 +86,8 @@ public:
     void goToCell(BoardCell *newCell);
 
     bool goBackToLastCell();
+
+    static float getColonyFood();
 };
 
 #endif

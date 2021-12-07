@@ -20,6 +20,7 @@ Config::Config() {
     marginOutOfBorder = data["gui"]["marginOutOfBorder"].asFloat();
     maxFps = data["gui"]["maxFps"].asFloat();
     minRefreshEveryXTps = data["gui"]["minRefreshEveryXTps"].asInt();
+    saveGNUDataEveryXTps = data["gui"]["saveGNUDataEveryXTps"].asInt();
 
     height = data["board"]["height"].asInt();
     length = data["board"]["length"].asInt();
@@ -211,4 +212,8 @@ int Config::getMinRefreshEveryXTps() const {
 
 float Config::getMaxPheromoneOnCell() const {
     return maxPheromoneOnCell;
+}
+
+int Config::getSaveGnuDataEveryXTps() const {
+    return saveGNUDataEveryXTps;
 }

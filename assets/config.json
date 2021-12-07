@@ -3,7 +3,8 @@
     "tileSize": 32,
     "marginOutOfBorder": 0.0,
     "maxFps": 30,
-    "minRefreshEveryXTps": 4
+    "minRefreshEveryXTps": 4,
+    "saveGNUDataEveryXTps": 500
   },
   "board": {
     "height": 201,
@@ -13,7 +14,7 @@
   "generation": {
     "rockPercent": 0.3,
     "foodPercent": 0.0002,
-    "smallFoodUnit": 1000.0,
+    "smallFoodUnit": 10.0,
     "bigFoodUnit": 20000.0
   },
   "antOnCell": {
