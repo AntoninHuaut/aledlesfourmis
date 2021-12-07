@@ -47,7 +47,7 @@ class Config {
     float maxAntPheromoneDropPercent;
     float pheromoneEvaporationPercent;
     float pheromoneSpreadPercent;
-
+    float maxPheromoneOnCell;
 
     float defaultFoodColony;
     int newAntEveryDay;
@@ -127,6 +127,8 @@ public:
     float getPheromoneEvaporationPercent() const;
 
     float getPheromoneSpreadPercent() const;
+
+    float getMaxPheromoneOnCell() const;
 
     float getDefaultFoodColony() const;
 
