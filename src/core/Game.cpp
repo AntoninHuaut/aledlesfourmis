@@ -3,7 +3,7 @@
 
 void Game::tickGame() {
     sf::Clock start;
-    bool showDebug = board->getCurrentTick() % 100 == 0;
+    bool showDebug = board->getCurrentTick() % 500 == 0;
     if (showDebug) cout << "Tick " << board->getCurrentTick() << endl;
 
     start.restart();
@@ -67,7 +67,6 @@ void Game::saveCurrentTick() {
     int slaveOwner = 0;
     int worker = 0;
     int scout = 0;
-    int queen = 0;
 
     for (auto *ant: *board->getAntList()) {
         switch (ant->getAntType()) {
@@ -83,14 +82,13 @@ void Game::saveCurrentTick() {
             case SlaveOwnerType:
                 slaveOwner++;
                 break;
-            case QueenType:
-                queen++;
+            default:
                 break;
         }
     }
 
-    int intValues[] = {board->getCurrentTick(), soldier + slaveOwner + worker + scout + queen,
-                       soldier, slaveOwner, worker, scout, queen};
+    int intValues[] = {board->getCurrentTick(), soldier + slaveOwner + worker + scout + 1, soldier, // +1 for queen
+                       slaveOwner, worker, scout};
     for (int value: intValues) {
         tick.append(to_string(value));
         tick.append(" ");
