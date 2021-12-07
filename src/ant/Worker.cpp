@@ -18,11 +18,12 @@ bool Worker::eatFood(float amountToEat) {
 void Worker::tickMove(Board *board) {
     if (goingHome) {
 
-        goToCenter(board);
-
         if (foodCarriedAmount > 0) {
             putPheromones();
         }
+
+        //goToCenter(board);
+        goBackToLastCell();
 
         if (getCurrentCell()->getBoardCellType() == ColonyCellType) {
             visitColony();
@@ -114,18 +115,25 @@ BoardCell *Worker::getNextCellToFood(Board *board) {
     auto availableCells = getAvailableVisitedCellToMove(board);
     if (availableCells.empty()) return nullptr;
 
-    if (cellTraveledSinceStart->empty()) {
-        return getCellWithMaxPheromoneOrRandom(availableCells);
-
+    if (direction.x == 0 && direction.y == 0) {
+        BoardCell *cell = getCellWithMaxPheromoneOrRandom(availableCells);
+        if (cell != nullptr) {
+            direction.x = getCurrentCell()->getPosLength() - cell->getPosLength();
+            direction.y = getCurrentCell()->getPosHeight() - cell->getPosHeight();
+        }
+        return cell;
     } else {
         auto directionalCells = getDirectionalCells(board);
 
         if (!directionalCells.empty()) {
             return getCellWithMaxPheromoneOrRandom(directionalCells);
         } else {
+
+            goingHome = true;
+            return nullptr;
             //Case possible sans la derniere case visite
-            availableCells.remove(cellTraveledSinceStart->back());
-            return getCellWithMaxPheromoneOrRandom(availableCells);
+            //availableCells.remove(cellTraveledSinceStart->back());
+            //return getCellWithMaxPheromoneOrRandom(availableCells);
         }
     }
 }
@@ -133,12 +141,10 @@ BoardCell *Worker::getNextCellToFood(Board *board) {
 list<BoardCell *> Worker::getDirectionalCells(Board *board) {
     list<BoardCell *> directionalCells;
 
-    if (cellTraveledSinceStart->empty()) return directionalCells;
+    if (direction.x == 0 && direction.y == 0) return directionalCells;
 
-    int lengthDiff = cellTraveledSinceStart->back()->getPosLength() - this->getCurrentCell()->getPosLength();
-    int heightDiff = cellTraveledSinceStart->back()->getPosHeight() - this->getCurrentCell()->getPosHeight();
-
-    if (lengthDiff == 0 && heightDiff == 0) return directionalCells;
+    int lengthDiff = direction.x;
+    int heightDiff = direction.y;
 
     auto availableCells = getAvailableVisitedCellToMove(board);
 

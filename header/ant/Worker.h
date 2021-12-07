@@ -11,6 +11,7 @@ class Worker : public Ant, public AgeAdult {
 
     float pheromoneAmount;
     float foodCarriedAmount;
+    sf::Vector2i direction = sf::Vector2i(0, 0);
 
     void dropFood();
 
