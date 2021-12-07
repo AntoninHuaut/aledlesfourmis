@@ -78,7 +78,7 @@ public:
 
     void removePheromone(float amount) {
         pheromoneAmount -= amount;
-        if (pheromoneAmount < 0) {
+        if (pheromoneAmount < 0.001) {
             pheromoneAmount = 0;
         }
     }
