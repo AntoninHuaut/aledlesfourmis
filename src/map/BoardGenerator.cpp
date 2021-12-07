@@ -8,6 +8,12 @@ Board *BoardGenerator::generateBoard() {
     boardGenerator->generateBigFoodUnit();
     boardGenerator->generateColony();
 
+    for (int height = 0; height < Config::get()->getHeight(); height++) {
+        for (int length = 0; length < Config::get()->getLength(); length++) {
+            boardGenerator->board->getCells()[height][length]->getNeighborCells(); // Force caching
+        }
+    }
+
     return boardGenerator->board;
 }
 
@@ -196,7 +202,7 @@ void BoardGenerator::generateRock() {
 
             if (!isValidCell(posRockHeight, posRockLength)) continue;
 
-            auto nearbyCells = board->getNearbyCells(posRockHeight, posRockLength);
+            auto nearbyCells = getNearbyCells(posRockHeight, posRockLength);
             bool canGenerateChildHere = true;
 
             for (auto *nearCell: nearbyCells) {
@@ -342,4 +348,28 @@ bool BoardGenerator::hasRockNeighbor(int height, int length) {
 
 bool BoardGenerator::isValidCell(int height, int length) {
     return height >= 0 && height < Config::get()->getHeight() && length >= 0 && length < Config::get()->getLength();
+}
+
+
+list<BoardCell *> BoardGenerator::getNearbyCells(int height, int length) {
+    list<BoardCell *> nearbyCells;
+
+    for (int i = -1; i <= 1; i++) {
+        for (int j = -1; j <= 1; j++) {
+            if (i == 0 && j == 0) continue;
+
+            int tmpHeight = height + i;
+            int tmpLength = length + j;
+            if (tmpHeight < 0 || tmpLength < 0 || tmpHeight >= Config::get()->getHeight() ||
+                tmpLength >= Config::get()->getLength()) {
+                continue;
+            }
+
+            if (board->getCells()[tmpHeight][tmpLength] != nullptr) {
+                nearbyCells.push_back(board->getCells()[tmpHeight][tmpLength]);
+            }
+        }
+    }
+
+    return nearbyCells;
 }

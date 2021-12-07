@@ -31,6 +31,8 @@ class BoardCell {
 
     Board *board;
 
+    list<BoardCell *> *neighborCells = new list<BoardCell *>;
+
 protected:
     list<Ant *> *antOnCell = new list<Ant *>;
 
@@ -87,13 +89,15 @@ public:
 
     float getPheromone() const { return pheromoneAmount; }
 
+    list<BoardCell *> *getNeighborCells() const;
+
     virtual void addAntOnCell(Ant *antToAdd);
 
     virtual void removeAntOnCell(Ant *antToRemove);
 
     virtual void onNearCellVisited() {};
 
-    int cellsDistance(BoardCell *cell2);
+    int cellsDistance(BoardCell *cell2) const;
 
     bool isVisited() const {
         return this->visited;

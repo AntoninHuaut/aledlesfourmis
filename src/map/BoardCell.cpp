@@ -13,6 +13,7 @@ BoardCell::BoardCell(Board *board, int posHeight, int posLength, int maxAntOnCel
 
 BoardCell::~BoardCell() {
     delete antOnCell;
+    delete neighborCells;
 }
 
 int BoardCell::getFloorTileNumber() {
@@ -61,6 +62,29 @@ void BoardCell::removeAntOnCell(Ant *antToRemove) {
     this->antOnCell->remove(antToRemove);
 }
 
-int BoardCell::cellsDistance(BoardCell *cell2) {
+int BoardCell::cellsDistance(BoardCell *cell2) const {
     return abs(getPosLength() - cell2->getPosLength()) + abs(getPosHeight() - cell2->getPosHeight());
+}
+
+list<BoardCell *> *BoardCell::getNeighborCells() const {
+    if (neighborCells->empty()) {
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (i == 0 && j == 0) continue;
+
+                int tmpHeight = getPosHeight() + i;
+                int tmpLength = getPosLength() + j;
+                if (tmpHeight < 0 || tmpLength < 0 || tmpHeight >= Config::get()->getHeight() ||
+                    tmpLength >= Config::get()->getLength()) {
+                    continue;
+                }
+
+                if (board->getCells()[tmpHeight][tmpLength] != nullptr) {
+                    neighborCells->push_back(board->getCells()[tmpHeight][tmpLength]);
+                }
+            }
+        }
+    }
+
+    return neighborCells;
 }

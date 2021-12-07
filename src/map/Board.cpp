@@ -152,24 +152,9 @@ int Board::catchLarva(int nbToCatch) const {
 list<BoardCell *> Board::getNearbyCells(int height, int length) {
     list<BoardCell *> nearbyCells;
 
-    for (int i = -1; i <= 1; i++) {
-        for (int j = -1; j <= 1; j++) {
-            if (i == 0 && j == 0) continue;
+    if (!BoardGenerator::isValidCell(height, length)) return nearbyCells;
 
-            int tmpHeight = height + i;
-            int tmpLength = length + j;
-            if (tmpHeight < 0 || tmpLength < 0 || tmpHeight >= Config::get()->getHeight() ||
-                tmpLength >= Config::get()->getLength()) {
-                continue;
-            }
-
-            if (this->cells[tmpHeight][tmpLength] != nullptr) {
-                nearbyCells.push_back(this->cells[tmpHeight][tmpLength]);
-            }
-        }
-    }
-
-    return nearbyCells;
+    return *this->cells[height][length]->getNeighborCells();
 }
 
 BoardCell *Board::getCenterCell() {

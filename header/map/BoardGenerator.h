@@ -50,6 +50,8 @@ class BoardGenerator {
 
     bool hasFoodNeighbor(int height, int length);
 
+    list<BoardCell *> getNearbyCells(int height, int length);
+
 public:
 
     explicit BoardGenerator(Board *board) {
