@@ -53,7 +53,7 @@ Config::Config() {
 
     maxAntPheromoneAmount = data["game"]["pheromone"]["antAmount"].asFloat();
     maxAntPheromoneDropPercent = data["game"]["pheromone"]["dropPercent"].asFloat();
-    pheromoneEvaporationPercent = data["game"]["pheromone"]["pheromoneEvaporationPercent"].asFloat();
+    pheromoneEvaporationPercent = data["game"]["pheromone"]["evaporationPercent"].asFloat();
     pheromoneSpreadPercent = data["game"]["pheromone"]["spreadPercent"].asFloat();
     maxPheromoneOnCell = data["game"]["pheromone"]["maxOnCell"].asFloat();
 
