@@ -3,7 +3,7 @@
 
 void Game::tickGame() {
     sf::Clock start;
-    bool showDebug = board->getCurrentTick() % 100 == 0;
+    bool showDebug = board->getCurrentTick() % 500 == 0;
     if (showDebug) cout << "Tick " << board->getCurrentTick() << endl;
 
     start.restart();
