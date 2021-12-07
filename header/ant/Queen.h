@@ -26,8 +26,10 @@ public:
     }
 
     bool isAssaulted() const { return assaulted; }
-    
+
     void tick(Board *board) override;
+
+    void createChildAndExpand(Board *board, int antToCreate);
 };
 
 

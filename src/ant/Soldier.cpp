@@ -1,4 +1,5 @@
 #include "../../header/ant/Soldier.h"
+#include "../../header/ant/SlaveOwner.h"
 #include "../../header/map/BoardCell.h"
 #include "../../header/map/BoardGenerator.h"
 
@@ -51,10 +52,12 @@ void Soldier::attackOneSlaveOwnerNearCell(Board *board, BoardCell *cell) {
 
             for (auto *ant: *checkCell->getAntOnCell()) {
                 if (ant->getAntType() == SlaveOwnerType && ant->isAlive()) {
+                    auto slaveOwner = dynamic_cast<SlaveOwner *>(ant);
+
                     float randomLuck = ((float) CustomRandom::randInt(0, 100) / 100.f);
                     if (randomLuck <= Config::get()->getSoldierPercentToKillSlaveOwner()) {
-                        ant->kill();
-                        // TODO récupérer larves
+                        board->getAntQueen()->createChildAndExpand(slaveOwner->getLarvaCarried());
+                        slaveOwner->kill();
                     }
                     return;
                 }

@@ -20,8 +20,14 @@ void Queen::tickChild(Board *board) {
         return;
     }
 
+    createChildAndExpand(board, Config::get()->getNewAntEveryDay());
+}
+
+void Queen::createChildAndExpand(Board *board, int antToCreate) {
+    if (antToCreate <= 0) return;
+    
     // Generating two ants
-    for (int i = 0; i < Config::get()->getNewAntEveryDay(); i++) {
+    for (int i = 0; i < antToCreate; i++) {
         generateAnt(board);
     }
 

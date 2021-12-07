@@ -17,7 +17,7 @@ public:
     explicit SlaveOwner(BoardCell *currentCell) :
             Ant(Config::get()->getDefaultHoursBeforeDeath(), Config::get()->getSlaveOwnerHoursBeforeHunger(),
                 Config::get()->getDefaultFoodConsumingTick(), currentCell, SlaveOwnerType) {};
-    
+
     void attackQueen(Board *board);
 
     void tickMove(Board *board) override;
@@ -25,6 +25,8 @@ public:
     bool eatFood(float amountToEat) override;
 
     void tick(Board *board) override;
+
+    int getLarvaCarried() const { return larvaCarried; }
 };
 
 
