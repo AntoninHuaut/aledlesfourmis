@@ -23,11 +23,10 @@ void Soldier::moveSoldier(Board *board) {
         BoardCell *cellToMove = *randomCell;
         goToCell(cellToMove);
     } else {
-        goToCenter(board);
+        goBackToLastCell();
 
-        if (haveArrivedToColony) {
+        if (getCurrentCell()->getBoardCellType() == ColonyCellType) {
             tickSinceColonyVisited = 0;
-            haveArrivedToColony = false;
             cellTraveledSinceStart->clear();
         }
     }

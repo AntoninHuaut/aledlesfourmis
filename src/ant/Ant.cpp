@@ -195,16 +195,18 @@ void Ant::goToCenter(Board *board) {
     BoardCell *target = board->getCenterCell();
 
     int min = possibleCells.front()->cellsDistance(target);
-    int minNumberOfVisit = numberOfTimeOnCell(possibleCells.front());
+//    int minNumberOfVisit = numberOfTimeOnCell(possibleCells.front());
 
     BoardCell *bestCell = possibleCells.front();
 
     for (auto *cell: possibleCells) {
         int newDist = cell->cellsDistance(target);
 
-        if (newDist <= min && numberOfTimeOnCell(cell) <= minNumberOfVisit) {
+        if (newDist <= min
+//        && numberOfTimeOnCell(cell) <= minNumberOfVisit
+                ) {
             min = newDist;
-            minNumberOfVisit = numberOfTimeOnCell(cell);
+//            minNumberOfVisit = numberOfTimeOnCell(cell);
             bestCell = cell;
         }
     }

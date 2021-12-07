@@ -2,10 +2,11 @@
 #include "../../header/ant/Queen.h"
 
 void Game::tickGame() {
+    sf::Clock start;
     bool showDebug = board->getCurrentTick() % 100 == 0;
     if (showDebug) cout << "Tick " << board->getCurrentTick() << endl;
 
-    sf::Clock start;
+    start.restart();
     tickQueen();
     if (showDebug) cout << "Ticking queen in " << start.getElapsedTime().asMicroseconds() << " us" << endl;
 
