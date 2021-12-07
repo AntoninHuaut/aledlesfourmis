@@ -2,10 +2,17 @@
 #include "../../header/ant/Queen.h"
 
 void Game::tickGame() {
+    sf::Clock start;
     tickQueen();
-    tickAnts();
+    cout << "Ticking queen in " << start.getElapsedTime().asMicroseconds() << " us" << endl;
 
+    start.restart();
+    tickAnts();
+    cout << "Ticking ants in " << start.getElapsedTime().asMicroseconds() << " us" << endl;
+
+    start.restart();
     board->tick();
+    cout << "Ticking board in " << start.getElapsedTime().asMicroseconds() << " us" << endl << endl;
 }
 
 void Game::tickAnts() {
