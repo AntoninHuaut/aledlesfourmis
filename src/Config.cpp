@@ -54,6 +54,7 @@ Config::Config() {
     maxAntPheromoneDropPercent = data["game"]["pheromone"]["dropPercent"].asFloat();
     pheromoneEvaporationPercent = data["game"]["pheromone"]["pheromoneEvaporationPercent"].asFloat();
     pheromoneSpreadPercent = data["game"]["pheromone"]["spreadPercent"].asFloat();
+    maxPheromoneOnCell = data["game"]["pheromone"]["maxOnCell"].asFloat();
 
     defaultFoodColony = data["game"]["defaultFoodColony"].asFloat();
     newAntEveryDay = data["game"]["newAntEveryDay"].asInt();
@@ -206,4 +207,8 @@ float Config::getSoldierPercentToKillSlaveOwner() const {
 
 int Config::getMinRefreshEveryXTps() const {
     return minRefreshEveryXTps;
+}
+
+float Config::getMaxPheromoneOnCell() const {
+    return maxPheromoneOnCell;
 }

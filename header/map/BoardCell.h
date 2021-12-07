@@ -4,6 +4,7 @@
 #include <list>
 #include "../lib/CustomRandom.h"
 #include "../core/TileEnum.h"
+#include "../Config.h"
 
 using namespace std;
 
@@ -68,6 +69,9 @@ public:
 
     void addPheromone(float amount) {
         pheromoneAmount += amount;
+        if (pheromoneAmount > Config::get()->getMaxPheromoneOnCell()) {
+            pheromoneAmount = Config::get()->getMaxPheromoneOnCell();
+        }
     }
 
     void removePheromone(float amount) {

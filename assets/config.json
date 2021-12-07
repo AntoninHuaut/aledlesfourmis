@@ -45,6 +45,7 @@
     },
     "pheromone": {
       "antAmount": 500.0,
+      "maxOnCell": 1000,
       "dropPercent": 0.05,
       "evaporationPercent": 0.005,
       "spreadPercent": 0.002
