@@ -10,9 +10,9 @@ enum TileEnum {
     BIG_FOOD_LAYER = 11,
     CLOUD_LAYER = 14,
     QUEEN = 24,
-    SCOOT_ANT = 15,
+    WORKER_ANT = 15,
     SOLDIER_ANT = 25,
-    WORKER_ANT = 35,
+    SCOOT_ANT = 35,
     SLAVEOWNER_ANT = 45,
 
     FIRST_PHEROMONE_LEVEL = 55

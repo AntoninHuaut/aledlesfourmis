@@ -115,18 +115,35 @@ BoardCell *Worker::getNextCellToFood(Board *board, const list<BoardCell *> &avai
     if (availableCells.empty()) return nullptr;
 
     if (direction.x == 0 && direction.y == 0) {
-        BoardCell *cell = getCellWithMaxPheromoneOrRandom(availableCells);
+        BoardCell *cell = getCellWithMaxPheromoneOrRandom(availableCells, -1, -1);
         if (cell != nullptr) {
             direction.x = getCurrentCell()->getPosLength() - cell->getPosLength();
             direction.y = getCurrentCell()->getPosHeight() - cell->getPosHeight();
         }
         return cell;
     } else {
-        auto directionalCells = getDirectionalCells(board, availableCells);
 
+        list<BoardCell *> directionalCells;
+        int currLength = getCurrentCell()->getPosLength();
+        int currHeight = getCurrentCell()->getPosHeight();
+
+        if (lastCell != nullptr) {
+            int lengthDiff = lastCell->getPosLength() - getCurrentCell()->getPosLength();
+            int heightDiff = lastCell->getPosHeight() - getCurrentCell()->getPosHeight();
+
+            directionalCells = getDirectionalCells(board, availableCells, lengthDiff, heightDiff);
+
+            if (!directionalCells.empty()) {
+                return getCellWithMaxPheromoneOrRandom(directionalCells, currLength + lengthDiff,
+                                                       currHeight + heightDiff);
+            }
+        }
+
+        directionalCells = getDirectionalCells(board, availableCells, direction.x, direction.y);
         if (!directionalCells.empty()) {
 
-            return getCellWithMaxPheromoneOrRandom(directionalCells);
+            return getCellWithMaxPheromoneOrRandom(directionalCells, currLength + direction.x,
+                                                   currHeight + direction.y);
 
         } else {
 
@@ -136,13 +153,11 @@ BoardCell *Worker::getNextCellToFood(Board *board, const list<BoardCell *> &avai
     }
 }
 
-list<BoardCell *> Worker::getDirectionalCells(Board *board, const list<BoardCell *> &availableCells) {
+list<BoardCell *>
+Worker::getDirectionalCells(Board *board, const list<BoardCell *> &availableCells, int lengthDiff, int heightDiff) {
     list<BoardCell *> directionalCells;
 
-    if (direction.x == 0 && direction.y == 0) return directionalCells;
-
-    int lengthDiff = direction.x;
-    int heightDiff = direction.y;
+    if (lengthDiff == 0 && heightDiff == 0) return directionalCells;
 
     if (lengthDiff == 0) {
         for (auto const &cell: availableCells) {
@@ -173,18 +188,29 @@ list<BoardCell *> Worker::getDirectionalCells(Board *board, const list<BoardCell
     return directionalCells;
 }
 
-BoardCell *Worker::getCellWithMaxPheromoneOrRandom(list<BoardCell *> cells) {
+BoardCell *
+Worker::getCellWithMaxPheromoneOrRandom(const list<BoardCell *> &cells, int directionCellPosLenght,
+                                        int directionCellPosHeight) {
 
     if (cells.empty()) return nullptr;
 
-    BoardCell *cellWithMaxPheromone = cells.front();
+    BoardCell *cellWithMaxPheromone = nullptr;
     int randCellIndex = CustomRandom::randInt(0, static_cast<int>(cells.size() - 1));
     BoardCell *randCell = nullptr;
+    BoardCell *directionalCell = nullptr;
 
     int i = 0;
     for (auto cell: cells) {
+        if (cellWithMaxPheromone == nullptr) {
+            cellWithMaxPheromone = cell;
+        }
+
         if (i == randCellIndex) {
             randCell = cell;
+        }
+
+        if (cell->getPosLength() == directionCellPosLenght && cell->getPosHeight() == directionCellPosHeight) {
+            directionalCell = cell;
         }
 
         if (cellWithMaxPheromone->getPheromone() < cell->getPheromone()) {
@@ -196,6 +222,9 @@ BoardCell *Worker::getCellWithMaxPheromoneOrRandom(list<BoardCell *> cells) {
     if (cellWithMaxPheromone->getPheromone() > 0) {
         return cellWithMaxPheromone;
     } else {
+        if (directionalCell != nullptr) {
+            return directionalCell;
+        }
         return randCell;
     }
 }
