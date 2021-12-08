@@ -12,6 +12,7 @@ struct threadData {
     sf::RenderWindow *window;
     sf::Mutex *mutex;
     Board *board;
+    Game *game;
 } typedef threadData;
 
 class GUIMain {

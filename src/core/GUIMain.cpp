@@ -10,6 +10,11 @@ void renderingThread(threadData data) {
 
     // Render loop
     while (data.window->isOpen()) {
+        if (data.game->isPause()) {
+            sf::sleep(milliseconds(1));
+            continue;
+        }
+
         data.mutex->lock();
         data.board->calcLayer();
         data.mutex->unlock();
@@ -28,6 +33,7 @@ void GUIMain::runUI(sf::Mutex *mutex) {
 
     // Launching draw thread
     threadData data;
+    data.game = game;
     data.board = board;
     data.window = window;
     data.mutex = mutex;
@@ -88,7 +94,7 @@ void GUIMain::smoothOnKeyPressed() {
     float padding = 0.01f * zoom;
     float speedMultiplier = 2.5f;
     sf::Vector2f deltaPos = {0, 0};
-    
+
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) center();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
         if (!waitReleaseGameKey) {

@@ -17,19 +17,22 @@ void gameTickingThread(gameThreadData data) {
     sf::Clock clock_FPS;
 
     float wanted_TPS = Config::get()->getMaxTps();
-    float min_FPS = Config::get()->getMinFps();
+    auto min_FPS = static_cast<float>(Config::get()->getMinFps());
 
     auto minDiffMicroSecond_TPS = static_cast<sf::Int64>((1.f / wanted_TPS) * pow(10, 6));
     auto minDiffMicroSecond_FPS = static_cast<sf::Int64>((1.f / min_FPS) * pow(10, 6));
 
     while (!data.board->isWindowClosed() && data.board->isQueenAlive()) {
+        if (data.game->isPause()) {
+            sf::sleep(milliseconds(1));
+            continue;
+        }
+
         clock_TPS.restart();
 
-        if (!data.game->isPause()) {
-            data.mutex->lock();
-            data.game->tickGame();
-            data.mutex->unlock();
-        }
+        data.mutex->lock();
+        data.game->tickGame();
+        data.mutex->unlock();
 
         sf::Int64 diffMicroSecond_TPS = clock_TPS.getElapsedTime().asMicroseconds();
         sf::Int64 sleepTime_TPS = minDiffMicroSecond_TPS - diffMicroSecond_TPS;

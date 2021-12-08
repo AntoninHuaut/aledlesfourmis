@@ -18,8 +18,8 @@ Config::Config() {
 
     tileSize = data["gui"]["tileSize"].asInt();
     marginOutOfBorder = data["gui"]["marginOutOfBorder"].asFloat();
-    maxFps = data["gui"]["maxFps"].asFloat();
-    minFps = data["gui"]["minFps"].asFloat();
+    maxFps = data["gui"]["maxFps"].asInt();
+    minFps = data["gui"]["minFps"].asInt();
     saveGNUDataEveryXTps = data["gui"]["saveGNUDataEveryXTps"].asInt();
 
     height = data["board"]["height"].asInt();
@@ -182,7 +182,7 @@ float Config::getMaxTps() const {
     return maxTps;
 }
 
-float Config::getMaxFps() const {
+int Config::getMaxFps() const {
     return maxFps;
 }
 
@@ -206,7 +206,7 @@ float Config::getSoldierPercentToKillSlaveOwner() const {
     return soldierPercentToKillSlaveOwner;
 }
 
-float Config::getMinFps() const {
+int Config::getMinFps() const {
     return minFps;
 }
 
