@@ -43,7 +43,7 @@ void gameTickingThread(gameThreadData data) {
             clock_FPS.restart();
         } else if (clock_FPS.getElapsedTime().asMicroseconds() >= minDiffMicroSecond_FPS) {
             clock_FPS.restart();
-            sf::sleep(sf::microseconds(1));
+            sf::sleep(sf::milliseconds(1));
         }
     }
 
