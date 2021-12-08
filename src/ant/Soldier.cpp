@@ -5,6 +5,7 @@
 
 void Soldier::moveSoldier(Board *board) {
     auto cells = getAvailableVisitedCellToMove(board);
+    if (cells.empty()) return;
 
     // Priority: track SlaveOwner
     for (auto *checkCell: cells) {
