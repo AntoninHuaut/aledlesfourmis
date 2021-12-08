@@ -35,7 +35,7 @@
 		* 4% de cinq cases
 		* 1% de six cases
 	* Il existe 2 gros stock de nourritures sur deux coins de la map, chacun répartie en 5 piles de 20 000 unités  de nourriture
-	* Il existe 0.02% de petit stock de nourritures, chacun de 10 unités de nourriture
+	* Il existe 0.02% de petit stock de nourritures, chacun de 100 unités de nourriture
 	* La colonie s'étend si il n'y a plus de place pour accueillir toutes les fourmis (si total fourmis > 100 \* nbCaseColonie)
 
 * Fourmis
