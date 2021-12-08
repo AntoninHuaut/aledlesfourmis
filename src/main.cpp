@@ -13,6 +13,7 @@ struct gameThreadData {
 } typedef gameThreadData;
 
 void gameTickingThread(gameThreadData data) {
+    srand(time(nullptr)); // NOLINT(cert-msc51-cpp)
     sf::Clock clock_TPS;
     sf::Clock clock_FPS;
 
