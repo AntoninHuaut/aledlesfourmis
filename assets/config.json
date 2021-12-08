@@ -3,8 +3,7 @@
     "tileSize": 32,
     "marginOutOfBorder": 0.0,
     "maxFps": 30,
-    "minFps": 30,
-    "saveGNUDataEveryXTps": 500
+    "minFps": 30
   },
   "board": {
     "height": 201,

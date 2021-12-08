@@ -13,7 +13,6 @@ class Config {
     float marginOutOfBorder;
     int maxFps;
     int minFps;
-    int saveGNUDataEveryXTps;
 
     int height;
     int length;
@@ -140,8 +139,6 @@ public:
     int getSoldierHoursBeforeVisitColony() const;
 
     float getSoldierPercentToKillSlaveOwner() const;
-
-    int getSaveGnuDataEveryXTps() const;
 
 };
 
