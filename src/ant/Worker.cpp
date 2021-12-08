@@ -112,30 +112,21 @@ void Worker::goCollectFood(Board *board) {
 BoardCell *Worker::getNextCellToFood(Board *board, const list<BoardCell *> &availableCells) {
     if (availableCells.empty()) return nullptr;
 
+    int currLength = getCurrentCell()->getPosLength();
+    int currHeight = getCurrentCell()->getPosHeight();
+
     if (direction.x == 0 && direction.y == 0) {
+
         BoardCell *cell = getCellWithMaxPheromoneOrRandom(availableCells, -1, -1);
         if (cell != nullptr) {
-            direction.x = getCurrentCell()->getPosLength() - cell->getPosLength();
-            direction.y = getCurrentCell()->getPosHeight() - cell->getPosHeight();
+            direction.x = currLength - cell->getPosLength();
+            direction.y = currHeight - cell->getPosHeight();
         }
         return cell;
+
     } else {
 
         list<BoardCell *> directionalCells;
-        int currLength = getCurrentCell()->getPosLength();
-        int currHeight = getCurrentCell()->getPosHeight();
-
-        if (lastCell != nullptr) {
-            int lengthDiff = lastCell->getPosLength() - getCurrentCell()->getPosLength();
-            int heightDiff = lastCell->getPosHeight() - getCurrentCell()->getPosHeight();
-
-            directionalCells = getDirectionalCells(board, availableCells, lengthDiff, heightDiff);
-
-            if (!directionalCells.empty()) {
-                return getCellWithMaxPheromoneOrRandom(directionalCells, currLength + lengthDiff,
-                                                       currHeight + heightDiff);
-            }
-        }
 
         directionalCells = getDirectionalCells(board, availableCells, direction.x, direction.y);
         if (!directionalCells.empty()) {
@@ -159,27 +150,26 @@ Worker::getDirectionalCells(Board *board, const list<BoardCell *> &availableCell
 
     if (lengthDiff == 0) {
         for (auto const &cell: availableCells) {
-            int currentHeightDiff = this->getCurrentCell()->getPosHeight() - cell->getPosHeight();
+            int currentHeightDiff = cell->getPosHeight() - this->getCurrentCell()->getPosHeight();
             if (currentHeightDiff == heightDiff) {
                 directionalCells.push_back(cell);
             }
         }
     } else if (heightDiff == 0) {
         for (auto const &cell: availableCells) {
-            int currentLengthDiff = this->getCurrentCell()->getPosLength() - cell->getPosLength();
+            int currentLengthDiff = cell->getPosLength() - this->getCurrentCell()->getPosLength();
             if (currentLengthDiff == lengthDiff) {
                 directionalCells.push_back(cell);
             }
         }
     } else {
-        for (auto const &cell: availableCells) {
-            int currentHeightDiff = this->getCurrentCell()->getPosHeight() - cell->getPosHeight();
-            int currentLengthDiff = this->getCurrentCell()->getPosLength() - cell->getPosLength();
 
-            if (-currentLengthDiff != lengthDiff && -currentHeightDiff != heightDiff) {
-                if (currentHeightDiff != 0 && currentLengthDiff != 0) {
-                    directionalCells.push_back(cell);
-                }
+        for (auto const &cell: availableCells) {
+            int currentLengthDiff = cell->getPosLength() - this->getCurrentCell()->getPosLength();
+            int currentHeightDiff = cell->getPosHeight() - this->getCurrentCell()->getPosHeight();
+
+            if (currentLengthDiff != lengthDiff && currentHeightDiff != heightDiff) {
+                directionalCells.push_back(cell);
             }
         }
     }
