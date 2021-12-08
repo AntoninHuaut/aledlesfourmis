@@ -43,6 +43,7 @@ public:
 
     void tickMove(Board *board) override;
 
+    void kill() override;
 };
 
 

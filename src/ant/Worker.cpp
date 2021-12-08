@@ -199,3 +199,9 @@ BoardCell *Worker::getCellWithMaxPheromoneOrRandom(list<BoardCell *> cells) {
         return randCell;
     }
 }
+
+void Worker::kill() {
+    Ant::kill();
+    
+    dropFood();
+}
