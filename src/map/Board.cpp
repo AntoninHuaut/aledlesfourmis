@@ -220,7 +220,7 @@ void Board::tick() {
     for (int height = 0; height < Config::get()->getHeight(); height++) {
         for (int length = 0; length < Config::get()->getLength(); length++) {
             auto *cell = cells[height][length];
-            if (cell->getPheromone() <= 0) continue;
+            if (cell == nullptr || cell->getPheromone() <= 0) continue;
 
             float pheromoneEvaporated = cell->getPheromone() * Config::get()->getPheromoneEvaporationPercent();
             cell->removePheromone(pheromoneEvaporated);
@@ -237,7 +237,7 @@ void Board::tick() {
                     if (!BoardGenerator::isValidCell(newHeight, newLength)) continue;
 
                     auto *neighbor = cells[newHeight][newLength];
-                    if (neighbor->getBoardCellType() != BasicCellType) continue;
+                    if (neighbor == nullptr || neighbor->getBoardCellType() != BasicCellType) continue;
 
                     if (cell->haveMinPheromone(pheromoneSpread) && cell->getPheromone() > 0.1) {
                         cell->removePheromone(pheromoneSpread);
