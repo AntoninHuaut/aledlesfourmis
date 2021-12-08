@@ -104,6 +104,8 @@ void Game::saveCurrentTick() {
 }
 
 void Game::logGNUPlot() {
+    if (bufferGNUPlot.empty()) return;
+    
     ofstream outfile;
 
     outfile.open(gnuPlotFile, ios_base::app);

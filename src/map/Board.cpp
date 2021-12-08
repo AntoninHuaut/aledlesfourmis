@@ -236,10 +236,10 @@ void Board::tick() {
 
                     if (!BoardGenerator::isValidCell(newHeight, newLength)) continue;
 
-                    auto *neighbor = cells[height][length];
+                    auto *neighbor = cells[newHeight][newLength];
                     if (neighbor->getBoardCellType() != BasicCellType) continue;
 
-                    if (cell->haveMinPheromone(pheromoneSpread)) {
+                    if (cell->haveMinPheromone(pheromoneSpread) && cell->getPheromone() > 0.1) {
                         cell->removePheromone(pheromoneSpread);
                         neighbor->addPheromone(pheromoneSpread);
                     }

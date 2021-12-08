@@ -10,14 +10,11 @@ void renderingThread(threadData data) {
 
     // Render loop
     while (data.window->isOpen()) {
-        if (data.game->isPause()) {
-            sf::sleep(milliseconds(1));
-            continue;
+        if (!data.game->isPause()) {
+            data.mutex->lock();
+            data.board->calcLayer();
+            data.mutex->unlock();
         }
-
-        data.mutex->lock();
-        data.board->calcLayer();
-        data.mutex->unlock();
 
         data.window->clear();
         data.window->draw(*(data.board));

@@ -24,6 +24,7 @@ void gameTickingThread(gameThreadData data) {
 
     while (!data.board->isWindowClosed() && data.board->isQueenAlive()) {
         if (data.game->isPause()) {
+            data.game->logGNUPlot();
             sf::sleep(milliseconds(1));
             continue;
         }
