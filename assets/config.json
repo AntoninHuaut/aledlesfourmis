@@ -8,10 +8,10 @@
   "board": {
     "height": 201,
     "length": 211,
-    "maxTps": 1500.0
+    "maxTps": 10.0
   },
   "generation": {
-    "rockPercent": 0.3,
+    "rockPercent": 0.03,
     "foodPercent": 0.0002,
     "smallFoodUnit": 100.0,
     "bigFoodUnit": 20000.0

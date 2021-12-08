@@ -66,10 +66,8 @@ void Worker::dropFood() {
 }
 
 void Worker::visitColony() {
-    if (getCurrentCell()->getBoardCellType() == ColonyCellType) {
-        dropFood();
-    }
-
+    dropFood();
+    direction = sf::Vector2i(0, 0);
     pheromoneAmount = Config::get()->getMaxAntPheromoneAmount();
 }
 
@@ -161,24 +159,24 @@ Worker::getDirectionalCells(Board *board, const list<BoardCell *> &availableCell
 
     if (lengthDiff == 0) {
         for (auto const &cell: availableCells) {
-            int currentHeightDiff = cell->getPosHeight() - this->getCurrentCell()->getPosHeight();
-            if (currentHeightDiff == -heightDiff) {
+            int currentHeightDiff = this->getCurrentCell()->getPosHeight() - cell->getPosHeight();
+            if (currentHeightDiff == heightDiff) {
                 directionalCells.push_back(cell);
             }
         }
     } else if (heightDiff == 0) {
         for (auto const &cell: availableCells) {
-            int currentLengthDiff = cell->getPosLength() - this->getCurrentCell()->getPosLength();
-            if (currentLengthDiff == -lengthDiff) {
+            int currentLengthDiff = this->getCurrentCell()->getPosLength() - cell->getPosLength();
+            if (currentLengthDiff == lengthDiff) {
                 directionalCells.push_back(cell);
             }
         }
     } else {
         for (auto const &cell: availableCells) {
-            int currentHeightDiff = cell->getPosHeight() - this->getCurrentCell()->getPosHeight();
-            int currentLengthDiff = cell->getPosLength() - this->getCurrentCell()->getPosLength();
+            int currentHeightDiff = this->getCurrentCell()->getPosHeight() - cell->getPosHeight();
+            int currentLengthDiff = this->getCurrentCell()->getPosLength() - cell->getPosLength();
 
-            if (currentLengthDiff != lengthDiff && currentHeightDiff != heightDiff) {
+            if (-currentLengthDiff != lengthDiff && -currentHeightDiff != heightDiff) {
                 if (currentHeightDiff != 0 && currentLengthDiff != 0) {
                     directionalCells.push_back(cell);
                 }
@@ -231,6 +229,6 @@ Worker::getCellWithMaxPheromoneOrRandom(const list<BoardCell *> &cells, int dire
 
 void Worker::kill() {
     Ant::kill();
-    
+
     dropFood();
 }
