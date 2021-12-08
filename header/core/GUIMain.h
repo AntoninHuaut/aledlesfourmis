@@ -5,6 +5,7 @@
 #include <iostream>
 #include <cmath>
 #include "../map/Board.h"
+#include "../core/Game.h"
 #include "../Config.h"
 
 struct threadData {
@@ -16,6 +17,9 @@ struct threadData {
 class GUIMain {
 
     Board *board;
+    Game *game;
+    bool waitReleaseGameKey = false;
+
     sf::RenderWindow *window;
     sf::View simView;
 
@@ -50,7 +54,8 @@ class GUIMain {
 
 public:
 
-    explicit GUIMain(sf::Mutex *mutex, Board *board) {
+    explicit GUIMain(sf::Mutex *mutex, Game *game, Board *board) {
+        this->game = game;
         this->board = board;
         this->window = new sf::RenderWindow(sf::VideoMode(1200, 900), "Ant Simulation");
 

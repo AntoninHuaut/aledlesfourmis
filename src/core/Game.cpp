@@ -112,3 +112,11 @@ void Game::logGNUPlot() {
 
     bufferGNUPlot.clear();
 }
+
+bool Game::isPause() const {
+    return pause;
+}
+
+void Game::setPause(bool newPause) {
+    Game::pause = newPause;
+}

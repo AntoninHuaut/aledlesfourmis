@@ -88,8 +88,16 @@ void GUIMain::smoothOnKeyPressed() {
     float padding = 0.01f * zoom;
     float speedMultiplier = 2.5f;
     sf::Vector2f deltaPos = {0, 0};
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) center();
+    
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) center();
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+        if (!waitReleaseGameKey) {
+            game->setPause(!game->isPause());
+            waitReleaseGameKey = true;
+        }
+    } else {
+        waitReleaseGameKey = false;
+    }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) deltaPos.x -= padding;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) deltaPos.x += padding;

@@ -19,7 +19,7 @@ Config::Config() {
     tileSize = data["gui"]["tileSize"].asInt();
     marginOutOfBorder = data["gui"]["marginOutOfBorder"].asFloat();
     maxFps = data["gui"]["maxFps"].asFloat();
-    minRefreshEveryXTps = data["gui"]["minRefreshEveryXTps"].asInt();
+    minFps = data["gui"]["minFps"].asFloat();
     saveGNUDataEveryXTps = data["gui"]["saveGNUDataEveryXTps"].asInt();
 
     height = data["board"]["height"].asInt();
@@ -206,8 +206,8 @@ float Config::getSoldierPercentToKillSlaveOwner() const {
     return soldierPercentToKillSlaveOwner;
 }
 
-int Config::getMinRefreshEveryXTps() const {
-    return minRefreshEveryXTps;
+float Config::getMinFps() const {
+    return minFps;
 }
 
 float Config::getMaxPheromoneOnCell() const {

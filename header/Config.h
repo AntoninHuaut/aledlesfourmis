@@ -12,7 +12,7 @@ class Config {
     int tileSize;
     float marginOutOfBorder;
     float maxFps;
-    int minRefreshEveryXTps;
+    float minFps;
     int saveGNUDataEveryXTps;
 
     int height;
@@ -83,7 +83,7 @@ public:
 
     float getMaxFps() const;
 
-    int getMinRefreshEveryXTps() const;
+    float getMinFps() const;
 
     float getRockPercent() const;
 

@@ -5,6 +5,8 @@
 
 class Game {
 
+    bool pause = false;
+
     Board *board;
 
     string gnuPlotFile = "gnuplot.txt";
@@ -37,6 +39,10 @@ public:
     void saveCurrentTick();
 
     void logGNUPlot();
+
+    bool isPause() const;
+
+    void setPause(bool pause);
 };
 
 
