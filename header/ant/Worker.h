@@ -25,9 +25,12 @@ class Worker : public Ant, public AgeAdult {
 
     BoardCell *getNextCellToFood(Board *board, const list<BoardCell *> &availableCells);
 
-    list<BoardCell *> getDirectionalCells(Board *board, const list<BoardCell *> &availableCells);
+    list<BoardCell *>
+    getDirectionalCells(Board *board, const list<BoardCell *> &availableCells, int lengthDiff, int heightDiff);
 
-    BoardCell *getCellWithMaxPheromoneOrRandom(list<BoardCell *> cells);
+    static BoardCell *
+    getCellWithMaxPheromoneOrRandom(const list<BoardCell *> &cells, int directionCellPosLenght,
+                                    int directionCellPosHeight);
 
 public:
 
