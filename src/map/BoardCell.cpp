@@ -88,3 +88,22 @@ list<BoardCell *> *BoardCell::getNeighborCells() const {
 
     return neighborCells;
 }
+
+float BoardCell::addPheromone(float amount) {
+    pheromoneAmount += amount;
+    float excess = pheromoneAmount - Config::get()->getMaxPheromoneOnCell();
+    excess = max(excess, 0.f);
+    pheromoneAmount -= excess;
+    return amount - excess;
+}
+
+void BoardCell::removePheromone(float amount) {
+    pheromoneAmount -= amount;
+    if (pheromoneAmount < 0.01) {
+        pheromoneAmount = 0;
+    }
+}
+
+bool BoardCell::haveMinPheromone(float amount) const {
+    return pheromoneAmount >= amount;
+}

@@ -2,6 +2,7 @@
 #define ANT_BOARDCELL_H
 
 #include <list>
+#include <cmath>
 #include "../lib/CustomRandom.h"
 #include "../core/TileEnum.h"
 #include "../Config.h"
@@ -69,23 +70,11 @@ public:
         return antOnCell;
     }
 
-    void addPheromone(float amount) {
-        pheromoneAmount += amount;
-        if (pheromoneAmount > Config::get()->getMaxPheromoneOnCell()) {
-            pheromoneAmount = Config::get()->getMaxPheromoneOnCell();
-        }
-    }
+    float addPheromone(float amount);
 
-    void removePheromone(float amount) {
-        pheromoneAmount -= amount;
-        if (pheromoneAmount < 0.01) {
-            pheromoneAmount = 0;
-        }
-    }
+    void removePheromone(float amount);
 
-    bool haveMinPheromone(float amount) const {
-        return pheromoneAmount >= amount;
-    }
+    bool haveMinPheromone(float amount) const;
 
     float getPheromone() const { return pheromoneAmount; }
 

@@ -77,8 +77,7 @@ void Worker::putPheromones() {
     if (currentCell->getBoardCellType() != BasicCellType) return;
 
     float pheromonePercent = pheromoneAmount * Config::get()->getMaxAntPheromoneDropPercent();
-    pheromoneAmount -= pheromonePercent;
-    currentCell->addPheromone(pheromonePercent);
+    pheromoneAmount -= currentCell->addPheromone(pheromonePercent);
 }
 
 void Worker::goCollectFood(Board *board) {
