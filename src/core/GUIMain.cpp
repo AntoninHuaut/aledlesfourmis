@@ -17,7 +17,21 @@ void renderingThread(threadData data) {
         }
 
         data.window->clear();
+        data.window->setView(*data.simView);
         data.window->draw(*(data.board));
+        data.window->setView(*data.statView);
+
+        sf::Text text;
+        sf::Font font;
+        font.loadFromFile("./assets/Roboto.ttf");
+
+        text.setString("Hello world");
+        text.setFont(font);
+        text.setCharacterSize(74);
+        text.setFillColor(sf::Color::Red);
+        text.setStyle(sf::Text::Bold | sf::Text::Underlined);
+
+        data.window->draw(text);
         data.window->display();
     }
 
@@ -28,17 +42,25 @@ void GUIMain::runUI(sf::Mutex *mutex) {
     // Disabling OpenGL
     window->setActive(false);
 
+    //Top corner view to display stats
+    sf::View statView(sf::FloatRect(0.f, 0.f, 1000.f, 600.f));
+    statView.setViewport(sf::FloatRect(0.75f, 0.f, 0.25f, 0.25f));
+
+    simView = window->getDefaultView();
+
     // Launching draw thread
     threadData data;
     data.game = game;
     data.board = board;
     data.window = window;
     data.mutex = mutex;
+    data.statView = &statView;
+    data.simView = &simView;
 
     sf::Thread thread(&renderingThread, data);
     thread.launch();
 
-    simView = window->getDefaultView();
+
     center();
 
     // Event loop
@@ -81,7 +103,7 @@ void GUIMain::onMouseButtonPressed(sf::Event event) {
     // Mouse button is pressed, get the position and set moving as active
     if (event.mouseButton.button == 0) {
         moving = true;
-        oldPos = window->mapPixelToCoords(sf::Vector2i(sf::Mouse::getPosition(*window)));
+        oldPos = window->mapPixelToCoords(sf::Vector2i(sf::Mouse::getPosition(*window)), simView);
     }
 }
 
@@ -124,7 +146,7 @@ void GUIMain::center() {
     sf::Vector2f newCenterPos = {mapLengthX / 2, mapHeightY / 2};
 
     simView.setCenter(newCenterPos);
-    window->setView(simView);
+    //window->setView(simView);
 }
 
 void GUIMain::preventOutOfBorder(sf::Vector2f deltaPos) {
@@ -133,16 +155,18 @@ void GUIMain::preventOutOfBorder(sf::Vector2f deltaPos) {
     float mapHeightY = mapSize.y;
     float marginOutOfBorder = Config::get()->getMarginOutOfBorder();
 
-    sf::Vector2f newCenterPos = {simView.getCenter().x + deltaPos.x, simView.getCenter().y + deltaPos.y};
+    sf::View defaultView = simView;
 
-    newCenterPos.x = max(newCenterPos.x, (simView.getSize().x / 2) - (marginOutOfBorder * zoom));
-    newCenterPos.y = max(newCenterPos.y, (simView.getSize().y / 2) - (marginOutOfBorder * zoom));
+    sf::Vector2f newCenterPos = {defaultView.getCenter().x + deltaPos.x, defaultView.getCenter().y + deltaPos.y};
 
-    newCenterPos.x = min(newCenterPos.x, (mapLengthX - simView.getSize().x / 2) + marginOutOfBorder * zoom);
-    newCenterPos.y = min(newCenterPos.y, (mapHeightY - simView.getSize().y / 2) + marginOutOfBorder * zoom);
+    newCenterPos.x = max(newCenterPos.x, (defaultView.getSize().x / 2) - (marginOutOfBorder * zoom));
+    newCenterPos.y = max(newCenterPos.y, (defaultView.getSize().y / 2) - (marginOutOfBorder * zoom));
+
+    newCenterPos.x = min(newCenterPos.x, (mapLengthX - defaultView.getSize().x / 2) + marginOutOfBorder * zoom);
+    newCenterPos.y = min(newCenterPos.y, (mapHeightY - defaultView.getSize().y / 2) + marginOutOfBorder * zoom);
 
     simView.setCenter(newCenterPos);
-    window->setView(simView);
+    //window->setView(simView);
 }
 
 void GUIMain::letterBoxView(float windowWidth, float windowHeight) {
@@ -178,14 +202,14 @@ void GUIMain::onMouseMoved(sf::Event event) {
     if (!moving) return;
 
     // Determine the new position in world coordinates
-    const sf::Vector2f newPos = window->mapPixelToCoords(sf::Vector2i(sf::Mouse::getPosition(*window)));
+    const sf::Vector2f newPos = window->mapPixelToCoords(sf::Vector2i(sf::Mouse::getPosition(*window)), simView);
 
     sf::Vector2f deltaPos = oldPos - newPos;
     GUIMain::preventOutOfBorder(deltaPos);
 
     // Save the new position as the old one
     // We're recalculating this, since we've changed the simView
-    oldPos = window->mapPixelToCoords(sf::Vector2i(event.mouseMove.x, event.mouseMove.y));
+    oldPos = window->mapPixelToCoords(sf::Vector2i(event.mouseMove.x, event.mouseMove.y), simView);
 }
 
 void GUIMain::onMouseWheelScrolled(sf::Event event) {
@@ -210,7 +234,7 @@ void GUIMain::onMouseWheelScrolled(sf::Event event) {
         currentZoom = zoom;
     }
 
-    window->setView(simView);
+    //window->setView(simView);
 
     sf::Vector2f deltaPos = {0, 0};
     GUIMain::preventOutOfBorder(deltaPos);
@@ -222,7 +246,7 @@ void GUIMain::onResized(sf::Event event) {
     sf::Vector2f deltaPos = {0, 0};
     GUIMain::preventOutOfBorder(deltaPos);
 
-    window->setView(simView);
+    //window->setView(simView);
 }
 
 sf::Vector2f GUIMain::getMapSize() {

@@ -11,6 +11,8 @@
 struct threadData {
     sf::RenderWindow *window;
     sf::Mutex *mutex;
+    sf::View *simView;
+    sf::View *statView;
     Board *board;
     Game *game;
 } typedef threadData;
