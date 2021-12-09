@@ -217,6 +217,10 @@ void Board::tick() {
         createSlaveOwner();
     }
 
+    tickPheromone();
+}
+
+void Board::tickPheromone() {
     for (int height = 0; height < Config::get()->getHeight(); height++) {
         for (int length = 0; length < Config::get()->getLength(); length++) {
             auto *cell = cells[height][length];
@@ -239,7 +243,7 @@ void Board::tick() {
                     auto *neighbor = cells[newHeight][newLength];
                     if (neighbor == nullptr || neighbor->getBoardCellType() != BasicCellType) continue;
 
-                    if (cell->haveMinPheromone(pheromoneSpread) && cell->getPheromone() > 0.1) {
+                    if (cell->haveMinPheromone(pheromoneSpread)) {
                         cell->removePheromone(pheromoneSpread);
                         neighbor->addPheromone(pheromoneSpread);
                     }

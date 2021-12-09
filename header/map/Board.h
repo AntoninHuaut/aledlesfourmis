@@ -35,7 +35,12 @@ class Board : public sf::Drawable, public sf::Transformable {
 
     BasicCell *findExpandableBasicCell();
 
+    void createSlaveOwner();
+
+    void tickPheromone();
+
 public:
+
     explicit Board(BoardCell ***cells);
 
     ~Board() override;
@@ -50,8 +55,6 @@ public:
         remainingTickBeforeSlaveOwnerSpawn = CustomRandom::randInt(Config::get()->getSlaveOwnerMinTickRandom(),
                                                                    Config::get()->getSlaveOwnerMaxTickRandom()) * 24;
     }
-
-    void createSlaveOwner();
 
     void setWindowClosed(bool newWindowClosed) {
         this->windowClosed = newWindowClosed;

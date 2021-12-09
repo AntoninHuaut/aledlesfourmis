@@ -48,7 +48,7 @@
       "maxOnCell": 1000,
       "dropPercent": 0.05,
       "evaporationPercent": 0.005,
-      "spreadPercent": 0.0005
+      "spreadPercent": 0.002
     },
     "defaultFoodColony": 200,
     "newAntEveryDay": 2,
