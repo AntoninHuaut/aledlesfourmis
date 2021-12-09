@@ -23,7 +23,6 @@ void Worker::tickMove(Board *board) {
             putPheromones();
         }
 
-        //goToCenter(board);
         goBackToLastCell();
 
         if (getCurrentCell() == board->getCenterCell()) {
