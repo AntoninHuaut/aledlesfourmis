@@ -1,6 +1,7 @@
 #include "../../header/map/Board.h"
 #include "../../header/map/BoardGenerator.h"
 #include "../../header/ant/SlaveOwner.h"
+#include "../../header/ant/AgeAdult.h"
 
 Board::Board(BoardCell ***cells) {
     this->coloniesCells = new list<ColonyCell *>;

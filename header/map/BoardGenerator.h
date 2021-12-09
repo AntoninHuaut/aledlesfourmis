@@ -14,10 +14,6 @@
 #include "../Config.h"
 #include "../lib/CustomRandom.h"
 
-/* TODO TEST */
-#include "../ant/Scout.h"
-/* */
-
 using namespace std;
 
 class BoardGenerator {
