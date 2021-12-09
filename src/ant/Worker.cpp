@@ -74,14 +74,13 @@ void Worker::visitColony() {
 void Worker::putPheromones() {
     auto *currentCell = getCurrentCell();
     if (pheromoneAmount <= 0) return;
-    if (currentCell->getBoardCellType() != BasicCellType) return;
+    if (currentCell->getBoardCellType() == RockCellType) return;
 
     float pheromonePercent = pheromoneAmount * Config::get()->getMaxAntPheromoneDropPercent();
     pheromoneAmount -= currentCell->addPheromone(pheromonePercent);
 }
 
 void Worker::goCollectFood(Board *board) {
-
     auto possibleCells = this->getAvailableVisitedCellToMove(board);
 
     if (possibleCells.empty()) return;

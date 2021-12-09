@@ -241,7 +241,7 @@ void Board::tickPheromone() {
                     if (!BoardGenerator::isValidCell(newHeight, newLength)) continue;
 
                     auto *neighbor = cells[newHeight][newLength];
-                    if (neighbor == nullptr || neighbor->getBoardCellType() != BasicCellType) continue;
+                    if (neighbor == nullptr || neighbor->getBoardCellType() == RockCellType) continue;
 
                     if (cell->haveMinPheromone(pheromoneSpread)) {
                         cell->removePheromone(pheromoneSpread);
