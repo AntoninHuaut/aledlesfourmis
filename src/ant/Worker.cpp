@@ -1,6 +1,7 @@
 #include "../../header/ant/Worker.h"
 #include "../../header/map/BoardCell.h"
 #include "../../header/map/BasicCell.h"
+#include "../../header/map/Board.h"
 
 bool Worker::eatFood(float amountToEat) {
     float foodAtStart = this->foodCarriedAmount;
@@ -25,7 +26,7 @@ void Worker::tickMove(Board *board) {
         //goToCenter(board);
         goBackToLastCell();
 
-        if (getCurrentCell()->getBoardCellType() == ColonyCellType) {
+        if (getCurrentCell() == board->getCenterCell()) {
             visitColony();
             cellTraveledSinceStart->clear();
             goingHome = false;
