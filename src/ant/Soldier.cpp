@@ -25,7 +25,7 @@ void Soldier::moveSoldier(Board *board) {
         BoardCell *cellToMove = *randomCell;
         goToCell(cellToMove);
     } else {
-        goBackToLastCell(); // TODO goToCenter after rework
+        goBackToLastCell();
 
         if (getCurrentCell()->getBoardCellType() == ColonyCellType) {
             tickSinceColonyVisited = 0;
