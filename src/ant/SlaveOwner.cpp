@@ -26,6 +26,23 @@ void SlaveOwner::attackQueen(Board *board) {
 
 void SlaveOwner::tickMove(Board *board) {
     if (!haveArrivedToColony) {
+        if (hoursSinceLastFeeding > 2) {
+            auto possibleCells = getAvailableCellToMove(board);
+            if (possibleCells.empty()) return;
+
+            for (auto cell: possibleCells) {
+                if (cell->getBoardCellType() != BasicCellType) continue;
+                auto *basicCell = dynamic_cast<BasicCell *>(cell);
+                if (basicCell->getFoodAmount() <= this->foodConsumedEachDay) continue;
+
+                goToCell(basicCell);
+                if (eatFood(this->foodConsumedEachDay)) {
+                    hoursSinceLastFeeding = 0;
+                }
+                return;
+            }
+        }
+
         goToCenter(board);
     } else if (larvaCarried == 0) {
         attackQueen(board);
