@@ -187,38 +187,6 @@ int Ant::numberOfTimeOnCell(BoardCell *cell) {
     return timeOnCell;
 }
 
-void Ant::goToCenter(Board *board) {
-    auto possibleCells = this->getAvailableCellToMove(board);
-
-    if (possibleCells.empty()) return;
-
-    BoardCell *target = board->getCenterCell();
-
-    int min = possibleCells.front()->cellsDistance(target);
-//    int minNumberOfVisit = numberOfTimeOnCell(possibleCells.front());
-
-    BoardCell *bestCell = possibleCells.front();
-
-    for (auto *cell: possibleCells) {
-        int newDist = cell->cellsDistance(target);
-
-        if (newDist <= min
-//        && numberOfTimeOnCell(cell) <= minNumberOfVisit
-                ) {
-            min = newDist;
-//            minNumberOfVisit = numberOfTimeOnCell(cell);
-            bestCell = cell;
-        }
-    }
-
-//    if (bestCell == target) {
-    if (bestCell->getBoardCellType() == ColonyCellType) {
-        haveArrivedToColony = true;
-    }
-
-    this->goToCell(bestCell);
-}
-
 float Ant::getColonyFood() {
     return Ant::colonyFood;
 }

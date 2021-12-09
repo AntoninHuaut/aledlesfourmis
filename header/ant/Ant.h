@@ -51,9 +51,6 @@ protected:
 
     int numberOfTimeOnCell(BoardCell *cell);
 
-    void goToCenter(Board *board);
-
-
 public:
 
     Ant(int hoursBeforeDeath, int maxHoursWithoutFeeding, float foodConsumedEachDay, BoardCell *currentCell,

@@ -12,6 +12,8 @@ class SlaveOwner : public Ant {
 
     int larvaCarried = 0;
 
+    void goToCenter(Board *board);
+
 public:
 
     explicit SlaveOwner(BoardCell *currentCell) :
