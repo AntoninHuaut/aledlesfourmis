@@ -3,35 +3,7 @@
 class Config {
     - {static} Config *instance
 
-    - int tileSize
-    - float marginOutOfBorder
-    - int fpsMax
-
-    - int height
-    - int length
-
-    - float rockPercent
-    - float foodPercent
-    - int smallFoodUnitValue
-    - int bigFoodUnitValue
-
-    - int rockMaxAntOnCell
-    - int basicCellMaxAntOnCell
-    - int colonyMaxAntOnCell
-
-    - float defaultFoodConsumingTick
-    - float queenFoodConsumingTick
-
-    - int queenHoursBeforeDeath
-    - int defaultHoursBeforeDeath
-
-    - int scootHoursBeforeAdult
-    - int workerHoursBeforeAdult
-
-    - int newAntEveryDay
-    - int workerMaxFoodAmountCanCarried
-    - int soldierHoursBeforeVisitColony
-    - int slaveOwnerHoursBeforeHunger
+    - ...
 
     + {static} Config get()
 }
@@ -60,8 +32,8 @@ class Queen {
     - boolean wasAssaulted = false
 }
 
-abstract class AntAge {
-    + AntAge(int hoursBeforeAdult)
+abstract class AgeAdult {
+    + AgeAdult(int hoursBeforeAdult)
 
     - int hoursBeforeAdult
 
@@ -141,18 +113,104 @@ class Simulation {
     + void runGame()
 }
 
+class GUIMain {
+    - Board *board;
+    - Game *game;
+    - SimulationStats *stats;
+    - bool waitReleaseGameKey;
+
+    - sf::RenderWindow *window;
+    - sf::View simView;
+    - sf::View statView;
+
+    - sf::Vector2f oldPos;
+    - bool moving;
+    - float zoom;
+    - float currentZoom;
+
+    - void runUI(sf::Mutex *mutex);
+    - void smoothOnKeyPressed();
+    - void onClosed();
+    - void onMouseButtonPressed(sf::Event event);
+    - void onMouseButtonReleased(sf::Event event);
+    - void onMouseMoved(sf::Event event);
+    - void onMouseWheelScrolled(sf::Event event);
+    - void onResized(sf::Event event);
+    - void center();
+    - void preventOutOfBorder(sf::Vector2f deltaPos);
+    - void letterBoxView(float windowWidth, float windowHeight);
+    - static sf::Vector2f getMapSize();
+}
+
+
+class Game {
+    - bool pause = false;
+    - Board *board;
+    - SimulationStats *stats;
+    - string gnuPlotFile = "gnuplot.txt";
+    - string bufferGNUPlot;
+
+    - void tickAnts();
+    - void tickQueen();
+
+    + void tickGame();
+    + void saveCurrentTick();
+    + void logGNUPlot();
+    + bool isPause() const;
+    + void setPause(bool pause);
+}
+
+class SimulationStats {
+    - int currentTPS;
+    - int wantedTPS;
+    - float foodAmount;
+    - bool isGameEnded;
+    - string endMessage;
+    - int workerAmount;
+    - int soldierAmount;
+    - int scoutAmount;
+    - int slaveOwnerAmount;
+    - sf::Texture tileSet;
+    - sf::Font font;
+
+    - void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+}
+
+enum TileEnum {
+    BASIC_FLOOR = 0,
+    ROCK_FLOOR = 5,
+    COLONY_FLOOR = 9,
+    FOOD_LAYER = 10,
+    BIG_FOOD_LAYER = 11,
+    CLOUD_LAYER = 14,
+    QUEEN = 24,
+    WORKER_ANT = 15,
+    SOLDIER_ANT = 25,
+    SCOOT_ANT = 35,
+    SLAVEOWNER_ANT = 45,
+    FIRST_PHEROMONE_LEVEL = 55
+}
+
+
 RockCell --|> BoardCell
 BasicCell --|> BoardCell
 ColonyCell --|> BoardCell
 
+Board --|> Drawable
+SimulationStats --|> Drawable
+
+Simulation -- SimulationStats
+Simulation -- Game
 Simulation -- Board
+GUIMain -- Simulation
 Board -- BoardGenerator
 Board o-- BoardCell
+Board -- TileEnum
 
 BoardCell *--> Ant
 
-Worker --|> AntAge
-Scout --|> AntAge
+Worker --|> AgeAdult
+Scout --|> AgeAdult
 
 Worker --|> Ant
 Scout --|> Ant
