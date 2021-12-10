@@ -1,20 +1,24 @@
 #include <iostream>
-#include <cmath>
 #include "../../include/core/SimulationStats.h"
 #include <iomanip>
 #include <sstream>
+#include <list>
+#include "../../include/core/InfoDisplay.h"
+#include "../../include/core/TileEnum.h"
 
 void SimulationStats::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     states.transform *= getTransform();
-    //states.texture = &tileSet;
-    float displayHeight = 150;
-
     sf::Vector2<unsigned int> windowSize = target.getSize();
+
+    //states.texture = &tileSet;
+    float displayHeight = windowSize.y;
+    float displayWidth = windowSize.x;
+
 
     sf::VertexArray quad(sf::Quads, 4);
     quad[0].position = sf::Vector2f(0.f, 0.f);
-    quad[1].position = sf::Vector2f(static_cast<float>(windowSize.x), 0.f);
-    quad[2].position = sf::Vector2f(static_cast<float>(windowSize.x), displayHeight);
+    quad[1].position = sf::Vector2f(displayWidth, 0.f);
+    quad[2].position = sf::Vector2f(displayWidth, displayHeight);
     quad[3].position = sf::Vector2f(0.f, displayHeight);
 
     quad[0].color = sf::Color(0, 0, 0, 170);
@@ -22,11 +26,13 @@ void SimulationStats::draw(sf::RenderTarget &target, sf::RenderStates states) co
     quad[2].color = sf::Color(0, 0, 0, 170);
     quad[3].color = sf::Color(0, 0, 0, 170);
 
+    list<InfoDisplay *> statsLines;
+
     //sf::RectangleShape rectangle(sf::Vector2f(120.f, 50.f));
 
     target.draw(quad);
-
-    int fontSize = min(windowSize.x / 20, windowSize.y / 20);
+    int minFontSize = 14;
+    int fontSize = max(min(static_cast<int>(windowSize.x / 10), static_cast<int>(windowSize.y / 10)), minFontSize);
 
     cout << target.getSize().x << endl;
 
@@ -36,11 +42,14 @@ void SimulationStats::draw(sf::RenderTarget &target, sf::RenderStates states) co
 
     text.setString(fAmountStream.str());
     text.setFont(font);
+    text.setScale(1, 1);
     text.setPosition(100, displayHeight / 2 - fontSize / 2);
     text.setCharacterSize(fontSize);
     text.setFillColor(sf::Color::Red);
 
-    target.draw(text);
+    string textToDisplay = fAmountStream.str();
+    InfoDisplay test(textToDisplay, FOOD_LAYER, tileSet, font);
+    target.draw(test);
 }
 
 void SimulationStats::setCurrentTps(int currentTps) {

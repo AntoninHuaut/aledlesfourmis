@@ -29,6 +29,7 @@ class GUIMain {
 
     sf::RenderWindow *window;
     sf::View simView;
+    sf::View statView;
 
     sf::Vector2f oldPos;
     bool moving = false;
