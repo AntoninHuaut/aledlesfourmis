@@ -32,9 +32,11 @@ void GUIMain::runUI(sf::Mutex *mutex) {
     // Disabling OpenGL
     window->setActive(false);
 
+    sf::Vector2<unsigned int> windowSize = window->getSize();
+
     //Top corner view to display stats
     sf::View statView(sf::FloatRect(0.f, 0.f, 1000.f, 600.f));
-    statView.setViewport(sf::FloatRect(0.75f, 0.f, 0.25f, 0.25f));
+    statView.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 0.5f));
 
     simView = window->getDefaultView();
 
