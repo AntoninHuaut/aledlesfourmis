@@ -16,14 +16,28 @@ Ce projet a été développé dans le cadre d'un projet scolaire par :
 
 SFML est nécessaire pour compiler l'application. L'application a été développée avec la version 2.5.1 de SFML.
 
-[comment]: <> (### Windows)
+### Windows
 
-[comment]: <> (> Cette version de SFML n'est compatible qu'avec la version 7.3.0 de MinGW)
+> Cette version de SFML n'est compatible qu'avec la version 7.3.0 de MinGW
 
-[comment]: <> (Rendez-vous sur la page de téléchargement de SFML [&#40;ici&#41;]&#40;https://www.sfml-dev.org/download/sfml/2.5.1/&#41;.  )
+Rendez-vous sur la page de téléchargement de SFML [(ici)](https://www.sfml-dev.org/download/sfml/2.5.1/).
 
-[comment]: <> (Téléchargez la version 7.3.0 de MinGW &#40;"MinGW Builds 7.3.0 &#40;64-bit&#41;"&#41; puis SFML &#40;"GCC 7.3.0 MinGW &#40;SEH&#41; - 64-bit"&#41;.)
+Téléchargez la version 7.3.0 de
+MinGW ["MinGW Builds 7.3.0 (64-bit)"](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z/download)
+puis
+SFML ["GCC 7.3.0 MinGW (SEH) - 64-bit"](https://www.sfml-dev.org/files/SFML-2.5.1-windows-gcc-7.3.0-mingw-64-bit.zip).
 
+Extrayez ces deux archives dans un dossier. Il faut ajouter, en variable d'environnement Windows, les dossiers bin de
+MinGW et SFML.
 
-> Un fichier README.md présent à la racine, et décrivant succinctement le projet ainsi  
-que les commandes à effectuer pour installer et exécuter le programme ;
+Une fois les variables d'environnements définis, lancez un terminal à la racine du dossier et tapez :
+> ./compileAndRun.bat
+
+Pour compiler et lancer l'application.
+
+### Linux
+
+> Nécessite build-essential, cmake, libsfml-dev
+
+Ne fonctionne pas avec l'interface X11 : La boucle d'évènement doit être thread-synchro avec la boucle de rendue.  
+Si on fait ça, l'application est trop ralentie.

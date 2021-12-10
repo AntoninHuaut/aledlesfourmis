@@ -1,3 +1,5 @@
 .obsidian/
 .idea/
 cmake-build-debug/
+CMake/
+build/

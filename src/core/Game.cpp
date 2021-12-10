@@ -3,7 +3,7 @@
 
 void Game::tickGame() {
     sf::Clock start;
-    bool showDebug = board->getCurrentTick() % 500 == 0;
+    bool showDebug = Config::get()->isDev() && board->getCurrentTick() % 500 == 0;
     if (showDebug) cout << "Tick " << board->getCurrentTick() << endl;
 
     start.restart();
@@ -105,7 +105,7 @@ void Game::saveCurrentTick() {
 
 void Game::logGNUPlot() {
     if (bufferGNUPlot.empty()) return;
-    
+
     ofstream outfile;
 
     outfile.open(gnuPlotFile, ios_base::app);

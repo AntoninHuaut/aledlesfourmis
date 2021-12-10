@@ -9,6 +9,8 @@ class Config {
 
     static Config *instance;
 
+    bool dev;
+
     int tileSize;
     float marginOutOfBorder;
     int maxFps;
@@ -65,6 +67,8 @@ public:
     void operator=(const Config &) = delete; // Singletons should not be assignable
 
     static Config *get();
+
+    bool isDev() const;
 
     int getTileSize() const;
 

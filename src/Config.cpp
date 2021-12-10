@@ -16,6 +16,8 @@ Config::Config() {
     std::ifstream i("../assets/config.json", std::ifstream::binary);
     i >> data;
 
+    dev = data["dev"].asBool();
+
     tileSize = data["gui"]["tileSize"].asInt();
     marginOutOfBorder = data["gui"]["marginOutOfBorder"].asFloat();
     maxFps = data["gui"]["maxFps"].asInt();
@@ -211,4 +213,8 @@ int Config::getMinFps() const {
 
 float Config::getMaxPheromoneOnCell() const {
     return maxPheromoneOnCell;
+}
+
+bool Config::isDev() const {
+    return dev;
 }
