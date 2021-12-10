@@ -3,6 +3,7 @@
 #include "../header/map/BoardGenerator.h"
 #include "../header/core/GUIMain.h"
 #include "../header/core/Game.h"
+#include "../header/core/SimulationStats.h"
 
 using namespace std;
 
@@ -10,6 +11,7 @@ struct gameThreadData {
     sf::Mutex *mutex;
     Board *board;
     Game *game;
+    SimulationStats *stats;
 } typedef gameThreadData;
 
 void gameTickingThread(gameThreadData data) {
@@ -19,6 +21,8 @@ void gameTickingThread(gameThreadData data) {
 
     float wanted_TPS = Config::get()->getMaxTps();
     auto min_FPS = static_cast<float>(Config::get()->getMinFps());
+
+    data.stats->setWantedTps(static_cast<int>(wanted_TPS));
 
     auto minDiffMicroSecond_TPS = static_cast<sf::Int64>((1.f / wanted_TPS) * pow(10, 6));
     auto minDiffMicroSecond_FPS = static_cast<sf::Int64>((1.f / min_FPS) * pow(10, 6));
@@ -41,13 +45,16 @@ void gameTickingThread(gameThreadData data) {
 
         if (sleepTime_TPS > 0) {
             sf::sleep(sf::microseconds(sleepTime_TPS));
+            data.stats->setCurrentTps(static_cast<int>(wanted_TPS));
             clock_FPS.restart();
         } else if (clock_FPS.getElapsedTime().asMicroseconds() >= minDiffMicroSecond_FPS) {
+            data.stats->setCurrentTps(static_cast<int>(1000000 / clock_FPS.getElapsedTime().asMicroseconds()));
             clock_FPS.restart();
             sf::sleep(sf::milliseconds(1));
         }
     }
 
+    data.stats->setIsGameEnded(true);
     data.game->logGNUPlot();
 }
 
@@ -58,16 +65,18 @@ int main() {
 
     auto *board = BoardGenerator::generateBoard();
     auto *game = new Game(board);
+    auto *stats = new SimulationStats();
 
     // Launching draw thread
     gameThreadData data;
     data.board = board;
     data.mutex = &mutex;
     data.game = game;
+    data.stats = stats;
     sf::Thread thread(&gameTickingThread, data);
     thread.launch();
 
-    new GUIMain(&mutex, game, board);
+    new GUIMain(&mutex, game, board, stats);
 
     delete board;
     delete game;
