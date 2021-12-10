@@ -1,4 +1,4 @@
-#include "../../header/map/RockCell.h"
+#include "../../include/map/RockCell.h"
 
 void RockCell::addAntOnCell(Ant *antToAdd) {
     cerr << "RockCell::addAntOnCell FORBIDDEN" << endl;

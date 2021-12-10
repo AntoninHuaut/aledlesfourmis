@@ -1,7 +1,7 @@
-#include "../../header/ant/Worker.h"
-#include "../../header/map/BoardCell.h"
-#include "../../header/map/BasicCell.h"
-#include "../../header/map/Board.h"
+#include "../../include/ant/Worker.h"
+#include "../../include/map/BoardCell.h"
+#include "../../include/map/BasicCell.h"
+#include "../../include/map/Board.h"
 
 bool Worker::eatFood(float amountToEat) {
     float foodAtStart = this->foodCarriedAmount;

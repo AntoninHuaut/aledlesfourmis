@@ -1,4 +1,4 @@
-#include "../../header/map/BasicCell.h"
+#include "../../include/map/BasicCell.h"
 
 list<int> BasicCell::getLayersTileNumbers() {
     list<int> tiles;

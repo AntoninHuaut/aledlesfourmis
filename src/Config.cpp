@@ -1,4 +1,4 @@
-#include "../header/Config.h"
+#include "../include/Config.h"
 
 Config *Config::instance = nullptr;
 

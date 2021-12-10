@@ -1,5 +1,5 @@
-#include "../../header/core/GUIMain.h"
-#include "../../header/core/SimulationStats.h"
+#include "../../include/core/GUIMain.h"
+#include "../../include/core/SimulationStats.h"
 
 void renderingThread(threadData data) {
     data.window->setActive(true);

@@ -1,4 +1,4 @@
-#include "../../header/core/SimulationStats.h"
+#include "../../include/core/SimulationStats.h"
 
 void SimulationStats::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     states.transform *= getTransform();

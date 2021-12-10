@@ -1,9 +1,9 @@
-#include "../../header/ant/Queen.h"
-#include "../../header/map/BoardCell.h"
-#include "../../header/map/Board.h"
-#include "../../header/ant/Scout.h"
-#include "../../header/ant/Worker.h"
-#include "../../header/ant/Soldier.h"
+#include "../../include/ant/Queen.h"
+#include "../../include/map/BoardCell.h"
+#include "../../include/map/Board.h"
+#include "../../include/ant/Scout.h"
+#include "../../include/ant/Worker.h"
+#include "../../include/ant/Soldier.h"
 
 void Queen::tick(Board *board) {
     Ant::tick(board);
@@ -25,7 +25,7 @@ void Queen::tickChild(Board *board) {
 
 void Queen::createChildAndExpand(Board *board, int antToCreate) {
     if (antToCreate <= 0) return;
-    
+
     // Generating two ants
     for (int i = 0; i < antToCreate; i++) {
         generateAnt(board);

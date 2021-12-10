@@ -1,6 +1,6 @@
-#include "../../header/ant/SlaveOwner.h"
-#include "../../header/ant/Queen.h"
-#include "../../header/map/Board.h"
+#include "../../include/ant/SlaveOwner.h"
+#include "../../include/ant/Queen.h"
+#include "../../include/map/Board.h"
 
 void SlaveOwner::attackQueen(Board *board) {
     auto *queen = board->getAntQueen();

@@ -1,5 +1,5 @@
-#include "../../header/ant/Scout.h"
-#include "../../header/map/Board.h"
+#include "../../include/ant/Scout.h"
+#include "../../include/map/Board.h"
 
 
 void Scout::tickMove(Board *board) {

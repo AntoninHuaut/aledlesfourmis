@@ -1,4 +1,4 @@
-#include "../../header/lib/CustomRandom.h"
+#include "../../include/lib/CustomRandom.h"
 
 int CustomRandom::randInt(int minInclusive, int maxInclusive) {
     if (maxInclusive <= minInclusive) return 0;

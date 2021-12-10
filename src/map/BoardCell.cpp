@@ -1,5 +1,5 @@
-#include "../../header/map/BoardCell.h"
-#include "../../header/map/Board.h"
+#include "../../include/map/BoardCell.h"
+#include "../../include/map/Board.h"
 
 BoardCell::BoardCell(Board *board, int posHeight, int posLength, int maxAntOnCell, BoardCellType boardCellType) {
     this->board = board;

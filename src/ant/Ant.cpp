@@ -1,7 +1,7 @@
-#include "../../header/ant/Ant.h"
-#include "../../header/ant/AgeAdult.h"
-#include "../../header/map/BoardCell.h"
-#include "../../header/map/Board.h"
+#include "../../include/ant/Ant.h"
+#include "../../include/ant/AgeAdult.h"
+#include "../../include/map/BoardCell.h"
+#include "../../include/map/Board.h"
 
 float Ant::colonyFood = Config::get()->getDefaultFoodColony(); // NOLINT(cert-err58-cpp)
 

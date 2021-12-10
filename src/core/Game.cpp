@@ -1,6 +1,6 @@
-#include "../../header/core/Game.h"
-#include "../../header/core/SimulationStats.h"
-#include "../../header/ant/Queen.h"
+#include "../../include/core/Game.h"
+#include "../../include/core/SimulationStats.h"
+#include "../../include/ant/Queen.h"
 
 void Game::tickGame() {
     sf::Clock start;
@@ -87,7 +87,7 @@ void Game::saveCurrentTick() {
     this->stats->setSlaveOwnerAmount(slaveOwner);
     this->stats->setWorkerAmount(worker);
     this->stats->setScoutAmount(scout);
-    
+
     this->stats->setFoodAmount(Ant::getColonyFood());
 
     int intValues[] = {board->getCurrentTick(), soldier + slaveOwner + worker + scout + 1, soldier, // +1 for queen

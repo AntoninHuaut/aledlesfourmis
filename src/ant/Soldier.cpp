@@ -1,7 +1,7 @@
-#include "../../header/ant/Soldier.h"
-#include "../../header/ant/SlaveOwner.h"
-#include "../../header/map/BoardCell.h"
-#include "../../header/map/BoardGenerator.h"
+#include "../../include/ant/Soldier.h"
+#include "../../include/ant/SlaveOwner.h"
+#include "../../include/map/BoardCell.h"
+#include "../../include/map/BoardGenerator.h"
 
 void Soldier::moveSoldier(Board *board) {
     auto cells = getAvailableVisitedCellToMove(board);

@@ -1,4 +1,4 @@
-#include "../../header/map/BoardGenerator.h"
+#include "../../include/map/BoardGenerator.h"
 
 Board *BoardGenerator::generateBoard() {
     auto *boardGenerator = BoardGenerator::createBoard();

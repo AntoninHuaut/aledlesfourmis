@@ -1,9 +1,8 @@
-#include "../header/map/BoardCell.h"
-#include "../header/map/BasicCell.h"
-#include "../header/map/BoardGenerator.h"
-#include "../header/core/GUIMain.h"
-#include "../header/core/Game.h"
-#include "../header/core/SimulationStats.h"
+#include "../include/map/BoardCell.h"
+#include "../include/map/BasicCell.h"
+#include "../include/map/BoardGenerator.h"
+#include "../include/core/GUIMain.h"
+#include "../include/core/SimulationStats.h"
 
 using namespace std;
 
