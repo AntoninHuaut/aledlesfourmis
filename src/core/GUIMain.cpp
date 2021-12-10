@@ -1,4 +1,5 @@
 #include "../../header/core/GUIMain.h"
+#include "../../header/core/SimulationStats.h"
 
 void renderingThread(threadData data) {
     data.window->setActive(true);
@@ -20,18 +21,7 @@ void renderingThread(threadData data) {
         data.window->setView(*data.simView);
         data.window->draw(*(data.board));
         data.window->setView(*data.statView);
-
-        sf::Text text;
-        sf::Font font;
-        font.loadFromFile("./assets/Roboto.ttf");
-
-        text.setString("Hello world");
-        text.setFont(font);
-        text.setCharacterSize(74);
-        text.setFillColor(sf::Color::Red);
-        text.setStyle(sf::Text::Bold | sf::Text::Underlined);
-
-        data.window->draw(text);
+        data.window->draw(*data.stats);
         data.window->display();
     }
 
@@ -56,6 +46,7 @@ void GUIMain::runUI(sf::Mutex *mutex) {
     data.mutex = mutex;
     data.statView = &statView;
     data.simView = &simView;
+    data.stats = stats;
 
     sf::Thread thread(&renderingThread, data);
     thread.launch();

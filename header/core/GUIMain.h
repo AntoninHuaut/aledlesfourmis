@@ -8,11 +8,14 @@
 #include "../core/Game.h"
 #include "../Config.h"
 
+class SimulationStats;
+
 struct threadData {
     sf::RenderWindow *window;
     sf::Mutex *mutex;
     sf::View *simView;
     sf::View *statView;
+    SimulationStats *stats;
     Board *board;
     Game *game;
 } typedef threadData;
@@ -21,6 +24,7 @@ class GUIMain {
 
     Board *board;
     Game *game;
+    SimulationStats *stats;
     bool waitReleaseGameKey = false;
 
     sf::RenderWindow *window;
@@ -57,9 +61,10 @@ class GUIMain {
 
 public:
 
-    explicit GUIMain(sf::Mutex *mutex, Game *game, Board *board) {
+    explicit GUIMain(sf::Mutex *mutex, Game *game, Board *board, SimulationStats *stats) {
         this->game = game;
         this->board = board;
+        this->stats = stats;
         this->window = new sf::RenderWindow(sf::VideoMode(1200, 900), "Ant Simulation");
 
         runUI(mutex);

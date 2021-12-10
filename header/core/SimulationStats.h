@@ -1,22 +1,53 @@
 #ifndef ANT_SIMULATIONSTATS_H
 #define ANT_SIMULATIONSTATS_H
 
-#include <cstring>
+#include <string>
+#include <SFML/Graphics.hpp>
 
-class SimulationStats {
+using namespace std;
 
-    int currentTPS;
-    int wantedTPS;
+class SimulationStats : public sf::Drawable, public sf::Transformable {
 
-    int foodAmount;
+    int currentTPS = 0;
+    int wantedTPS = 0;
 
-    bool isGameEnded;
-    //string endMessage;
+    int foodAmount = 0;
 
-    int workerAmount;
-    int soldierAmount;
-    int scoutAmount;
-    int slaveOwnerAmount;
+    bool isGameEnded = false;
+    string endMessage;
+
+    int workerAmount = 0;
+    int soldierAmount = 0;
+    int scoutAmount = 0;
+    int slaveOwnerAmount = 0;
+
+    sf::Texture tileSet;
+    sf::Font font;
+
+    void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+
+public:
+
+    SimulationStats() {
+        tileSet.loadFromFile("./assets/tileset.png");
+        font.loadFromFile("./assets/Roboto.ttf");
+    }
+
+    void setCurrentTps(int currentTps);
+
+    void setWantedTps(int wantedTps);
+
+    void setFoodAmount(int newFoodAmount);
+
+    void setIsGameEnded(bool newIsGameEnded);
+
+    void setWorkerAmount(int newWorkerAmount);
+
+    void setSoldierAmount(int newSoldierAmount);
+
+    void setScoutAmount(int newScoutAmount);
+
+    void setSlaveOwnerAmount(int newSlaveOwnerAmount);
 
 };
 
