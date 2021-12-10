@@ -11,7 +11,7 @@ class SimulationStats : public sf::Drawable, public sf::Transformable {
     int currentTPS = 0;
     int wantedTPS = 0;
 
-    int foodAmount = 0;
+    float foodAmount = 0;
 
     bool isGameEnded = false;
     string endMessage;
@@ -37,7 +37,7 @@ public:
 
     void setWantedTps(int wantedTps);
 
-    void setFoodAmount(int newFoodAmount);
+    void setFoodAmount(float newFoodAmount);
 
     void setIsGameEnded(bool newIsGameEnded);
 

@@ -64,8 +64,8 @@ int main() {
     sf::Mutex mutex;
 
     auto *board = BoardGenerator::generateBoard();
-    auto *game = new Game(board);
     auto *stats = new SimulationStats();
+    auto *game = new Game(board, stats);
 
     // Launching draw thread
     gameThreadData data;

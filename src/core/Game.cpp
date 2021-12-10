@@ -1,4 +1,5 @@
 #include "../../header/core/Game.h"
+#include "../../header/core/SimulationStats.h"
 #include "../../header/ant/Queen.h"
 
 void Game::tickGame() {
@@ -23,11 +24,6 @@ void Game::tickGame() {
 
 void Game::tickAnts() {
     list<Ant *> antDeleteList{};
-
-    int soldier = 0;
-    int slaveOwner = 0;
-    int worker = 0;
-    int scout = 0;
 
     for (auto *ant: *board->getAntList()) {
         if (ant == nullptr) continue; // Should never happen
@@ -86,6 +82,13 @@ void Game::saveCurrentTick() {
                 break;
         }
     }
+
+    this->stats->setSoldierAmount(soldier);
+    this->stats->setSlaveOwnerAmount(slaveOwner);
+    this->stats->setWorkerAmount(worker);
+    this->stats->setScoutAmount(scout);
+    
+    this->stats->setFoodAmount(Ant::getColonyFood());
 
     int intValues[] = {board->getCurrentTick(), soldier + slaveOwner + worker + scout + 1, soldier, // +1 for queen
                        slaveOwner, worker, scout};

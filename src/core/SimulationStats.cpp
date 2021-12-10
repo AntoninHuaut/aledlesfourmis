@@ -1,18 +1,16 @@
 #include "../../header/core/SimulationStats.h"
 
 void SimulationStats::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-
     states.transform *= getTransform();
     //states.texture = &tileSet;
 
     sf::Text text;
-    text.setString(to_string(currentTPS));
+    text.setString(to_string(foodAmount));
     text.setFont(font);
     text.setCharacterSize(74);
     text.setFillColor(sf::Color::Red);
 
     target.draw(text);
-
 }
 
 void SimulationStats::setCurrentTps(int currentTps) {
@@ -23,7 +21,7 @@ void SimulationStats::setWantedTps(int wantedTps) {
     wantedTPS = wantedTps;
 }
 
-void SimulationStats::setFoodAmount(int newFoodAmount) {
+void SimulationStats::setFoodAmount(float newFoodAmount) {
     SimulationStats::foodAmount = newFoodAmount;
 }
 
