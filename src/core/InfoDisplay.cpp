@@ -5,6 +5,7 @@ InfoDisplay::InfoDisplay(string text, int tileNumber, sf::Texture tileSet, sf::F
 
     this->text = text;
     this->font = font;
+    this->tileSet = tileSet;
 
     this->icon = new sf::VertexArray(sf::Quads, 4);
 
@@ -28,16 +29,17 @@ InfoDisplay::InfoDisplay(string text, int tileNumber, sf::Texture tileSet, sf::F
 
 void InfoDisplay::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 
-    target.draw(*this->icon);
+    states.texture = &tileSet;
+    target.draw(*this->icon, states);
 
     sf::Text textToDraw;
     textToDraw.setString(this->text);
     textToDraw.setFont(this->font);
     textToDraw.setScale(1, 1);
-    textToDraw.setPosition(32, 16);
+    textToDraw.setPosition(32*5, 32);
     textToDraw.setCharacterSize(64);
-    textToDraw.setFillColor(sf::Color::Red);
+    textToDraw.setFillColor(sf::Color::White);
 
-    target.draw(textToDraw);
+    target.draw(textToDraw, states);
 
 }

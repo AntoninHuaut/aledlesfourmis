@@ -28,7 +28,7 @@ class SimulationStats : public sf::Drawable, public sf::Transformable {
 
 public:
 
-    SimulationStats() {
+    explicit SimulationStats() {
         tileSet.loadFromFile("./assets/tileset.png");
         font.loadFromFile("./assets/Roboto.ttf");
     }

@@ -48,8 +48,21 @@ void SimulationStats::draw(sf::RenderTarget &target, sf::RenderStates states) co
     text.setFillColor(sf::Color::Red);
 
     string textToDisplay = fAmountStream.str();
-    InfoDisplay test(textToDisplay, FOOD_LAYER, tileSet, font);
-    target.draw(test);
+
+    statsLines.push_back(new InfoDisplay(textToDisplay, FOOD_LAYER, tileSet, font));
+    statsLines.push_back(new InfoDisplay(to_string(scoutAmount), SCOOT_ANT, tileSet, font));
+    statsLines.push_back(new InfoDisplay(to_string(workerAmount), WORKER_ANT, tileSet, font));
+    statsLines.push_back(new InfoDisplay(to_string(soldierAmount), SOLDIER_ANT, tileSet, font));
+    statsLines.push_back(new InfoDisplay(to_string(slaveOwnerAmount), SLAVEOWNER_ANT, tileSet, font));
+
+    float space = 164;
+    sf::Transform t;
+    for(auto line : statsLines){
+        target.draw(*line, states);
+        t.translate(0, space);
+        states.transform = t;
+    }
+
 }
 
 void SimulationStats::setCurrentTps(int currentTps) {
