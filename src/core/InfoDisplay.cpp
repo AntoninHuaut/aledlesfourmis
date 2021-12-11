@@ -1,11 +1,11 @@
 #include "../../include/core/InfoDisplay.h"
 #include "../../include/Config.h"
 
-InfoDisplay::InfoDisplay(string text, int tileNumber, sf::Texture tileSet, sf::Font font) {
+InfoDisplay::InfoDisplay(string text, int tileNumber, sf::Texture tileSet, sf::Font font, sf::Vector2f viewScale) {
 
     this->text = text;
     this->font = font;
-    this->tileSet = tileSet;
+    this->viewScale = viewScale;
 
     this->icon = new sf::VertexArray(sf::Quads, 4);
 
@@ -15,9 +15,9 @@ InfoDisplay::InfoDisplay(string text, int tileNumber, sf::Texture tileSet, sf::F
     int tv = (int) (tileNumber / (tileSet.getSize().x / tileSize));
 
     (*icon)[0].position = sf::Vector2f(sf::Vector2i(0, 0));
-    (*icon)[1].position = sf::Vector2f(sf::Vector2i(5 * tileSize, 0));
-    (*icon)[2].position = sf::Vector2f(sf::Vector2i(5 * tileSize, 5 * tileSize));
-    (*icon)[3].position = sf::Vector2f(sf::Vector2i(0, 5 * tileSize));
+    (*icon)[1].position = sf::Vector2f(sf::Vector2i(5 * tileSize * viewScale.x, 0));
+    (*icon)[2].position = sf::Vector2f(sf::Vector2i(5 * tileSize * viewScale.x, 5 * tileSize * viewScale.y));
+    (*icon)[3].position = sf::Vector2f(sf::Vector2i(0, 5 * tileSize * viewScale.y));
 
     // define its 4 texture coordinates
     (*icon)[0].texCoords = sf::Vector2f(sf::Vector2i(tu * tileSize, tv * tileSize));
@@ -29,14 +29,13 @@ InfoDisplay::InfoDisplay(string text, int tileNumber, sf::Texture tileSet, sf::F
 
 void InfoDisplay::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 
-    states.texture = &tileSet;
     target.draw(*this->icon, states);
 
     sf::Text textToDraw;
     textToDraw.setString(this->text);
     textToDraw.setFont(this->font);
-    textToDraw.setScale(1, 1);
-    textToDraw.setPosition(32*5, 32);
+    textToDraw.setScale(this->viewScale.x, this->viewScale.y);
+    textToDraw.setPosition(32 * 5 * this->viewScale.x, 32 * this->viewScale.y);
     textToDraw.setCharacterSize(64);
     textToDraw.setFillColor(sf::Color::White);
 

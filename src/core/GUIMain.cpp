@@ -36,7 +36,7 @@ void GUIMain::runUI(sf::Mutex *mutex) {
 
     //Top corner view to display stats
     statView = sf::View(sf::FloatRect(0.f, 0.f, static_cast<float>(windowSize.x), static_cast<float>(windowSize.y)));
-    statView.setViewport(sf::FloatRect(0.f, 0.f, .25f, .25f));
+    statView.setViewport(sf::FloatRect(0.f, 0.f, statsViewSize.x, statsViewSize.y));
 
     simView = window->getDefaultView();
 
@@ -181,7 +181,7 @@ void GUIMain::letterBoxView(float windowWidth, float windowHeight) {
     }
 
     simView.setViewport(sf::FloatRect(posX, posY, sizeX, sizeY));
-    statView.setViewport(sf::FloatRect(posX, posY, sizeX * .25f, sizeY * .25f));
+    statView.setViewport(sf::FloatRect(posX, posY, sizeX * statsViewSize.x, sizeY * statsViewSize.y));
 }
 
 void GUIMain::onMouseButtonReleased(sf::Event event) {

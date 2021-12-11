@@ -9,7 +9,7 @@ class InfoDisplay : public sf::Drawable, public sf::Transformable {
 
     sf::VertexArray *icon;
     sf::Font font;
-    sf::Texture tileSet;
+    sf::Vector2f viewScale;
 
     string text;
 
@@ -17,7 +17,7 @@ class InfoDisplay : public sf::Drawable, public sf::Transformable {
 
 public:
 
-    explicit InfoDisplay(string text, int tileNumber, sf::Texture tileSet, sf::Font font);
+    explicit InfoDisplay(string text, int tileNumber, sf::Texture tileSet, sf::Font font, sf::Vector2f viewScale);
 
 };
 

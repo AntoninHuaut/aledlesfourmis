@@ -6,13 +6,21 @@
 #include "../../include/core/InfoDisplay.h"
 #include "../../include/core/TileEnum.h"
 
+sf::Vector2f SimulationStats::viewSize = {0, 0};
+
 void SimulationStats::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     states.transform *= getTransform();
-    sf::Vector2<unsigned int> windowSize = target.getSize();
+    states.texture = &tileSet;
 
-    //states.texture = &tileSet;
-    float displayHeight = windowSize.y;
-    float displayWidth = windowSize.x;
+    sf::Vector2f viewScale(2, 1);
+
+    if (viewSize.x == 0 && viewSize.y == 0) {
+        sf::Vector2<unsigned int> windowSize = target.getSize();
+        viewSize = sf::Vector2f(windowSize.x, windowSize.y);
+    }
+
+    float displayHeight = viewSize.x;
+    float displayWidth = viewSize.y;
 
 
     sf::VertexArray quad(sf::Quads, 4);
@@ -26,15 +34,13 @@ void SimulationStats::draw(sf::RenderTarget &target, sf::RenderStates states) co
     quad[2].color = sf::Color(0, 0, 0, 170);
     quad[3].color = sf::Color(0, 0, 0, 170);
 
-    list<InfoDisplay *> statsLines;
-
-    //sf::RectangleShape rectangle(sf::Vector2f(120.f, 50.f));
 
     target.draw(quad);
     int minFontSize = 14;
-    int fontSize = max(min(static_cast<int>(windowSize.x / 10), static_cast<int>(windowSize.y / 10)), minFontSize);
+    int fontSize = max(min(static_cast<int>(displayHeight / 10), static_cast<int>(displayWidth / 10)), minFontSize);
 
-    cout << target.getSize().x << endl;
+    cout << target.getSize().y << endl;
+    cout << displayHeight << endl;
 
     sf::Text text;
     stringstream fAmountStream;
@@ -42,25 +48,30 @@ void SimulationStats::draw(sf::RenderTarget &target, sf::RenderStates states) co
 
     text.setString(fAmountStream.str());
     text.setFont(font);
-    text.setScale(1, 1);
+    text.setScale(viewScale.x, viewScale.y);
     text.setPosition(100, displayHeight / 2 - fontSize / 2);
     text.setCharacterSize(fontSize);
     text.setFillColor(sf::Color::Red);
 
     string textToDisplay = fAmountStream.str();
 
-    statsLines.push_back(new InfoDisplay(textToDisplay, FOOD_LAYER, tileSet, font));
-    statsLines.push_back(new InfoDisplay(to_string(scoutAmount), SCOOT_ANT, tileSet, font));
-    statsLines.push_back(new InfoDisplay(to_string(workerAmount), WORKER_ANT, tileSet, font));
-    statsLines.push_back(new InfoDisplay(to_string(soldierAmount), SOLDIER_ANT, tileSet, font));
-    statsLines.push_back(new InfoDisplay(to_string(slaveOwnerAmount), SLAVEOWNER_ANT, tileSet, font));
+    list<InfoDisplay *> statsLines;
+    statsLines.push_back(new InfoDisplay(textToDisplay, FOOD_LAYER, tileSet, font, viewScale));
+    statsLines.push_back(new InfoDisplay(to_string(scoutAmount), SCOOT_ANT, tileSet, font, viewScale));
+    statsLines.push_back(new InfoDisplay(to_string(workerAmount), WORKER_ANT, tileSet, font, viewScale));
+    statsLines.push_back(new InfoDisplay(to_string(soldierAmount), SOLDIER_ANT, tileSet, font, viewScale));
+    statsLines.push_back(new InfoDisplay(to_string(slaveOwnerAmount), SLAVEOWNER_ANT, tileSet, font, viewScale));
 
-    float space = 164;
+
+    float spaceBetweenLines = displayHeight / 7;
+
     sf::Transform t;
-    for(auto line : statsLines){
+    for (auto line: statsLines) {
         target.draw(*line, states);
-        t.translate(0, space);
+        t.translate(0, spaceBetweenLines);
         states.transform = t;
+
+        delete line;
     }
 
 }

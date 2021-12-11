@@ -24,6 +24,8 @@ class SimulationStats : public sf::Drawable, public sf::Transformable {
     sf::Texture tileSet;
     sf::Font font;
 
+    static sf::Vector2f viewSize;
+
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 public:
@@ -50,6 +52,5 @@ public:
     void setSlaveOwnerAmount(int newSlaveOwnerAmount);
 
 };
-
 
 #endif

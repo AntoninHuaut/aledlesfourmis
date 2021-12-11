@@ -30,6 +30,7 @@ class GUIMain {
     sf::RenderWindow *window;
     sf::View simView;
     sf::View statView;
+    sf::Vector2f statsViewSize = Vector2f(.15f, .3f);
 
     sf::Vector2f oldPos;
     bool moving = false;
