@@ -77,8 +77,9 @@ int main() {
 
     new GUIMain(&mutex, game, board, stats);
 
-    delete board;
     delete game;
+    delete stats;
+    delete board;
 
     return 0;
 }
