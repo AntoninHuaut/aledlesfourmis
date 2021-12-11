@@ -39,9 +39,6 @@ void SimulationStats::draw(sf::RenderTarget &target, sf::RenderStates states) co
     int minFontSize = 14;
     int fontSize = max(min(static_cast<int>(displayHeight / 10), static_cast<int>(displayWidth / 10)), minFontSize);
 
-    cout << target.getSize().y << endl;
-    cout << displayHeight << endl;
-
     sf::Text text;
     stringstream fAmountStream;
     fAmountStream << std::fixed << std::setprecision(2) << foodAmount;
