@@ -42,14 +42,14 @@ void gameTickingThread(gameThreadData data) {
         sf::Int64 diffMicroSecond_TPS = clock_TPS.getElapsedTime().asMicroseconds();
         sf::Int64 sleepTime_TPS = minDiffMicroSecond_TPS - diffMicroSecond_TPS;
 
+        data.stats->setCurrentTps(static_cast<int>(1 / (static_cast<double>(diffMicroSecond_TPS) / pow(10, 6))));
+
         if (sleepTime_TPS > 0) {
             sf::sleep(sf::microseconds(sleepTime_TPS));
-            data.stats->setCurrentTps(static_cast<int>(wanted_TPS));
             clock_FPS.restart();
         } else if (clock_FPS.getElapsedTime().asMicroseconds() >= minDiffMicroSecond_FPS) {
-            data.stats->setCurrentTps(static_cast<int>(1000000 / clock_FPS.getElapsedTime().asMicroseconds()));
+            sf::sleep(sf::microseconds(1));
             clock_FPS.restart();
-            sf::sleep(sf::milliseconds(1));
         }
     }
 
