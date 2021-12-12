@@ -81,6 +81,9 @@ void GUIMain::runUI(sf::Mutex *mutex) {
                 case sf::Event::Resized:
                     onResized(event);
                     break;
+                case sf::Event::KeyPressed:
+                    onKeyPressed(event);
+                    break;
                 default:
                     break;
             }
@@ -248,4 +251,10 @@ sf::Vector2f GUIMain::getMapSize() {
     float mapLengthX = tileSize * Config::get()->getLength(); // NOLINT(cppcoreguidelines-narrowing-conversions)
     float mapHeightY = tileSize * Config::get()->getHeight(); // NOLINT(cppcoreguidelines-narrowing-conversions)
     return {mapLengthX, mapHeightY};
+}
+
+void GUIMain::onKeyPressed(sf::Event event) {
+    if (event.key.code == sf::Keyboard::S) {
+        stats->toogleShowStat();
+    }
 }

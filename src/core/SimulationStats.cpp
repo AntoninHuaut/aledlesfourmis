@@ -4,11 +4,13 @@
 #include <sstream>
 #include <list>
 #include "../../include/core/InfoDisplay.h"
+#include "../../include/core/TpsDisplay.h"
 #include "../../include/core/TileEnum.h"
 
 sf::Vector2f SimulationStats::viewSize = {0, 0};
 
 void SimulationStats::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    if (!showStats) return;
     states.transform *= getTransform();
     states.texture = &tileSet;
 
@@ -59,14 +61,17 @@ void SimulationStats::draw(sf::RenderTarget &target, sf::RenderStates states) co
     statsLines.push_back(new InfoDisplay(to_string(soldierAmount), SOLDIER_ANT, tileSet, font, viewScale));
     statsLines.push_back(new InfoDisplay(to_string(slaveOwnerAmount), SLAVEOWNER_ANT, tileSet, font, viewScale));
 
+    TpsDisplay tpsDisplay(this->currentTPS, this->wantedTPS, font, viewScale);
 
-    float spaceBetweenLines = displayHeight / 7;
-
+    float spaceBetweenLines = displayHeight / 8;
     sf::Transform t;
+
+    target.draw(tpsDisplay, states);
+
     for (auto line: statsLines) {
-        target.draw(*line, states);
         t.translate(0, spaceBetweenLines);
         states.transform = t;
+        target.draw(*line, states);
 
         delete line;
     }
@@ -103,4 +108,8 @@ void SimulationStats::setScoutAmount(int newScoutAmount) {
 
 void SimulationStats::setSlaveOwnerAmount(int newSlaveOwnerAmount) {
     SimulationStats::slaveOwnerAmount = newSlaveOwnerAmount;
+}
+
+void SimulationStats::toogleShowStat() {
+    showStats = !showStats;
 }

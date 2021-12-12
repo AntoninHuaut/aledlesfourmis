@@ -41,6 +41,8 @@ class GUIMain {
 
     void smoothOnKeyPressed();
 
+    void onKeyPressed(sf::Event event);
+
     void onClosed();
 
     void onMouseButtonPressed(sf::Event event);

@@ -8,6 +8,7 @@ using namespace std;
 
 class SimulationStats : public sf::Drawable, public sf::Transformable {
 
+    bool showStats = true;
     int currentTPS = 0;
     int wantedTPS = 0;
 
@@ -50,6 +51,8 @@ public:
     void setScoutAmount(int newScoutAmount);
 
     void setSlaveOwnerAmount(int newSlaveOwnerAmount);
+
+    void toogleShowStat();
 
 };
 
