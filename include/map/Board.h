@@ -16,6 +16,8 @@ class Queen;
 
 class Board : public sf::Drawable, public sf::Transformable {
 
+    sf::Mutex *mutex;
+
     BoardCell ***cells;
     list<ColonyCell *> *coloniesCells;
     int currentTick = 0;
@@ -41,11 +43,13 @@ class Board : public sf::Drawable, public sf::Transformable {
 
 public:
 
-    explicit Board(BoardCell ***cells);
+    explicit Board(BoardCell ***cells, Mutex *mutex);
 
     ~Board() override;
 
     int getCurrentTick() const { return currentTick; }
+
+    Mutex *getMutex() const { return mutex; }
 
     void tick();
 

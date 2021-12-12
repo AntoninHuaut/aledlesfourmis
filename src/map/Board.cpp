@@ -3,11 +3,12 @@
 #include "../../include/ant/SlaveOwner.h"
 #include "../../include/ant/AgeAdult.h"
 
-Board::Board(BoardCell ***cells) {
+Board::Board(BoardCell ***cells, Mutex *mutex) {
     this->coloniesCells = new list<ColonyCell *>;
     this->antList = new list<Ant *>;
     this->cells = cells;
     this->antQueen = nullptr;
+    this->mutex = mutex;
 
     setRemainingTickBeforeSlaveOwnerSpawn();
     m_tileSet.loadFromFile("./assets/tileset.png");
@@ -50,11 +51,21 @@ bool Board::calcLayer() {
     // create new vertex array
     VertexArray tmpLayerVertex(Quads, layerVerticeSize);
 
+    list<int> cellLayersList[maxHeight * maxLength];
+
+    mutex->lock();
     for (int height = 0; height < maxHeight; ++height) {
         for (int length = 0; length < maxLength; ++length) {
             BoardCell *cell = cells[height][length];
+            cellLayersList[length * maxHeight + height] = cell->getLayersTileNumbers();
+        }
+    }
+    mutex->unlock();
 
-            list<int> cellLayers = cell->getLayersTileNumbers();
+    for (int height = 0; height < maxHeight; ++height) {
+        for (int length = 0; length < maxLength; ++length) {
+            list<int> cellLayers = cellLayersList[length * maxHeight + height];
+
             for (auto tileNumber: cellLayers) {
                 layerVerticeSize += 4;
                 tmpLayerVertex.resize(layerVerticeSize);
@@ -96,11 +107,12 @@ bool Board::calcFloor() {
 
     for (int height = 0; height < maxHeight; ++height) {
         for (int length = 0; length < maxLength; ++length) {
+            mutex->lock();
             // Cells with multiple layers
             BoardCell *cell = cells[height][length];
-
             // get the current tile number
             int tileNumber = cell->getFloorTileNumber();
+            mutex->unlock();
 
             // find its position in the tileset texture
             int tu = (int) (tileNumber % (m_tileSet.getSize().x / tileSize.x));

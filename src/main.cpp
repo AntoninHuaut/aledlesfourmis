@@ -7,7 +7,6 @@
 using namespace std;
 
 struct gameThreadData {
-    sf::Mutex *mutex;
     Board *board;
     Game *game;
     SimulationStats *stats;
@@ -35,9 +34,9 @@ void gameTickingThread(gameThreadData data) {
 
         clock_TPS.restart();
 
-        data.mutex->lock();
+        data.board->getMutex()->lock();
         data.game->tickGame();
-        data.mutex->unlock();
+        data.board->getMutex()->unlock();
 
         sf::Int64 diffMicroSecond_TPS = clock_TPS.getElapsedTime().asMicroseconds();
         sf::Int64 sleepTime_TPS = minDiffMicroSecond_TPS - diffMicroSecond_TPS;
@@ -63,20 +62,19 @@ int main() {
     Config::get(); // Force configuration to be loaded
     sf::Mutex mutex;
 
-    auto *board = BoardGenerator::generateBoard();
+    auto *board = BoardGenerator::generateBoard(&mutex);
     auto *stats = new SimulationStats();
     auto *game = new Game(board, stats);
 
     // Launching draw thread
     gameThreadData data;
     data.board = board;
-    data.mutex = &mutex;
     data.game = game;
     data.stats = stats;
     sf::Thread thread(&gameTickingThread, data);
     thread.launch();
 
-    new GUIMain(&mutex, game, board, stats);
+    new GUIMain(game, board, stats);
 
     delete game;
     delete stats;

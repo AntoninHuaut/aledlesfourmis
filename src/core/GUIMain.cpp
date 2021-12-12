@@ -5,16 +5,12 @@ void renderingThread(threadData data) {
     data.window->setActive(true);
     data.window->setFramerateLimit(Config::get()->getMaxFps());
 
-    data.mutex->lock();
     data.board->calcFloor();
-    data.mutex->unlock();
 
     // Render loop
     while (data.window->isOpen()) {
         if (!data.game->isPause()) {
-            data.mutex->lock();
             data.board->calcLayer();
-            data.mutex->unlock();
         }
 
         data.window->clear();
@@ -28,7 +24,7 @@ void renderingThread(threadData data) {
     data.board->setWindowClosed(true);
 }
 
-void GUIMain::runUI(sf::Mutex *mutex) {
+void GUIMain::runUI() {
     // Disabling OpenGL
     window->setActive(false);
 
@@ -45,7 +41,6 @@ void GUIMain::runUI(sf::Mutex *mutex) {
     data.game = game;
     data.board = board;
     data.window = window;
-    data.mutex = mutex;
     data.statView = &statView;
     data.simView = &simView;
     data.stats = stats;

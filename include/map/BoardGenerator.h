@@ -20,7 +20,7 @@ class BoardGenerator {
 
     Board *board;
 
-    static BoardGenerator *createBoard();
+    static BoardGenerator *createBoard(Mutex *mutex);
 
     void generateSmallFoodUnit();
 
@@ -56,7 +56,7 @@ public:
 
     Board *getBoard() { return board; }
 
-    static Board *generateBoard();
+    static Board *generateBoard(Mutex *mutex);
 
     static bool isValidCell(int height, int length);
 

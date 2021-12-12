@@ -1,7 +1,7 @@
 #include "../../include/map/BoardGenerator.h"
 
-Board *BoardGenerator::generateBoard() {
-    auto *boardGenerator = BoardGenerator::createBoard();
+Board *BoardGenerator::generateBoard(Mutex *mutex) {
+    auto *boardGenerator = BoardGenerator::createBoard(mutex);
     boardGenerator->generateRock();
     boardGenerator->generateBasicCell();
     boardGenerator->generateSmallFoodUnit();
@@ -281,7 +281,7 @@ void BoardGenerator::removeRockNearColony(int centerHeight, int centerLength) {
     }
 }
 
-BoardGenerator *BoardGenerator::createBoard() {
+BoardGenerator *BoardGenerator::createBoard(Mutex *mutex) {
     auto ***cells2D = (BoardCell ***) calloc(Config::get()->getHeight(), sizeof(BoardCell **));
 
     if (cells2D == nullptr) {
@@ -303,7 +303,7 @@ BoardGenerator *BoardGenerator::createBoard() {
         cells2D[i] = cellsLine;
     }
 
-    auto *board = new Board(cells2D);
+    auto *board = new Board(cells2D, mutex);
     return new BoardGenerator(board);
 }
 
