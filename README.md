@@ -5,7 +5,7 @@ d'une colonie de fourmis, son expansion, sa recherche de nourriture et sa défen
 environnement limité. L'objectif est de mettre en évidence l'organisation des fourmis pour trouver des chemins, les plus
 courts possibles, qui mènent vers des stocks de nourriture.
 
-Ce projet a été développé dans le cadre d'un projet scolaire par :
+Ce projet a été développé dans le cadre d'un projet scolaire à l'ENSICAEN par :
 
 * Quentin Fontaine
 * Antonin Huaut
@@ -30,14 +30,15 @@ SFML ["GCC 7.3.0 MinGW (SEH) - 64-bit"](https://www.sfml-dev.org/files/SFML-2.5.
 Extrayez ces deux archives dans un dossier. Il faut ajouter à la variable d'environnement PATH de Windows les dossiers
 \bin de MinGW et SFML.
 
-Une fois les variables d'environnements définis, lancez un terminal à la racine du dossier et tapez :
+Une fois les variables d'environnements définies, lancez un terminal à la racine du dossier et tapez :
 > ./compileAndRun.bat
 
-Pour compiler et lancer l'application.
+Pour compiler et lancer l'application
 
 ### Linux
 
 > Nécessite build-essential, cmake, libsfml-dev
 
-Ne fonctionne pas avec l'interface X11 : La boucle d'évènement doit être thread-synchro avec la boucle de rendue.  
+Ne fonctionne pas avec le serveur graphique X.Org : La boucle d'évènement doit être thread-synchro avec la boucle de
+rendue.  
 Si on fait ça, l'application est trop ralentie.
